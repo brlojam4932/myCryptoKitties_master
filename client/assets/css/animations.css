@@ -1,0 +1,170 @@
+.headTransY {
+  animation: headTransY 3s infinite;
+}
+
+@keyframes headTransY {
+  0% {
+    top: 0;
+  }
+  45% {
+    top: -4;
+
+  }
+  75% {
+    top: 8;
+
+  }
+  100% {
+    top: 0;
+
+  }
+}
+
+
+.headRot{
+  animation: headRot 3s infinite;
+}
+
+@keyframes headRot {
+  0% {
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(-7deg);
+  }
+  75% {
+    transform: rotate(7deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+
+}
+
+.earRotL{
+  animation: earRotL 3s infinite;
+}
+
+@keyframes earRotL {
+  0% {
+    transform: scale(1, -1) rotate(-2deg);
+  }
+  45% {
+    transform: scale(1, -1) rotate(-15deg);
+  }
+  75% {
+    transform: scale(1, -1) rotate(15deg);
+  }
+  100% {
+    transform: scale(1, -1) rotate(-2deg);
+  }
+  
+}
+
+.earRotR{
+  animation: earRotR 3s infinite;
+}
+
+@keyframes earRotR {
+  0% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  45% {
+    transform: scale(1, 1) rotate(-15deg);
+  }
+  75% {
+    transform: scale(1, 1) rotate(15deg);
+  }
+  100% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  
+}
+
+.earStaticL{
+  animation: earStaticL 3s infinite;
+}
+
+@keyframes earStaticL {
+  0% {
+    transform: scale(1, -1) rotate(-2deg);
+  }
+  45% {
+    transform: scale(1, -1) rotate(-2deg);
+  }
+  75% {
+    transform: scale(1, -1) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1, -1) rotate(-2deg);
+  }
+  
+}
+
+.earStaticR{
+  animation: earStaticR 3s infinite;
+}
+
+@keyframes earStaticR {
+  0% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  45% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  75% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  
+}
+
+.tailRot{
+  animation: tailRot 3s infinite;
+}
+
+@keyframes tailRot {
+  0% {
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(15deg);
+
+  }
+  75% {
+    transform: rotate(-15deg);
+
+  }
+  100% {
+    transform: rotate(0deg);
+
+  }
+}
+
+.mouthMove{
+  animation: mouthMove 3s infinite;
+
+}
+
+@keyframes mouthMove {
+  0% {
+    top: 0px;
+  }
+  45% {
+    top: 8px;
+
+  }
+  75% {
+    top: 5px;
+
+  }
+  100% {
+    top: 0px;
+
+  }
+
+}
+
+
