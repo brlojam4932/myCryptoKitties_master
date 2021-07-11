@@ -19,8 +19,8 @@ contract myKittiesContract is Ownable {
   event Birth(address owner, uint256 newKittenId, uint256 mumId, uint256 dadId, uint256 genes);
   
 
-  string private _name;
-  string private _symbol;
+  string constant _name = "My Crypto Cats";
+  string constant _symbol = "MCRC";
 
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
 
@@ -35,11 +35,6 @@ contract myKittiesContract is Ownable {
   }
 
   Kitty[] kitties;
-
-  constructor (string memory name_, string memory symbol_) {
-    name_ = _name;
-    symbol_ = _symbol;
-  }
 
   function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256)
   {
