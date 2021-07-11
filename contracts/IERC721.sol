@@ -61,6 +61,7 @@ interface IERC721 {
      * Emits a {Transfer} event.
      */
     function transfer(address to, uint256 tokenId) external;
+    /*
 
     /// @notice Change or reaffirm the approved address for an NFT
     /// @dev The zero address indicates there is no approved address.
@@ -123,4 +124,6 @@ interface IERC721 {
     /// @param _to The new owner
     /// @param _tokenId The NFT to transfer
     function transferFrom(address _from, address _to, uint256 _tokenId) external;
+
+    */
 }
