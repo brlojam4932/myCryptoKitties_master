@@ -2,10 +2,10 @@
 pragma solidity ^0.8.0;
 
 //import "./IERC721.sol";
-import "./myOwnable.sol";
+//import "./myOwnable.sol";
 
 
-contract myKittiesContract is Ownable {
+contract myKittiesContract {
 
   // Mapping from token ID to owner address
   mapping(uint256 => address) public kittyIndexToOwner; //owners Of TokenId
@@ -36,7 +36,7 @@ contract myKittiesContract is Ownable {
 
   Kitty[] kitties;
 
-  function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256)
+  function createKittyGen0(uint256 _genes) public returns (uint256)
   {
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
     
@@ -119,11 +119,11 @@ contract myKittiesContract is Ownable {
     return kitties.length;
   }
 
-  function name() external view returns (string memory tokenName) {
+  function name() external pure returns (string memory tokenName) {
     return _name;
   }
 
-  function symbol() external view returns (string memory tokenSymbol) {
+  function symbol() external pure returns (string memory tokenSymbol) {
     return _symbol;
   }
 
