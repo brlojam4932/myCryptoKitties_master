@@ -2,10 +2,10 @@
 pragma solidity ^0.8.0;
 
 //import "./IERC721.sol";
-//import "./myOwnable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-contract myKittiesContract {
+contract myKittiesContract is Ownable {
 
   // Mapping from token ID to owner address
   mapping(uint256 => address) public kittyIndexToOwner; //owners Of TokenId
@@ -36,7 +36,7 @@ contract myKittiesContract {
 
   Kitty[] kitties;
 
-  function createKittyGen0(uint256 _genes) public returns (uint256)
+  function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256)
   {
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
     
