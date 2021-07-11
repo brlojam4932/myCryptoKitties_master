@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./IERC721.sol";
+//import "./IERC721.sol";
 import "./myOwnable.sol";
 
 
-contract myKittiesContract is IERC721, Ownable {
+contract myKittiesContract is Ownable {
 
   // Mapping from token ID to owner address
   mapping(uint256 => address) public kittyIndexToOwner; //owners Of TokenId
@@ -115,26 +115,25 @@ contract myKittiesContract is IERC721, Ownable {
   }
 
 
-
 //-------------------------------
-  function balanceOf(address owner) public view virtual override returns (uint256 balance) {
+  function balanceOf(address owner) public view returns (uint256 balance) {
     return ownershipTokenCount[owner];
   }
 
-  function totalSupply() public view virtual override returns (uint256 total) {
+  function totalSupply() public view returns (uint256 total) {
     return kitties.length;
   }
 
-  function name() external view virtual override returns (string memory tokenName) {
+  function name() external view returns (string memory tokenName) {
     return _name;
   }
 
-  function symbol() external view virtual override returns (string memory tokenSymbol) {
+  function symbol() external view returns (string memory tokenSymbol) {
     return _symbol;
   }
 
   // private functions are cheaper but public allows to execute function from within this contract
-  function ownerOf(uint256 tokenId) public view virtual override returns (address owner) {
+  function ownerOf(uint256 tokenId) public view returns (address owner) {
     address _owner = kittyIndexToOwner[tokenId]; // local variable 
     require(_owner != address(0), "ERC721: owner query for nonexistent token");
 
@@ -142,7 +141,7 @@ contract myKittiesContract is IERC721, Ownable {
 
   }
 
-  function transfer(address to, uint256 tokenId) external virtual override {
+  function transfer(address to, uint256 tokenId) external {
     require(to != address(0), "ERC721: transfer to the zero address");
     require(to != address(this), "to cannot be the contract address");
     // `tokenId` token must be owned by `msg.sender`.
@@ -168,7 +167,7 @@ contract myKittiesContract is IERC721, Ownable {
        delete kittyIndexToOwner[tokenId];
      }
 
-     emit Transfer(msg.sender, to, tokenId);
+     //emit Transfer(msg.sender, to, tokenId);
 
   }
 
