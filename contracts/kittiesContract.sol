@@ -13,6 +13,7 @@ contract myKittiesContract is IERC721, Ownable {
   // Mapping owner address to token count
   mapping(address => uint256) ownershipTokenCount;
 
+  //an address to a number of cats in an array
   mapping(address => uint256[]) ownerToCats;
 
   event Birth(address owner, uint256 newKittenId, uint256 mumId, uint256 dadId, uint256 genes);
@@ -20,6 +21,10 @@ contract myKittiesContract is IERC721, Ownable {
 
   string private _name;
   string private _symbol;
+
+  uint256 public constant CREATION_LIMIT_GEN0 = 10;
+
+  uint256 public gen0Counter;
 
   struct Kitty{
     uint64 birthTime;
@@ -38,9 +43,13 @@ contract myKittiesContract is IERC721, Ownable {
 
   function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256)
   {
+    require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
+    
+    gen0Counter ++;
 
     // mum, dad and generation is 0
     // Gen0 have no owners; they are owned by the contract
+    
     return _createKitty(0,0,0, _genes, msg.sender); // msg.sender could also be -- address(this) - we are giving cats to owner
   }
 
@@ -71,6 +80,38 @@ contract myKittiesContract is IERC721, Ownable {
 
     return newKittenId; //returns 256 bit integer
 
+  }
+
+  function myGetKitty(uint256 tokenId) public view returns (
+    uint256 birthTime,
+    uint256 mumId,
+    uint256 dadId,
+    uint256 generation,
+    uint256 genes
+  ) {
+
+    Kitty storage returnKitty = kitties[tokenId];
+    return (uint256(returnKitty.birthTime), uint256(returnKitty.mumId), uint256(returnKitty.dadId), uint256(returnKitty.generation), uint256(returnKitty.genes));
+  }
+
+  function getKittyFilip(uint256 _id) public view returns (
+    uint256 birthTime,
+    uint256 mumId,
+    uint256 dadId,
+    uint256 generation,
+    uint256 genes
+  ) {
+
+    Kitty storage kitty = kitties[_id];
+    birthTime = uint256(kitty.birthTime);
+    mumId = uint256(kitty.mumId);
+    dadId = uint256(kitty.dadId);
+    generation = uint256(kitty.generation);
+    genes = uint256(kitty.genes);
+  }
+
+  function getAllCatsFor(address owner) public view returns (uint[] memory) {
+    return ownerToCats[owner];
   }
 
 
