@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./IERC721.sol";
-import "./Ownable.sol";
+import "./myOwnable.sol";
 
 
 contract myKittiesContract is IERC721, Ownable {
@@ -14,6 +14,8 @@ contract myKittiesContract is IERC721, Ownable {
   mapping(address => uint256) ownershipTokenCount;
 
   mapping(address => uint256[]) ownerToCats;
+
+  event Birth(address owner, uint256 newKittenId, uint256 mumId, uint256 dadId, uint256 genes);
   
 
   string private _name;
@@ -32,29 +34,66 @@ contract myKittiesContract is IERC721, Ownable {
   constructor (string memory name_, string memory symbol_) {
     name_ = _name;
     symbol_ = _symbol;
-    owner = msg.sender;
+  }
+
+  function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256)
+  {
+
+    // mum, dad and generation is 0
+    // Gen0 have no owners; they are owned by the contract
+    return _createKitty(0,0,0, _genes, msg.sender); // msg.sender could also be -- address(this) - we are giving cats to owner
+  }
+
+  // create cats by generation and by breeding
+  // returns cat id
+  function _createKitty(
+    uint256 _mumId,
+    uint256 _dadId,
+    uint256 _generation, //1,2,3..etc
+    uint256 _genes, // recipient
+    address owner
+  ) private returns(uint256) {
+    Kitty memory newKitties = Kitty ({
+      genes: _genes,
+      birthTime: uint64(block.timestamp),
+      mumId: uint32(_mumId),
+      dadId: uint32(_dadId),
+      generation: uint16(_generation)
+    });
+
+    kitties.push(newKitties); // returns the size of array - 1 for the first cat
+
+    uint256 newKittenId = kitties.length -1; // 0-1
+
+    emit Birth(owner, newKittenId, _mumId, _dadId, _genes);
+
+    _transfer(address(0), owner, newKittenId);
+
+    return newKittenId; //returns 256 bit integer
 
   }
 
 
-  function balanceOf(address owner) public view override returns (uint256 balance) {
+
+//-------------------------------
+  function balanceOf(address owner) public view virtual override returns (uint256 balance) {
     return ownershipTokenCount[owner];
   }
 
-  function totalSupply() public view override returns (uint256 total) {
+  function totalSupply() public view virtual override returns (uint256 total) {
     return kitties.length;
   }
 
-  function name() external view override returns (string memory tokenName) {
+  function name() external view virtual override returns (string memory tokenName) {
     return _name;
   }
 
-  function symbol() external view override returns (string memory tokenSymbol) {
+  function symbol() external view virtual override returns (string memory tokenSymbol) {
     return _symbol;
   }
 
   // private functions are cheaper but public allows to execute function from within this contract
-  function ownerOf(uint256 tokenId) public override view returns (address owner) {
+  function ownerOf(uint256 tokenId) public view virtual override returns (address owner) {
     address _owner = kittyIndexToOwner[tokenId]; // local variable 
     require(_owner != address(0), "ERC721: owner query for nonexistent token");
 
@@ -62,7 +101,7 @@ contract myKittiesContract is IERC721, Ownable {
 
   }
 
-  function transfer(address to, uint256 tokenId) external override {
+  function transfer(address to, uint256 tokenId) external virtual override {
     require(to != address(0), "ERC721: transfer to the zero address");
     require(to != address(this), "to cannot be the contract address");
     // `tokenId` token must be owned by `msg.sender`.
