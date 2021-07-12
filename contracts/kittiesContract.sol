@@ -108,8 +108,7 @@ contract myKittiesContract is Ownable {
   function getAllCatsFor(address owner) public view returns (uint[] memory) {
     return ownerToCats[owner];
   }
-
-
+  
 //-------------------------------
   function balanceOf(address owner) public view returns (uint256 balance) {
     return ownershipTokenCount[owner];
