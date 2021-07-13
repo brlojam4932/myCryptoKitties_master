@@ -62,7 +62,7 @@ interface IERC721 {
      * Emits a {Transfer} event.
      */
     function transfer(address to, uint256 tokenId) external;
-    /*
+  
 
     /// @notice Change or reaffirm the approved address for an NFT
     /// @dev The zero address indicates there is no approved address.
@@ -91,7 +91,7 @@ interface IERC721 {
     /// @param _operator The address that acts on behalf of the owner
     /// @return True if `_operator` is an approved operator for `_owner`, false otherwise
     function isApprovedForAll(address _owner, address _operator) external view returns (bool);
-
+/*
     /// @notice Transfers the ownership of an NFT from one address to another address
     /// @dev Throws unless `msg.sender` is the current owner, an authorized
     ///  operator, or the approved address for this NFT. Throws if `_from` is
@@ -127,4 +127,6 @@ interface IERC721 {
     function transferFrom(address _from, address _to, uint256 _tokenId) external;
 
     */
+
+
 }
