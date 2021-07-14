@@ -152,7 +152,7 @@ contract myKittiesContract is Ownable {
 
   function transfer(address to, uint256 tokenId) external {
     require(to != address(0), "ERC721: transfer to the zero address");
-    require(to != address(this), "to cannot be the contract address");
+    require(to != address(this), "transfer to the zero address");
     // `tokenId` token must be owned by `msg.sender`.
     require(_owns(msg.sender, tokenId));
 
@@ -178,21 +178,24 @@ contract myKittiesContract is Ownable {
 
   }
 
-  function _authOperator(address owner, address operator) internal view returns(bool) {
-    return  _operatorApprovals[owner][operator] = true;
-  }
+  function isApprovedForAll(address _owner, address _operator) external view returns (bool) {
+        return _operatorApprovals[_owner][_operator] = true;
+    }
 
-
+   
   function _nftOwner(address a, address b) internal view returns(bool) {
     return _operatorApprovals[a][b] = true;
   }
   */
 
+  // transferFrom - how it is used:
+  //trader calls approve(dexAddress, amount)
+  //dex calls transferFrom(traderAddress, dexAddress, amount)
+
   // must transfer from address 0
   function _transfer(address from, address to, uint256 tokenId) internal {
     //_approve(address(0), tokenId);
 
-    ownershipTokenCount[from] -= 1;
     ownershipTokenCount[to] += 1; // increase count of recipient
 
     kittyIndexToOwner[tokenId] = to;
