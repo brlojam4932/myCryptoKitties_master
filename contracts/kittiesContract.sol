@@ -30,6 +30,7 @@ contract myKittiesContract is Ownable {
 
 
   event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+  event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
   event Birth(address owner, uint256 newKittenId, uint256 mumId, uint256 dadId, uint256 genes);
   
 
@@ -160,35 +161,45 @@ contract myKittiesContract is Ownable {
 
   }
 
-  /*
-
    /// @notice Change or reaffirm the approved address for an NFT
     /// @dev The zero address indicates there is no approved address.
     ///  Throws unless `msg.sender` is the current NFT owner, or an authorized
     ///  operator of the current owner.
   function approve(address _approved, uint256 _tokenId) external {
-    require(msg.sender == _owns() || _authOperator() );
+    require(msg.sender == _owns() || isApprovedForAll(msg.sender, _approved));
 
-    _getApproved(_approved, _tokenId);
+    _approve(msgs.sender, _tokenId);
 
   }
 
-  function _getApproved(address _appoved, uint256 _tokenId ) internal returns (bool) {
-     return _operatorApprovals[_appoved][_tokenId] = true ;
 
+  function setApprovalForAll(address _operator, bool _approved) external {
+    require(_operator != msg.sender, "ERC721: approve to caller");
+    _operatorApprovals[msg.sender][_operator] = _approved; 
+
+    emit ApprovalForAll(msg.sender, _operator, _approved);
+
+  }
+
+  function _approve(uint256 _tokenId) external view returns (address) {
+    return kittyIndexToApproved[_tokenId];
   }
 
   function isApprovedForAll(address _owner, address _operator) external view returns (bool) {
-        return _operatorApprovals[_owner][_operator] = true;
-    }
+    //Query if an address is an authorized operator for another address
+    //require(_owner address == _operator address);
+    return _operatorApprovals[msg.sender][_operator] = true;
+  }
 
-   
-  function _nftOwner(address a, address b) internal view returns(bool) {
-    return _operatorApprovals[a][b] = true;
+/*
+  function _getApproved(address _appoved, uint256 _tokenId ) internal returns (bool) {
+     return _operatorApprovals[msg.sender][_tokenId] = true ;
+
   }
   */
 
-  // transferFrom - how it is used:
+  //Smart Contract Programmer...
+  //transferFrom - how it is used:
   //trader calls approve(dexAddress, amount)
   //dex calls transferFrom(traderAddress, dexAddress, amount)
 
