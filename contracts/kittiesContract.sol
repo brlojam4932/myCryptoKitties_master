@@ -169,6 +169,8 @@ contract myKittiesContract is Ownable {
 
 
   function approve(address _approved, uint256 _tokenId) public {
+    ///  Throws unless `msg.sender` is the current NFT owner, or an authorized
+    ///  operator of the current owner.
     require(_owns(msg.sender, _tokenId));
 
     _approve(_tokenId, _approved);
@@ -197,19 +199,19 @@ contract myKittiesContract is Ownable {
     return _operatorApprovals[_owner][_operator];
   }
 
-  function transferFrom(address _from, address _to, uint256 _tokenId) external view {
+  function transferFrom(address _from, address _to, uint256 _tokenId) external {
+    /// Throws if `_to` is the zero address. 
+    /// Throws if `_tokenId` is not a valid NFT.
+
     /// @dev Throws unless `msg.sender` is the current owner, an authorized
-    ///  operator, or the approved address for this NFT. Throws if `_from` is
-    ///  not the current owner. Throws if `_to` is the zero address. Throws if
-    ///  `_tokenId` is not a valid NFT.
-    require(_from != address(0), "Must be owner");
-    require(_to == address(0), "Must transfer to non-zero address");
+    ///  operator, or the approved address for this NFT.
+     
+    require(_to != address(0), "Must transfer to non-zero address");
     require(_tokenId < kitties.length);
-  }
+    require(_owns(_from, _tokenId));
+    require(msg.sender == _from || isApprovedForAll(_from, msg.sender) || _approvedFor(msg.sender, _tokenId));
 
-
-   function _approve(uint256 _tokenId, address _approved) internal {
-    kittyIndexToApproved[_tokenId] = _approved;
+    _transfer(_from, _to, _tokenId);
   }
 
 
@@ -254,6 +256,14 @@ contract myKittiesContract is Ownable {
 
   function _owns(address _claimant, uint256 tokenId ) internal view returns(bool) {
     return kittyIndexToOwner[tokenId] == _claimant;
+  }
+
+   function _approve(uint256 _tokenId, address _approved) internal {
+    kittyIndexToApproved[_tokenId] = _approved;
+  }
+
+  function _approvedFor(address _claimant, uint256 tokenId) internal view returns(bool) {
+    return kittyIndexToApproved[tokenId] == _claimant;
   }
 
 
