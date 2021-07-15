@@ -253,7 +253,6 @@ contract myKittiesContract is Ownable {
   }
 
 
-
   function _owns(address _claimant, uint256 tokenId ) internal view returns(bool) {
     return kittyIndexToOwner[tokenId] == _claimant;
   }
@@ -265,7 +264,6 @@ contract myKittiesContract is Ownable {
   function _approvedFor(address _claimant, uint256 tokenId) internal view returns(bool) {
     return kittyIndexToApproved[tokenId] == _claimant;
   }
-
-
+  
 
 }
