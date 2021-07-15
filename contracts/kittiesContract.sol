@@ -31,6 +31,7 @@ contract myKittiesContract is Ownable {
 
   event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
   event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+  event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
   event Birth(address owner, uint256 newKittenId, uint256 mumId, uint256 dadId, uint256 genes);
   
 
@@ -126,17 +127,21 @@ contract myKittiesContract is Ownable {
     return ownerToCats[owner];
   }
   
+
   function balanceOf(address owner) public view returns (uint256 balance) {
     return ownershipTokenCount[owner];
   }
+
 
   function totalSupply() public view returns (uint256 total) {
     return kitties.length;
   }
 
+
   function name() external pure returns (string memory tokenName) {
     return _name;
   }
+
 
   function symbol() external pure returns (string memory tokenSymbol) {
     return _symbol;
@@ -151,6 +156,7 @@ contract myKittiesContract is Ownable {
 
   }
 
+
   function transfer(address to, uint256 tokenId) external {
     require(to != address(0), "ERC721: transfer to the zero address");
     require(to != address(this), "transfer to the zero address");
@@ -161,44 +167,53 @@ contract myKittiesContract is Ownable {
 
   }
 
-   /// @notice Change or reaffirm the approved address for an NFT
-    /// @dev The zero address indicates there is no approved address.
-    ///  Throws unless `msg.sender` is the current NFT owner, or an authorized
-    ///  operator of the current owner.
-  function approve(address _approved, uint256 _tokenId) external {
-    require(msg.sender == _owns() || isApprovedForAll(msg.sender, _approved));
 
-    _approve(msgs.sender, _tokenId);
+  function approve(address _approved, uint256 _tokenId) public {
+    require(_owns(msg.sender, _tokenId));
+
+    _approve(_tokenId, _approved);
+    emit Approval(msg.sender, _approved, _tokenId);
 
   }
 
 
-  function setApprovalForAll(address _operator, bool _approved) external {
-    require(_operator != msg.sender, "ERC721: approve to caller");
-    _operatorApprovals[msg.sender][_operator] = _approved; 
+  function setApprovalForAll(address _operator, bool _approved) public {
+    require(_operator != msg.sender, "ERC721: approve to caller, you are not the owner");
 
+    _operatorApprovals[msg.sender][_operator] = _approved; 
     emit ApprovalForAll(msg.sender, _operator, _approved);
 
   }
 
-  function _approve(uint256 _tokenId) external view returns (address) {
+
+  function getApproved(uint256 _tokenId) public view returns (address) {
+    require(_tokenId < kitties.length, "Token must exist"); // getter function
+
     return kittyIndexToApproved[_tokenId];
   }
 
-  function isApprovedForAll(address _owner, address _operator) external view returns (bool) {
-    //Query if an address is an authorized operator for another address
-    //require(_owner address == _operator address);
-    return _operatorApprovals[msg.sender][_operator] = true;
+
+  function isApprovedForAll(address _owner, address _operator) public view returns (bool) {
+    return _operatorApprovals[_owner][_operator];
   }
 
-/*
-  function _getApproved(address _appoved, uint256 _tokenId ) internal returns (bool) {
-     return _operatorApprovals[msg.sender][_tokenId] = true ;
-
+  function transferFrom(address _from, address _to, uint256 _tokenId) external view {
+    /// @dev Throws unless `msg.sender` is the current owner, an authorized
+    ///  operator, or the approved address for this NFT. Throws if `_from` is
+    ///  not the current owner. Throws if `_to` is the zero address. Throws if
+    ///  `_tokenId` is not a valid NFT.
+    require(_from != address(0), "Must be owner");
+    require(_to == address(0), "Must transfer to non-zero address");
+    require(_tokenId < kitties.length);
   }
-  */
 
-  //Smart Contract Programmer...
+
+   function _approve(uint256 _tokenId, address _approved) internal {
+    kittyIndexToApproved[_tokenId] = _approved;
+  }
+
+
+  //Smart Contract Programmer(youTuber) ...
   //transferFrom - how it is used:
   //trader calls approve(dexAddress, amount)
   //dex calls transferFrom(traderAddress, dexAddress, amount)
