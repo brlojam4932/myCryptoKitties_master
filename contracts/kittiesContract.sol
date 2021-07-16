@@ -29,6 +29,9 @@ contract myKittiesContract is Ownable {
   //an address to a number of cats in an array
   mapping(address => uint256[]) ownerToCats;
 
+  bytes4 private constant _INTERFACE_TO_ERC721 = 0x80ac58cd;
+  bytes4 private constant _INTERFACE_TO_ERC165 = 0x01ffc9a7;
+
 
   event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
   event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
@@ -40,6 +43,10 @@ contract myKittiesContract is Ownable {
   string constant _symbol = "MCRC";
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
+
+  function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
+    return(_interfaceId == _INTERFACE_TO_ERC721 || _interfaceId == _INTERFACE_TO_ERC165);
+  }
 
   bytes4 internal constant MAGIC_ERC721_RECEIVED = bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
 
@@ -53,11 +60,12 @@ contract myKittiesContract is Ownable {
 
   Kitty[] kitties;
 
-  function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256)
-  {
+  function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256){
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
     
     gen0Counter ++;
+
+  
 
     // mum, dad and generation is 0
     // Gen0 have no owners; they are owned by the contract
