@@ -165,7 +165,7 @@ contract myKittiesContract is Ownable {
 
   }
 
-
+  // this transfer function is not used -- the mint function might be better suited for minting NFTs
   function transfer(address to, uint256 tokenId) external {
     require(to != address(0), "ERC721: transfer to the zero address");
     require(to != address(this), "transfer to the zero address");
