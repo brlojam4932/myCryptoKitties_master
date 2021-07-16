@@ -201,9 +201,9 @@ contract myKittiesContract is Ownable {
   }
 
 
-  //function safeTransferFrom(address _from, address _to, uint256 _tokenId) public {
-  //  _safeTransfer(_from, _to, _tokenId, "");
-  //}
+  function safeTransferFrom(address _from, address _to, uint256 _tokenId) public {
+    safeTransferFrom(_from, _to, _tokenId);
+  }
 
 
   function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes calldata data) external {
