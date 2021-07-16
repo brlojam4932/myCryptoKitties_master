@@ -200,6 +200,31 @@ contract myKittiesContract is Ownable {
     return _operatorApprovals[_owner][_operator];
   }
 
+
+  //function safeTransferFrom(address _from, address _to, uint256 _tokenId) public {
+  //  _safeTransfer(_from, _to, _tokenId, "");
+  //}
+
+
+  function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes calldata data) external {
+    require(_to != address(0), "Must transfer to zero address");
+    require(_tokenId < kitties.length, "Token does not exist");
+    require(_owns(_from, _tokenId), "Not a valid NFT, not the owner of NFT");
+
+     //spender is _from (DEX) or spender is approved for tokenId or spender is operator for _from
+    require(msg.sender == _from || isApprovedForAll(_from, _to) || _approvedFor(msg.sender, _tokenId));
+
+    _safeTransfer(_from, _to, _tokenId, data);
+
+  }
+
+
+  function _safeTransfer(address _from, address _to, uint256 _tokenId, bytes calldata _data) internal {
+    _transfer(_from, _to, _tokenId);
+    require(_checkERC721Support(_from, _to, _tokenId, _data));
+  }
+
+
   function transferFrom(address _from, address _to, uint256 _tokenId) external {
     /// Throws if `_to` is the zero address. 
     /// Throws if `_tokenId` is not a valid NFT.
@@ -207,31 +232,14 @@ contract myKittiesContract is Ownable {
     /// @dev Throws unless `msg.sender` is the current owner, an authorized
     ///  operator, or the approved address for this NFT.
      
-    require(_to != address(0), "Must transfer to non-zero address");
-    require(_tokenId < kitties.length, "Not a valid NFT");
-    require(_owns(_from, _tokenId));
+    require(_to != address(0), "To address is not a zero address");
+    require(_tokenId < kitties.length, "Token must exist");
+    require(_owns(_from, _tokenId), "From owns the token");
     require(msg.sender == _from || isApprovedForAll(_from, msg.sender) || _approvedFor(msg.sender, _tokenId));
 
     _transfer(_from, _to, _tokenId);
   }
 
-   /// @dev Throws unless `msg.sender` is the current owner, an authorized
-    ///  operator, or the approved address for this NFT. Throws if `_from` is
-    ///  not the current owner. Throws if `_to` is the zero address. Throws if
-    ///  `_tokenId` is not a valid NFT. When transfer is complete, this function
-    ///  checks if `_to` is a smart contract (code size > 0). If so, it calls
-    ///  `onERC721Received` on `_to` and throws if the return value is not
-    ///  `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`.
-  function _safeTransfer(address _from, address _to, uint256 _tokenId, bytes calldata _data) internal returns (bytes4) {
-    _transfer(_from, _to, _tokenId);
-    require(msg.sender == _from || isApprovedForAll(_from, msg.sender) || _approvedFor(msg.sender, _tokenId));
-    require(_to != address(0), "Transfer to zero address is not allowed");
-    require(_tokenId < kitties.length, "Token does not exist, not a valid NFT");
-    require(_checkERC721Support(_to, _tokenId, _data));
-
-    _transfer(_from, _to, _tokenId);
-
-  }
   //Smart Contract Programmer(youTuber) ...
   //transferFrom - how it is used:
   //trader calls approve(dexAddress, amount)
@@ -259,6 +267,7 @@ contract myKittiesContract is Ownable {
 
   }
 
+
   function  _removeTokenIdFromOwner(address owner, uint256 tokenId) internal {
     uint256 lastId = ownerToCats[owner][ownerToCats[owner].length -1];
     for (uint256 i = 0; i < ownerToCats[owner].length -1; i++) {
@@ -285,17 +294,18 @@ contract myKittiesContract is Ownable {
   }
 
 
-  function _checkERC721Support(address _to, uint256 _tokenId, bytes memory _data) internal returns (bool) {
+  function _checkERC721Support(address _from, address _to, uint256 _tokenId, bytes memory _data) internal returns (bool) {
     if(!isContract(_to)) { //checks if `_to` is a smart contract (code size > 0)
       return true;
     }
     //example: Contract(_to)....
     //If there is an operator, where _from is not equal to msg.sender, we use msg.sender.
-    bytes4 returnData = IERC721Receiver(_to).onERC721Received(msg.sender, _to, _tokenId, _data);
+    bytes4 returnData = IERC721Receiver(_to).onERC721Received(msg.sender, _from, _tokenId, _data);
     return returnData == MAGIC_ERC721_RECEIVED;
     //Call onERC721Received in the _to contract
     //Check return value
   } 
+
 
   function isContract(address _to) internal view returns(bool) {
     //It is a smart contract (code size > 0)
@@ -305,7 +315,6 @@ contract myKittiesContract is Ownable {
       size := extcodesize(_to)
     }
     return size > 0;
-
   }
 
 
