@@ -44,6 +44,16 @@ contract myKittiesContract is Ownable {
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
 
+  function breed(uint256 _dadId, uint256 _mumId) public returns (uint256) {
+    //Check ownership
+    //You've got the DNA so now...
+    //Figure out the Generation
+    //Create new cat with new properties, give it to msg.sender
+    require(_owns(msg.sender, _dadId) && _owns(msg.sender, _mumId));
+    uint256 newDna = _mixDna(dadDna, mumDna);
+   
+  }
+
   function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
     return(_interfaceId == _INTERFACE_TO_ERC721 || _interfaceId == _INTERFACE_TO_ERC165);
   }
@@ -64,8 +74,6 @@ contract myKittiesContract is Ownable {
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
     
     gen0Counter ++;
-
-  
 
     // mum, dad and generation is 0
     // Gen0 have no owners; they are owned by the contract
@@ -324,6 +332,28 @@ contract myKittiesContract is Ownable {
     }
     return size > 0;
   }
+
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) public pure returns (uint256) {
+    //dadDna: 11 22 33 44 55 66 77 88 (in remix: remove spances => 1122334455667788)
+    //mumDna: 88 77 66 55 44 33 22 11 (8877665544332211)
+    uint256 firstHalf =  _dadDna / 100000000; // 11 22 33 44
+    uint256 secondHalf =  _mumDna % 100000000; // 44 33 22 11
+    
+    //uint256 newDna = firstHalf * 100000000;
+    //newDna = newDna + secondHalf;
+    // 10 and 20 concat
+    // 10 x 100 = 1000
+    // 1000 + 20 = 1020
+    
+    // my verion
+    uint256 newDna = ((firstHalf * 100000000) + secondHalf);
+  
+    return newDna;
+    // 11 22 33 44 44 33 22 11
+
+  }
+
+
 
 
 }
