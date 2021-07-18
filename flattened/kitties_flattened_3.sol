@@ -1,9 +1,135 @@
+// File: node_modules\@openzeppelin\contracts\utils\Context.sol
+
 // SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+/*
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// File: @openzeppelin\contracts\access\Ownable.sol
+
+
+pragma solidity ^0.8.0;
+
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _setOwner(_msgSender());
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _setOwner(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _setOwner(newOwner);
+    }
+
+    function _setOwner(address newOwner) private {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// File: @openzeppelin\contracts\token\ERC721\IERC721Receiver.sol
+
+
+pragma solidity ^0.8.0;
+
+/**
+ * @title ERC721 token receiver interface
+ * @dev Interface for any contract that wants to support safeTransfers
+ * from ERC721 asset contracts.
+ */
+interface IERC721Receiver {
+    /**
+     * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}
+     * by `operator` from `from`, this function is called.
+     *
+     * It must return its Solidity selector to confirm the token transfer.
+     * If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted.
+     *
+     * The selector can be obtained in Solidity with `IERC721.onERC721Received.selector`.
+     */
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
+// File: contracts\kittiesContract.sol
+
+
 pragma solidity ^0.8.0;
 
 //import "./IERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
 
 contract myKittiesContract is Ownable {
@@ -41,36 +167,18 @@ contract myKittiesContract is Ownable {
   string constant _symbol = "MCRC";
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
+  uint256 public generationCounter;
   uint256 newDna;
   //uint256 public dadDna;
   //uint256 public mumDna;
 
-  // 11 22 33 44 | 44 33 22 1 1
-
   function breed(uint256 _dadId, uint256 _mumId) public returns (uint256) {
     //Check ownership
-    //Use new DNA
+    //You've got the DNA so now...
     //Figure out the Generation
     //Create new cat with new properties, give it to msg.sender
-    require(_owns(msg.sender, _dadId) && _owns(msg.sender, _mumId), "You must be the owner of both of your cats");
-
-    (uint256 dadDna,,,,uint256 DadGeneration) = myGetKitty(_dadId);
-    (uint256 mumDna,,,,uint256 MumGeneration) = myGetKitty(_mumId);
-
-    newDna = _mixDna(dadDna, mumDna);
-
-    uint256 kittenGen = 0;
-    if (DadGeneration < MumGeneration) {
-      kittenGen = MumGeneration + 1;
-      kittenGen /= 2;
-    } else if (DadGeneration > MumGeneration) {
-      kittenGen = DadGeneration + 1;
-      kittenGen /= 2;
-    } else {
-      kittenGen = DadGeneration + 1;
-    }
-
-    _createKitty(_mumId, _dadId, kittenGen, newDna, msg.sender);
+    require(_owns(msg.sender, _dadId) && _owns(msg.sender, _mumId));
+    newDna = _mixDna(_dadId, _mumId);
 
     return newDna;
    
@@ -107,6 +215,35 @@ contract myKittiesContract is Ownable {
     return _createKitty(0,0,0, _genes, msg.sender); // msg.sender could also be -- address(this) - we are giving cats to owner
   }
 
+
+  function createNewKitty(uint256 _genes) public payable onlyOwner returns (uint256){
+    //require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
+    
+    generationCounter ++;
+    
+    return _createNewKitty(0,0,0, _genes, msg.sender); // msg.sender could also be -- address(this) - we are giving cats to owner
+  }
+
+  // 11 22 33 44 | 44 33 22 1 1
+  function _createNewKitty(uint256 _dadId, uint256 _mumId, uint256 _generation, uint256 _newDna, address owner) internal returns (uint256) {
+    //breed(_newDna, _generation);
+    Kitty memory newMixedKitty = Kitty ({
+      genes: _newDna,
+      birthTime: uint64(block.timestamp),
+      mumId: uint32(_mumId),
+      dadId: uint32(_dadId),
+      generation: uint16(_generation)
+    }); 
+
+    kitties.push(newMixedKitty);
+
+    uint256 newMixedKittyId = kitties.length -1;
+
+    _transfer(address(0), owner, newMixedKittyId);
+
+
+    return newMixedKittyId;
+  }
 
   // create cats by generation and by breeding
   // returns cat id

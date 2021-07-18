@@ -22,7 +22,7 @@ if (typeof window.ethereum !== 'undefined') {
 
 var instance;
 var user;
-var contractAddress = "0xa86BDcD6dca66176FCCc40E785b7418577cFa2E0";
+var contractAddress = "0xC42B9f0Fb0dB8788E272faAc9Fb5964840F990e2";
 
 $(document).ready(function(){
   window.ethereum.enable().then(function(accounts){
@@ -85,7 +85,7 @@ $(document).ready(function(){
     })
     */
 
-  })
+  }) 
 
 //==================Ivan on Tech Code===============================
 
