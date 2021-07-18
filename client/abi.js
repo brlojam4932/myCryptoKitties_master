@@ -235,6 +235,30 @@ var abi = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_dadId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_mumId",
+        "type": "uint256"
+      }
+    ],
+    "name": "breed",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes4",
         "name": "_interfaceId",
         "type": "bytes4"
@@ -665,4 +689,4 @@ var abi = [
     "stateMutability": "nonpayable",
     "type": "function"
   }
-]
+],
