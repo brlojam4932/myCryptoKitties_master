@@ -32,17 +32,19 @@ contract myKittiesContract is Ownable {
   bytes4 private constant _INTERFACE_TO_ERC721 = 0x80ac58cd;
   bytes4 private constant _INTERFACE_TO_ERC165 = 0x01ffc9a7;
 
-
   event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
   event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
   event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
   event Birth(address owner, uint256 newKittenId, uint256 mumId, uint256 dadId, uint256 genes);
-  
 
   string constant _name = "My Crypto Cats";
   string constant _symbol = "MCRC";
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
+  uint256 public generationCounter;
+  uint256 newDna;
+  //uint256 public dadDna;
+  //uint256 public mumDna;
 
   function breed(uint256 _dadId, uint256 _mumId) public returns (uint256) {
     //Check ownership
@@ -50,13 +52,17 @@ contract myKittiesContract is Ownable {
     //Figure out the Generation
     //Create new cat with new properties, give it to msg.sender
     require(_owns(msg.sender, _dadId) && _owns(msg.sender, _mumId));
-    uint256 newDna = _mixDna(dadDna, mumDna);
+    newDna = _mixDna(_dadId, _mumId);
+
+    return newDna;
    
   }
+
 
   function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
     return(_interfaceId == _INTERFACE_TO_ERC721 || _interfaceId == _INTERFACE_TO_ERC165);
   }
+
 
   bytes4 internal constant MAGIC_ERC721_RECEIVED = bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
 
@@ -68,7 +74,9 @@ contract myKittiesContract is Ownable {
     uint256 genes;
   }
 
+
   Kitty[] kitties;
+
 
   function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256){
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
@@ -79,6 +87,36 @@ contract myKittiesContract is Ownable {
     // Gen0 have no owners; they are owned by the contract
     
     return _createKitty(0,0,0, _genes, msg.sender); // msg.sender could also be -- address(this) - we are giving cats to owner
+  }
+
+
+  function createNewKitty(uint256 _genes) public payable onlyOwner returns (uint256){
+    //require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
+    
+    generationCounter ++;
+    
+    return _createNewKitty(0,0,0, _genes, msg.sender); // msg.sender could also be -- address(this) - we are giving cats to owner
+  }
+
+  // 11 22 33 44 | 44 33 22 1 1
+  function _createNewKitty(uint256 _dadId, uint256 _mumId, uint256 _generation, uint256 _newDna, address owner) internal returns (uint256) {
+    //breed(_newDna, _generation);
+    Kitty memory newMixedKitty = Kitty ({
+      genes: _newDna,
+      birthTime: uint64(block.timestamp),
+      mumId: uint32(_mumId),
+      dadId: uint32(_dadId),
+      generation: uint16(_generation)
+    }); 
+
+    kitties.push(newMixedKitty);
+
+    uint256 newMixedKittyId = kitties.length -1;
+
+    _transfer(address(0), owner, newMixedKittyId);
+
+
+    return newMixedKittyId;
   }
 
   // create cats by generation and by breeding
@@ -110,6 +148,7 @@ contract myKittiesContract is Ownable {
 
   }
 
+
   function myGetKitty(uint256 tokenId) public view returns (
     uint256 birthTime,
     uint256 mumId,
@@ -121,6 +160,7 @@ contract myKittiesContract is Ownable {
     Kitty storage returnKitty = kitties[tokenId];
     return (uint256(returnKitty.birthTime), uint256(returnKitty.mumId), uint256(returnKitty.dadId), uint256(returnKitty.generation), uint256(returnKitty.genes));
   }
+
 
   function getKittyFilip(uint256 _id) public view returns (
     uint256 birthTime,
@@ -170,8 +210,8 @@ contract myKittiesContract is Ownable {
     require(_owner != address(0), "ERC721: owner query for nonexistent token");
 
     return _owner;
-
   }
+
 
   // this transfer function is not used -- the mint function might be better suited for minting NFTs
   function transfer(address to, uint256 tokenId) external {
@@ -333,7 +373,7 @@ contract myKittiesContract is Ownable {
     return size > 0;
   }
 
-  function _mixDna(uint256 _dadDna, uint256 _mumDna) public pure returns (uint256) {
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) private returns (uint256) {
     //dadDna: 11 22 33 44 55 66 77 88 (in remix: remove spances => 1122334455667788)
     //mumDna: 88 77 66 55 44 33 22 11 (8877665544332211)
     uint256 firstHalf =  _dadDna / 100000000; // 11 22 33 44
@@ -346,10 +386,10 @@ contract myKittiesContract is Ownable {
     // 1000 + 20 = 1020
     
     // my verion
-    uint256 newDna = ((firstHalf * 100000000) + secondHalf);
+    newDna = ((firstHalf * 100000000) + secondHalf);
   
     return newDna;
-    // 11 22 33 44 44 33 22 11
+    // 11 22 33 44 | 44 33 22 1 1
 
   }
 
