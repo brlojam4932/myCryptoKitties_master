@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@metamask/onboarding": "^1.0.1",
     "@openzeppelin/contracts": "^4.2.0"
   }
 }

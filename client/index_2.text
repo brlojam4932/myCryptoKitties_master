@@ -8,7 +8,7 @@ var web3 = new Web3(Web3.givenProvider);
 
 const onboardButton = document.querySelector('#connectButton');
 
-const getAccountsButton = document.querySelector('#getAccounts');
+const getAccountsButton = document.querySelector('#getAccountsButton');
 const viewCatResult = document.querySelector('#catResultId');
 
 // event listeners and buttons---------
