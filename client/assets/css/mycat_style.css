@@ -332,6 +332,7 @@ body{
 
 .front_pawsR{
   background-color: rgb(197, 206, 206);
+  top: 200px;
   width: 66px;
   height: 65px;
   border-radius: 47% 33% 46% 27%;
@@ -341,6 +342,7 @@ body{
 
 .front_pawsL{
   background-color: rgb(197, 206, 206);
+  top: 200px;
   width: 66px;
   height: 65px;
   border-radius: 47% 33% 46% 27%;
