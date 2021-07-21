@@ -18,7 +18,7 @@ if (typeof window.ethereum !== 'undefined') {
   $("#metamaskStatus").text("MetaMask is installed!");
 }
 
-// ----------------------get cat-------------------------------------------
+// ----------------------create cat-------------------------------------------
 
 var instance;
 var user;
@@ -68,7 +68,7 @@ $(document).ready(function(){
       createKitty(getDna());
     })
     
-  // -----------------get cat--------------////
+  // -----------------create cat--------------////
 
     getAccountsButton.addEventListener('click', async () => {
       //we use eth_accounts because it returns a list of addresses owned by us.

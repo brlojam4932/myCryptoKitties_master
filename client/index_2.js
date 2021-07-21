@@ -1,5 +1,7 @@
-const forwarderOrigin = 'http://localhost:8000';
+//const forwarderOrigin = 'http://localhost:8000';
 
+//const {ethers} = "ethers";
+//import { ethers } from "ethers";
 //const Eth = require('ethjs');
 //const eth = new Eth(new Eth.HttpProvider('https://ropsten.infura.io'));
 //const abi = require('ethjs-abi');
@@ -12,6 +14,9 @@ const initialize = () => {
   //const getAccountsResult = document.querySelector('getAccountsResult');
   const createCatButton = document.querySelector('#createCat');
 
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+
   //Created check function to see if the MetaMask extension is installed
   const isMetaMaskInstalled = () => {
     //Have to check the ethereum binding on the window object to see if it's installed
@@ -20,7 +25,7 @@ const initialize = () => {
   };
 
 //We create a new MetaMask onboarding object to use in our app
-const onboarding = new MetaMaskOnboarding({forwarderOrigin});
+//const onboarding = new MetaMaskOnboarding({forwarderOrigin});
 
 //This will start the onboarding proccess
 const onClickInstall = () => {
@@ -56,8 +61,8 @@ const onClickConnect = async () => {
       onboardButton.disabled = false;
     } else {
       //If MetaMask is installed we ask the user to connect to their wallet
-      console.log('Metamask is installed, please Connect');
-      $("#metamaskStatus").text('Metamask is installed, please Connect');
+      console.log('Metamask is installed!');
+      $("#metamaskStatus").text('Metamask is installed!');
       //When the button is clicked we call this function to connect the users MetaMask Wallet
       onboardButton.onclick = onClickConnect;
       //The button is now disabled
@@ -79,44 +84,39 @@ const onClickConnect = async () => {
   }
 
   // -----------------Create Cat--------------////
+
+  createCatButton.addEventListener('click', () => {
+    getResult();
+  })
+
+  async function getResult() { 
+    const result = await myKittiesContractContract.name()
+    console.log(result);
+  }
   
+
+
+
+ /* 
   //var instance;
   let accounts = [];
   //var user;
   //user = accounts[0];
-  var contractAddress = "0x711A41657333480B25Eb34060919b0a2D2593025";
+  var contractAddress = "0xaeF80887A3083c011e072AdefC4790DC208e6549";
   //let accounts = [];
 
-//Sending Ethereum to an address
-createCatButton.addEventListener('click', () => {
-  ethereum
-    .request({
-      method: 'eth_sendTransaction',
-      params: [abi, contractAddress,
-        {
-          from: accounts[0],
-          to: '0x711A41657333480B25Eb34060919b0a2D2593025',
-          value: '10000',
-          gasPrice: '211018',
-          gas: '20',
-        },
-      ],
-    })
-    .then((txHash) => console.log(txHash))
-    .catch((error) => console.error);
-});
+  //Sending Ethereum to an address
+  createCatButton.addEventListener('click', () => {
+    ethereum
+      .request({
+        method: 'eth_sendTransaction',
+        params: [accounts[0], abi, contractAddress],
+  })
 
-getAccountsButton.addEventListener('click', () => {
-  getAccount();
-});
+})
+  */
 
-
-  
-
-    // -----------------Create Cat--------------////
-
-
-  //})
+   // -----------------Create Cat--------------////
 };
 
 window.addEventListener('DOMContentLoaded', initialize);
