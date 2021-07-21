@@ -1,4 +1,4 @@
-//const forwarderOrigin = 'http://localhost:8000';
+const forwarderOrigin = 'http://localhost:8000';
 
 //const {ethers} = "ethers";
 //import { ethers } from "ethers";
@@ -25,7 +25,7 @@ const initialize = () => {
   };
 
 //We create a new MetaMask onboarding object to use in our app
-//const onboarding = new MetaMaskOnboarding({forwarderOrigin});
+const onboarding = new MetaMaskOnboarding({forwarderOrigin});
 
 //This will start the onboarding proccess
 const onClickInstall = () => {
@@ -83,14 +83,15 @@ const onClickConnect = async () => {
     $("#getAccountsResult").html(account || 'Not able to get accounts');
   }
 
-  // -----------------Create Cat--------------////
+  // -----------------test--------------////
 
   createCatButton.addEventListener('click', () => {
     getResult();
   })
 
   async function getResult() { 
-    const result = await myKittiesContractContract.name()
+    const result = await myKittiesContract.name()
+    result.name()
     console.log(result);
   }
   
@@ -110,13 +111,13 @@ const onClickConnect = async () => {
     ethereum
       .request({
         method: 'eth_sendTransaction',
-        params: [accounts[0], abi, contractAddress],
+        params: [{from: accounts[0]}, abi, contractAddress],
   })
 
 })
   */
 
-   // -----------------Create Cat--------------////
+   // -----------------test--------------////
 };
 
 window.addEventListener('DOMContentLoaded', initialize);
