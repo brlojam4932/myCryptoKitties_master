@@ -28,13 +28,12 @@ async function renderGame() {
     let contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
     let array = await contract.methods.totalSupply().call({from: ethereum.selectedAddress});
     console.log(array);
- /*
-    if(array.length == 0) return;
-    array.forEach(async petId => {
+
+    async petId => {
         let details = await contract.methods.myGetKitty(petId).call({from: ethereum.selectedAddress});
         renderPet(petId, details);
-    });
-*/
+    };
+
     
     let data = await contract.methods.myGetKitty(petId).call({from: ethereum.selectedAddress});
     console.log(data);
@@ -77,35 +76,27 @@ function renderPet(id, data) {
         console.log(catAttributes);
 
 
-        let htmlString = `
+        let htmlString_1 = `
     <div class="col-md-3 catBox mx-1 light-b-shadow my-col id="pet_${id}">
     <div id="cat__loc"> <!--cat loc start-->
-
         <div id="head" class="head_ears_loc"> <!--cat_ears loc start-->
-
             <div class="earsParent">
                 <div id="earL" class="earShape left_ear"></div>
                 <div id="earR" class="earShape right_ear"></div>
             </div>
-
             <div class="cat__head"> <!--cat head start-->
-
                 <div class="eyesParent"> <!--cat eyes start-->
-
                     <div class="cat__eye">
                         <span class = "${data.pupils}">
                             <div class="ref"></div>
                         </span>
                     </div>
-
                     <div class="cat__eye">
                         <span class = "${data.pupils}">
                             <div class="ref"></div>
                         </span>
                     </div> 
-
                 </div> <!--cat eyes end-->
-
                 <div id="mouth" class="${data.mouthParent}">
                     <div class="left_mouth">
                     <div class="cat__mouth">
@@ -126,21 +117,16 @@ function renderPet(id, data) {
                     </div>   
                     
                 </div>
-
             </div> <!--cat head end-->
-
         </div> <!--cat_ears loc end-->
-
         <div class="cat__body">
             <div class="cat__chest"></div>
-
             <div class="pattern_Parent"> <!--patterns loc start-->
             <div class="patternLt">
                 <div class="${data.patternShapeL1}"></div>
                 <div class="${data.patternShapeL2}"></div>
                 <div class="${data.patternShapeL3}"></div>
             </div>
-
             <div class="patternRt">
                 <div class="${data.patternShapeR1}"></div>
                 <div class="${data.patternShapeR2}"></div>
@@ -148,7 +134,6 @@ function renderPet(id, data) {
             </div>
             
             </div> <!--patterns loc end-->
-
                 <div class="hindLegsParent">
                 <div class="left_hindLegs">
                     <div class="${data.hindLegsShape}"></div>
@@ -170,18 +155,13 @@ function renderPet(id, data) {
                     <div class="${data.pawR}"></div>
                     </div>
                 </div>
-
                 </div> <!--f-legP loc end-->
-
                 <div class="cat_tail_loc">
                     <div id="tail" class="${data.cat__tail}"></div>
                 </div>
-
         
         </div> <!--cat body loc end--> 
-
     </div> <!--cat loc end-->
-
     <br>
     <div class="data.dnaDiv" id="${data.catDNA}">
         <b style="color: #ab706d;">
@@ -203,32 +183,33 @@ function renderPet(id, data) {
     </div>
     </div>
     </div>  <!--row end--> 
-
     <!--second row start--> 
-    <div class="row light-b-shadow my-row "> 
-    <div class="col-md-3 light-b-shadow catInfoBox id="pet_${id}">
+    `;
+
+    let htmlString_2 = `<div class="col-md-3 light-b-shadow catInfoBox id="pet_${id}">
     <!--cat shapes start--> 
-    <div id="pet_row">
+    <div id="pet_row_2">
     <div>Id: <span class="pet_id">${id}</span></div>
         <div class="form-group">
         <label for="formControlRange">
             <b style="color: #ab706d">Eyes Shape</b><span class="badge badge-dark ml-2" id="${data.eyeName}"></span></label>       
     </div>
-
     <div class="form-group">
         <label for="formControlRange">
             <b style="color: #ab706d">Patterns</b><span class="badge badge-dark ml-2" id="${data.decorationName}"></span></label>    
     </div>
-
     <div class="form-group">
         <label for="formControlRange">
             <b style="color: #ab706d">Animation</b><span class="badge badge-dark ml-2" id="${data.animationCode}"></span></label>      
     </div>
     </div><!--cat shapes end--> 
-    </div><!--second col end--> `;
+    </div><!--second col end-->`;
 
-    let element = $.parseHTML(htmlString);
-        $("#pet_row").append(element);
+    let element_A = $.parseHTML(htmlString_1);
+        $("#pet_row").append(element_A);
+
+    let element_B = $.parseHTML(htmlString_2);
+    $("#pet_row2").append(element_B);
     
 }
 
