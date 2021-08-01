@@ -1,9 +1,9 @@
 .catBox {
     background-color: rgb(37 42 49);
     border-radius: 10px;
-    padding-top: 50px;
+    padding-top: 63px;
     padding-left: 65px;
-    padding-bottom: 100px;
+    padding-bottom: 225px;
 }
 
 
@@ -74,4 +74,5 @@
     background-color: #008cff;
     text-size-adjust: 24px;
 }
+
 

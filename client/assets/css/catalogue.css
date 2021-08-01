@@ -23,6 +23,8 @@ body {
 }
 
 .banner{
+  position: relative;
+  top: -165px;
   background-color: rgba(43, 50, 53, 0.8);
   padding-top: 5px;
   padding-bottom: 40px;
@@ -67,4 +69,33 @@ body {
 .card-body{
   font-size: small;
 }
+
+.my-container{
+  position: relative;
+  top: -135px;
+  border: 1px solid green;
+}
+
+.my-row{
+  border: 3px solid red;
+}
+
+.my-col{
+  border: 3px dotted blue;
+}
+
+.catInfoBox{
+  border: 3px dotted rgb(3, 180, 250);
+  background-color: rgb(37 42 49);
+    border-radius: 10px;
+    padding-top: 30px;
+    padding-left: 25px;
+    padding-bottom: 5px;
+}
+
+.catalogueTitle{
+  position: relative;
+  top: -120px;
+}
+
 

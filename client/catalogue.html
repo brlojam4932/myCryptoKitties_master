@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--above from Game NFT-->
+
   <script type="text/javascript" src="assets/js/jquery-3.4.1.js"></script>
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <!--<script src="assets/bootstrap/js/popper.js"></script>-->
@@ -50,7 +58,7 @@
       </nav>
     </header>
     <div class="container p-5" style="margin-top: 12vh;margin-bottom: 10vh;">
-        <div align="center">
+        <div align="center" class="catalogueTitle">
         <h1 class="c-white">Catalogue</h1>
         <p class="c-white">Explore Kitties</p>
     </div>
@@ -65,18 +73,214 @@
       </div>
     </div>
 
-    <div class="container">
-      <button id="login_button">Sign in with MetaMask</button>
+    <div class="container my-container">
       <div id="game"> 
-        <div class="row" id="pet_row">
+        <div class="row my-row" id="pet_row">
+          <div class="col-md-4 catBox mx-1 light-b-shadow my-col">
+
+            <div id="cat__loc"> <!--cat loc start-->
+
+                <div id="head" class="head_ears_loc"> <!--cat_ears loc start-->
+
+                    <div class="earsParent">
+                        <div id="earL" class="earShape left_ear"></div>
+                        <div id="earR" class="earShape right_ear"></div>
+                      </div>
+
+                    <div class="cat__head"> <!--cat head start-->
+
+                        <div class="eyesParent"> <!--cat eyes start-->
+
+                            <div class="cat__eye">
+                                <span class = "pupils">
+                                    <div class="ref"></div>
+                                </span>
+                            </div>
+        
+                            <div class="cat__eye">
+                                <span class = "pupils">
+                                    <div class="ref"></div>
+                                </span>
+                            </div> 
+
+                        </div> <!--cat eyes end-->
+
+                        <div id="mouth" class="mouthParent">
+                            <div class="left_mouth">
+                              <div class="cat__mouth">
+                                <div class="whiskers1"></div>
+                                <div class="whiskers2"></div>
+                                <div class="whiskers3"></div>
+                              </div>
+                            </div>
+                
+                            <div class="nose"></div>
+                                               
+                            <div class="right_mouth">
+                              <div class="cat__mouth">
+                                <div class="whiskers1"></div>
+                                <div class="whiskers2"></div>
+                                <div class="whiskers3"></div>
+                              </div> 
+                            </div>   
+                            
+                          </div>
+        
+                    </div> <!--cat head end-->
+
+                </div> <!--cat_ears loc end-->
+
+               
+
+                <div class="cat__body">
+                    <div class="cat__chest"></div>
+        
+                    <div class="pattern_Parent"> <!--patterns loc start-->
+                      <div class="patternLt">
+                        <div class="patternShapeL1"></div>
+                        <div class="patternShapeL2"></div>
+                        <div class="patternShapeL3"></div>
+                      </div>
+        
+                      <div class="patternRt">
+                        <div class="patternShapeR1"></div>
+                        <div class="patternShapeR2"></div>
+                        <div class="patternShapeR3"></div>
+                      </div>
+                     
+                    </div> <!--patterns loc end-->
+          
+                        <div class="hindLegsParent">
+                          <div class="left_hindLegs">
+                            <div class="hindLegsShape"></div>
+                          </div>
+                          <div class="right_hindLegs">
+                            <div class="hindLegsShape"></div>
+                          </div>
+                        </div>
+              
+                        <div class="front_legs_Parent"> <!--f-legP loc start-->
+                          <div class="leg frontLegs_left">
+                            <div class="front_pawsL">
+                              <div class="pawL"></div>
+                            </div>
+                          </div>
+              
+                          <div class="leg frontLegs_rt">
+                            <div class="front_pawsR">
+                              <div class="pawR"></div>
+                            </div>
+                          </div>
+
+                        </div> <!--f-legP loc end-->
+
+                        <div class="cat_tail_loc">
+                            <div id="tail" class="cat__tail"></div>
+                        </div>
+        
+                 
+                 </div> <!--cat body loc end--> 
+
+            </div> <!--cat loc end-->
+            
+          
+
+            <br>
+            <div class="dnaDiv" id="catDNA">
+                <b style="color: #ab706d;">
+                    DNA:
+                    <!-- Colors -->
+                     <span id="dnabody" ></span>
+                     <span id="dnamouth"></span>
+                     <span id="dnaeyes"></span>
+                     <span id="dnaears"></span>
+                    
+                     <!-- Cattributes -->
+                     <span id="dnashape"></span>
+                     <span id="dnadecoration"></span>
+                     <span id="dnadecorationMid"></span>
+                     <span id="dnadecorationSides"></span>
+                     <span id="dnaanimation"></span>
+                     <span id="dnaspecial"></span>
+                </b>
+            </div>
+        </div>
+
+    </div>  <!--row end--> 
+
+    <!--second row start--> 
+    <div class="row light-b-shadow my-row " id="pet_row"> 
+      <div class="col-md-4 light-b-shadow catInfoBox">
+    
+      <!-- Cat colors -->
+      <div id="catColors">
+        <div class="form-group">
+            <label for="formControlRange">
+                <b style="color: #ab706d;">Head and body</b><span class="badge badge-dark ml-2" id="headcode"></span></label>
+        </div>
+
+        <div class="form-group">
+            <label for="formControlRange">
+                <b style="color: #ab706d;">Mouth | Tail | Paws</b><span class="badge badge-dark ml-2" id="mouthcode"></span></label>
+                
+        </div>
+
+        <div class="form-group">
+            <label for="formControlRange">
+                <b style="color: #ab706d;"> Eyes</b><span class="badge badge-dark ml-2" id="eyescode"></span></label>
+                
+        </div>
+
+        <div class="form-group">
+            <label for="formControlRange">
+                <b style="color: #ab706d;">Ears</b><span class="badge badge-dark ml-2" id="earscode"></span></label>
+                
+        </div>
+
+        <div class="form-group">
+          <label for="formControlRange">
+              <b style="color: #ab706d;">Pattern Mid Color</b><span class="badge badge-dark ml-2" id="decoMidColcode"></span></label>
+              
+      </div>
+
+      <div class="form-group">
+          <label for="formControlRange">
+              <b style="color: #ab706d;">Pattern Sides Color</b><span class="badge badge-dark ml-2" id="decoSideColcode"></span></label>
+              
+      </div>
+        
+    </div>
+
+     <!--cat shapes start--> 
+     <div id="catShapes">
+
+      <div class="form-group">
+        <label for="formControlRange">
+            <b style="color: #ab706d">Eyes Shape</b><span class="badge badge-dark ml-2" id="eyeName"></span></label>
+            
+    </div>
+
+    <div class="form-group">
+        <label for="formControlRange">
+            <b style="color: #ab706d">Patterns</b><span class="badge badge-dark ml-2" id="decorationName"></span></label>
+            
+    </div>
+
+    <div class="form-group">
+        <label for="formControlRange">
+            <b style="color: #ab706d">Animation</b><span class="badge badge-dark ml-2" id="animationCode"></span></label>
+            
+    </div>
+
+    </div><!--cat shapes end--> 
+        
+      </div>
+      
+
          
         </div>
       </div>
   </div>
-  <script type="text/javascript" src="./catalogue_Code.js"></script>
-
-
-   
 
     <footer align="left">
         <p>Ivan on Tech Academy Bootcamp July 2020</p>
@@ -84,9 +288,9 @@
 
   </body>
   <!--need to wait until page loads before executing these scripts below-->
-  <script src="./catalogue_Code.js"></script>
-  <script src="assets/js/colors.js"></script>
-  <script src="assets/js/catSettings.js"></script>
-  <script src="assets/js/catFactory.js"></script>
+  <script type="text/javascript" src="./catalogue_Code.js"></script>
+  <script type="text/javascript" src="assets/js/colors.js"></script>
+  <script type="text/javascript" src="assets/js/catSettings.js"></script>
+  <script type="text/javascript" src="assets/js/catFactory.js"></script>
 
 </html>
