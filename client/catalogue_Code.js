@@ -44,15 +44,17 @@ async function renderGame() {
 function renderPet(id, data) {
     $("#account").html(CONTRACT_ADDRESS);
     $("#pet_id").html(id);
+    /*
     $("#headcode").html(data.headcode);
     $("#mouthcode").html(data.mouthcode);
     $("#eyescode").html(data.eyescode);
     $("#earscode").html(data.earscode);
     $("#decoMidColcode").html(data.decoMidColcode);
     $("#decoSideColcode").html(data.decoSideColcode);
+    */
     // shapes
     $("#eyeName").html(data.eyeName);
-    $("#decorationName").html(data.ddecorationName);
+    $("#decorationName").html(data.decorationName);
     $("#animationCode").html(data.animationCode);
     $("#feed_button").attr("data-pet-id", id);
 
