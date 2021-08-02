@@ -191,7 +191,7 @@ function renderPet(id, data) {
     let htmlString_2 = `<div class="col-md-3 light-b-shadow catInfoBox id="pet_${id}">
     <!--cat shapes start--> 
     <div id="pet_row_2">
-    <div>Id: <span class="pet_id">${id}</span></div>
+    <div class="smallType">Id: <span class="pet_id">${id}</span></div>
         <div class="form-group">
         <label for="formControlRange">
             <b style="color: #ab706d">Eyes Shape</b><span class="badge badge-dark ml-2" id="${data.eyeName}"></span></label>       
