@@ -1,6 +1,6 @@
 Moralis.initialize("op64UJOdzjvupuxVtdERq27MMLK5XtTDH7VnCkRh"); // Application id from moralis.io
 Moralis.serverURL = "https://o9eqkrjjqu7i.usemoralis.com:2053/server"; //Server url from moralis.io
-const CONTRACT_ADDRESS = "0x0605E99b78410562fC61cC06c12bCA7036A201e0";
+const CONTRACT_ADDRESS = "0xa4A76fdF4850E575FcC6858Ce1cd09EAe99A07d8";
 
 async function init() {
     try {
@@ -26,20 +26,22 @@ async function renderGame() {
     window.web3 = await Moralis.Web3.enable();
     //let abi = await getAbi();
     let contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
-    let array = await contract.methods.totalSupply().call({from: ethereum.selectedAddress});
+    let array = await contract.methods.getAllTokensForUser(ethereum.selectedAddress).call({from: ethereum.selectedAddress});
     console.log(array);
 
-    async petId => {
+    if(array.length == 0) return;
+    array.forEach(async petId => {
         let details = await contract.methods.myGetKitty(petId).call({from: ethereum.selectedAddress});
         renderPet(petId, details);
-    };
-
+    });
     
+
     let data = await contract.methods.myGetKitty(petId).call({from: ethereum.selectedAddress});
     console.log(data);
     renderPet(0, data);
     $("#game").show();
 }
+
 
 function renderPet(id, data) {
     let catAttributes = (
@@ -73,7 +75,7 @@ function renderPet(id, data) {
         parseInt(data.decorationName) +
         parseInt(data.animationCode)
         );
-        console.log(catAttributes);
+       $("#pet_row").append(catAttributes);
 
 
         let htmlString_1 = `
@@ -206,13 +208,13 @@ function renderPet(id, data) {
     </div><!--second col end-->`;
 
     let element_A = $.parseHTML(htmlString_1);
-        $("#pet_row").append(element_A);
+    $("#pet_row").append(element_A);
 
     let element_B = $.parseHTML(htmlString_2);
     $("#pet_row2").append(element_B);
-    
+   
 }
 
-  
 
+  
 init();

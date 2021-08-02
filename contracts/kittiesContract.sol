@@ -262,6 +262,27 @@ contract myKittiesContract is Ownable {
 
   }
 
+  function getAllTokensForUser(address user) public view returns(uint256[] memory) {
+    uint256 tokenCount = balanceOf(user);
+    if(tokenCount == 0) {
+      return new uint256[](0);
+    } else {
+      //how many tokens in total?
+      uint256[] memory result = new uint256[](tokenCount);
+      uint256 totalCats = nextId;
+      uint256 resultIndex;
+      uint256 i;
+      for(i = 0; i < totalCats; i++) {
+        //check
+        if(ownerOf(i) == user) {
+          result[resultIndex] = i;
+          resultIndex++;
+        }
+      }
+      return result;
+    }  
+  }
+
 
   function _safeTransfer(address _from, address _to, uint256 _tokenId, bytes calldata _data) internal {
     _transfer(_from, _to, _tokenId);
