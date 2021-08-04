@@ -74,21 +74,37 @@
     </div>
 
     <div class="container my-container">
-      <div class="row">
+      <div class="row" id="catsDiv">
         
       </div><!--row end--> 
+      
+      <div class="row" id="ownersCatsDiv hidden">
+
+      </div>
+
     </div><!--container end--> 
-  
 
     <footer align="left">
-        <p>Ivan on Tech Academy Bootcamp July 2020</p>
+      <p>Ivan on Tech Academy Bootcamp July 2020</p>
     </footer>
 
   </body>
+
+  <script>
+    // when page loads create the catalog
+    /*
+    $(document).ready(function () {
+      setTimeout(() => {
+        contractCatalog()
+      }, 1000)
+    });
+    */
+  </script>
   <!--need to wait until page loads before executing these scripts below-->
-  <script type="text/javascript" src="./catalogue_Code.js"></script>
+  <script type="text/javascript" src="assets/js/colors.js"></script>
+  <script type="text/javascript" src="assets/js/catalogue/catalogue_ShowCat.js"></script>
   <script type="text/javascript" src="assets/js/colors.js"></script>
   <script type="text/javascript" src="assets/js/catSettings.js"></script>
-  <script type="text/javascript" src="assets/js/catFactory.js"></script>
+  <script type="text/javascript" src="assets/js/catalogue/buildCat.js"></script>
 
 </html>

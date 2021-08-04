@@ -22,7 +22,7 @@ async function renderGame() {
     $("#login_button").hide();
     $("#row").html("");
     //Get and render properties from smart contract
-    //let petId = 0;
+    let catId = 0;
     window.web3 = await Moralis.Web3.enable();
     //let abi = await getAbi();
     let contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
@@ -31,15 +31,15 @@ async function renderGame() {
 
     if(array.length == 0) return;
     array.forEach(async petId => {
-        let details = await contract.methods.myGetKitty(id).call({from: ethereum.selectedAddress});
+        let details = await contract.methods.myGetKitty(catId).call({from: ethereum.selectedAddress});
         renderCat(petId, details);
     });
     
 
-    let data = await contract.methods.myGetKitty(id).call({from: ethereum.selectedAddress});
+    let data = await contract.methods.myGetKitty(catId).call({from: ethereum.selectedAddress});
     console.log(data);
     renderCat(0, data);
-    $("#game").show();
+    $("#row").show();
 }
 
 async function singleCat(dna, id, gen) {
@@ -62,8 +62,6 @@ async function singleCat(dna, id, gen) {
 }
 
 
-
-
 //Apply cat CSS Styles from buidCat.js
 function renderCat(dna, id) {
 
@@ -79,12 +77,14 @@ function renderCat(dna, id) {
 }
 
 //Splitting the cat DNA to use it in render
-//Substring: extracts characters from a string:
+//Substring: extracts characters from a string
+//DNA: 26 37 86 14 1 1 14 20 1 1 
+//key: 01234...
 function dna(dnaStr) {
     var dna = {
         //colors
-        "bodyColor": dnaStr.substring(0, 2),
-        "mouthColor": dnaStr.substring(2, 4),
+        "bodyColor": dnaStr.substring(0, 2),  
+        "mouthColor": dnaStr.substring(2, 4), 
         "eyesColor": dnaStr.substring(4, 6 ),
         "earsColor": dnaStr.substring(6, 8),
         //Cattributes
