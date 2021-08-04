@@ -20,9 +20,9 @@ async function init() {
 
 async function renderGame() {
     $("#login_button").hide();
-    $("#pet_row").html("");
+    $("#row").html("");
     //Get and render properties from smart contract
-    let petId = 0;
+    //let petId = 0;
     window.web3 = await Moralis.Web3.enable();
     //let abi = await getAbi();
     let contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
@@ -31,188 +31,217 @@ async function renderGame() {
 
     if(array.length == 0) return;
     array.forEach(async petId => {
-        let details = await contract.methods.myGetKitty(petId).call({from: ethereum.selectedAddress});
-        renderPet(petId, details);
+        let details = await contract.methods.myGetKitty(id).call({from: ethereum.selectedAddress});
+        renderCat(petId, details);
     });
     
 
-    let data = await contract.methods.myGetKitty(petId).call({from: ethereum.selectedAddress});
+    let data = await contract.methods.myGetKitty(id).call({from: ethereum.selectedAddress});
     console.log(data);
-    renderPet(0, data);
+    renderCat(0, data);
     $("#game").show();
 }
 
-
-function renderPet(id, data) {
-    let catAttributes = (
-        parseInt(data.pupils) +
-        parseInt(data.mouthParent) +
-        parseInt(data.whiskers1) +
-        parseInt(data.whiskers2) +
-        parseInt(data.whiskers3) +
-        parseInt(data.patternShapeL1) +
-        parseInt(data.patternShapeL2) +
-        parseInt(data.patternShapeL3) +
-        parseInt(data.hindLegsShape) +
-        parseInt(data.pawL) +
-        parseInt(data.pawR) +
-        parseInt(data.cat__tail) +
-
-        parseInt(data.catDNA) +
-        parseInt(data.dnabody) +
-        parseInt(data.dnamouth) +
-        parseInt(data.dnaeyes) +
-        parseInt(data.dnaears) +
-
-        parseInt(data.dnashape) +
-        parseInt(data.dnadecoration) +
-        parseInt(data.dnadecorationMid) +
-        parseInt(data.dnadecorationSides) +
-        parseInt(data.dnaanimation) +
-        parseInt(data.dnaspecial) +
-
-        parseInt(data.eyeName) +
-        parseInt(data.decorationName) +
-        parseInt(data.animationCode)
-        );
-       $("#pet_row").append(catAttributes);
-
-
-        let htmlString_1 = `
-    <div class="col-md-3 catBox mx-1 light-b-shadow my-col id="pet_${id}">
-    <div id="cat__loc"> <!--cat loc start-->
-        <div id="head" class="head_ears_loc"> <!--cat_ears loc start-->
-            <div class="earsParent">
-                <div id="earL" class="earShape left_ear"></div>
-                <div id="earR" class="earShape right_ear"></div>
-            </div>
-            <div class="cat__head"> <!--cat head start-->
-                <div class="eyesParent"> <!--cat eyes start-->
-                    <div class="cat__eye">
-                        <span class = "${data.pupils}">
-                            <div class="ref"></div>
-                        </span>
-                    </div>
-                    <div class="cat__eye">
-                        <span class = "${data.pupils}">
-                            <div class="ref"></div>
-                        </span>
-                    </div> 
-                </div> <!--cat eyes end-->
-                <div id="mouth" class="${data.mouthParent}">
-                    <div class="left_mouth">
-                    <div class="cat__mouth">
-                        <div class="${data.whiskers1}"></div>
-                        <div class="${data.whiskers2}"></div>
-                        <div class="${data.whiskers3}"></div>
-                    </div>
-                    </div>
-        
-                    <div class="nose"></div>
-                                    
-                    <div class="right_mouth">
-                    <div class="cat__mouth">
-                        <div class="${data.whiskers1}"></div>
-                        <div class="${data.whiskers2}"></div>
-                        <div class="${data.whiskers3}"></div>
-                    </div> 
-                    </div>   
-                    
-                </div>
-            </div> <!--cat head end-->
-        </div> <!--cat_ears loc end-->
-        <div class="cat__body">
-            <div class="cat__chest"></div>
-            <div class="pattern_Parent"> <!--patterns loc start-->
-            <div class="patternLt">
-                <div class="${data.patternShapeL1}"></div>
-                <div class="${data.patternShapeL2}"></div>
-                <div class="${data.patternShapeL3}"></div>
-            </div>
-            <div class="patternRt">
-                <div class="${data.patternShapeR1}"></div>
-                <div class="${data.patternShapeR2}"></div>
-                <div class="${data.patternShapeR3}"></div>
-            </div>
-            
-            </div> <!--patterns loc end-->
-                <div class="hindLegsParent">
-                <div class="left_hindLegs">
-                    <div class="${data.hindLegsShape}"></div>
-                </div>
-                <div class="right_hindLegs">
-                    <div class="${data.hindLegsShape}"></div>
-                </div>
-                </div>
+async function singleCat(dna, id, gen) {
     
-                <div class="front_legs_Parent"> <!--f-legP loc start-->
-                <div class="leg frontLegs_left">
-                    <div class="data.front_pawsL">
-                    <div class="${data.pawL}"></div>
-                    </div>
-                </div>
-    
-                <div class="leg frontLegs_rt">
-                    <div class="data.front_pawsR">
-                    <div class="${data.pawR}"></div>
-                    </div>
-                </div>
-                </div> <!--f-legP loc end-->
-                <div class="cat_tail_loc">
-                    <div id="tail" class="${data.cat__tail}"></div>
-                </div>
-        
-        </div> <!--cat body loc end--> 
-    </div> <!--cat loc end-->
+    var KittyDna = catDna(dna)
+    //2 build the singleCat into HTML
+    var body = catBody(id)
+    var Cattributes = cattrubutes(id)
+    $("#cattributes").html(Cattributes)
+    $("#singleCat").html(body)
+    //3 Render the cats CSS style depending on DNA string
+    renderCat(KittyDna, id)
+    $("#catDNA").html(`
+    <span class="badge badge-light"><h4 class="tsp-2 m-0"><b>GEN:</b>`+ gen + `</h4></span>
     <br>
-    <div class="data.dnaDiv" id="${data.catDNA}">
-        <b style="color: #ab706d;">
-            DNA:
-            <!-- Colors -->
-            <span id="${data.dnabody}" ></span>
-            <span id="${data.dnamouth}"></span>
-            <span id="${data.dnaeyes}"></span>
-            <span id="${data.dnaears}"></span>
+    <span class="badge badge-light"><h4 class="tsp-2 m-0"><b>DNA:</b>`+ dna + `</h4></span>
+    `)
+
+    await catOffer(id)
+}
+
+
+
+
+//Apply cat CSS Styles from buidCat.js
+function renderCat(dna, id) {
+
+    bodyColor(dna.bodyColor, id)
+    mouthColor(dna.mouthColor, id)
+    eyesColor(dna.eyesColor, id)
+    earsColor(dna.earsColor, id)
+    eyeVariation(dna.eyeVariation, id)
+    decorationVariation(dna.decorationVariation, id)
+    decorationMidColorFunc(dna.decorationMidColorFunc, id)
+    decorationSidescolor(dna.decorationSidescolor, id)
+    animationVariation(dna.animation)
+}
+
+//Splitting the cat DNA to use it in render
+//Substring: extracts characters from a string:
+function dna(dnaStr) {
+    var dna = {
+        //colors
+        "bodyColor": dnaStr.substring(0, 2),
+        "mouthColor": dnaStr.substring(2, 4),
+        "eyesColor": dnaStr.substring(4, 6 ),
+        "earsColor": dnaStr.substring(6, 8),
+        //Cattributes
+        "eyesShape": dnaStr.substring(8, 9),
+        "decorationVariation": dnaStr.substring(9, 10),
+        "decorationMidColorFunc": dnaStr.substring(10, 12),
+        "decorationSidescolor": dnaStr.substring(12, 14),
+        "animation": dnaStr.substring(14, 15),
+        "lastNum": dnaStr.substring(15, 16)
+    }
+    return dna;
+}
+
+
+//Cat HTML Div for catalogue
+function catBox(id) {
+
+    var catDiv = `
+        <div class="col-lg-4 pointer fit-content" id="catview` + id +`">
+            <div class="featureBox catDiv">
+            `+ catBody(id) +`
+            </div>
+            <div class="dnaDiv" id="catDNA` + id +`"></div>
+            `+ cattributes(id) +`
+        </div>`
+    var catView = $(`#catview` + id)
+    if(!catView.length) {
+        $(`#catsDiv`).append(catDiv)
+    }
+    
+}
+
+//Simple body of a cat
+function catBody(id) {
+    
+    var single = `
+    <div class="col-lg-4 catBox m-2 light-b-shadow">
+
+                <div id="cat__loc"> <!--cat loc start-->
+
+                    <div id="head` + id +`" class="head_ears_loc"> <!--cat_ears loc start-->
+
+                        <div class="earsParent">
+                            <div id="earL` + id +`" class="earShape left_ear"></div>
+                            <div id="earR` + id +`" class="earShape right_ear"></div>
+                          </div>
+    
+                        <div class="cat__head"> <!--cat head start-->
+    
+                            <div class="eyesParent"> <!--cat eyes start-->
+    
+                                <div class="cat__eye">
+                                    <span class = "pupils">
+                                        <div class="ref"></div>
+                                    </span>
+                                </div>
             
-            <!-- Cattributes -->
-            <span id="${data.dnashape} dnashape"></span>
-            <span id="${data.dnadecoration}"></span>
-            <span id="${data.dnadecorationMid}"></span>
-            <span id="${data.dnadecorationSides}"></span>
-            <span id="${data.dnaanimation}"></span>
-            <span id="${data.dnaspecial}"></span>
-        </b>
-    </div>
-    </div>
-    </div>  <!--row end--> 
-    <!--second row start--> 
-    `;
+                                <div class="cat__eye">
+                                    <span class = "pupils">
+                                        <div class="ref"></div>
+                                    </span>
+                                </div> 
+    
+                            </div> <!--cat eyes end-->
+    
+                            <div id="mouth` + id +`" class="mouthParent">
+                                <div class="left_mouth">
+                                  <div class="cat__mouth">
+                                    <div class="whiskers1"></div>
+                                    <div class="whiskers2"></div>
+                                    <div class="whiskers3"></div>
+                                  </div>
+                                </div>
+                    
+                                <div class="nose"></div>
+                                                   
+                                <div class="right_mouth">
+                                  <div class="cat__mouth">
+                                    <div class="whiskers1"></div>
+                                    <div class="whiskers2"></div>
+                                    <div class="whiskers3"></div>
+                                  </div> 
+                                </div>   
+                                
+                              </div>
+            
+                        </div> <!--cat head end-->
 
-    let htmlString_2 = `<div class="col-md-3 light-b-shadow catInfoBox id="pet_${id}">
-    <!--cat shapes start--> 
-    <div id="pet_row_2">
-    <div class="smallType">Id: <span class="pet_id">${id}</span></div>
-        <div class="form-group">
-        <label for="formControlRange">
-            <b style="color: #ab706d">Eyes Shape</b><span class="badge badge-dark ml-2" id="${data.eyeName}"></span></label>       
-    </div>
-    <div class="form-group">
-        <label for="formControlRange">
-            <b style="color: #ab706d">Patterns</b><span class="badge badge-dark ml-2" id="${data.decorationName}"></span></label>    
-    </div>
-    <div class="form-group">
-        <label for="formControlRange">
-            <b style="color: #ab706d">Animation</b><span class="badge badge-dark ml-2" id="${data.animationCode}"></span></label>      
-    </div>
-    </div><!--cat shapes end--> 
-    </div><!--second col end-->`;
+                    </div> <!--cat_ears loc end-->
 
-    let element_A = $.parseHTML(htmlString_1);
-    $("#pet_row").append(element_A);
+                   
 
-    let element_B = $.parseHTML(htmlString_2);
-    $("#pet_row2").append(element_B);
-   
+                    <div class="cat__body">
+                        <div class="cat__chest"></div>
+            
+                        <div class="pattern_Parent"> <!--patterns loc start-->
+                          <div class="patternLt">
+                            <div class="patternShapeL1"></div>
+                            <div class="patternShapeL2"></div>
+                            <div class="patternShapeL3"></div>
+                          </div>
+            
+                          <div class="patternRt">
+                            <div class="patternShapeR1"></div>
+                            <div class="patternShapeR2"></div>
+                            <div class="patternShapeR3"></div>
+                          </div>
+                         
+                        </div> <!--patterns loc end-->
+              
+                            <div class="hindLegsParent">
+                              <div class="left_hindLegs">
+                                <div class="hindLegsShape"></div>
+                              </div>
+                              <div class="right_hindLegs">
+                                <div class="hindLegsShape"></div>
+                              </div>
+                            </div>
+                  
+                            <div class="front_legs_Parent"> <!--f-legP loc start-->
+                              <div class="leg frontLegs_left">
+                                <div class="front_pawsL">
+                                  <div class="pawL"></div>
+                                </div>
+                              </div>
+                  
+                              <div class="leg frontLegs_rt">
+                                <div class="front_pawsR">
+                                  <div class="pawR"></div>
+                                </div>
+                              </div>
+  
+                            </div> <!--f-legP loc end-->
+
+                            <div class="cat_tail_loc">
+                                <div id="tail` + id +`" class="cat__tail"></div>
+                            </div>
+            
+                     
+                     </div> <!--cat body loc end--> 
+
+                </div> <!--cat loc end-->`
+
+    return single
+
+}
+
+function cattrubutes(id) {
+
+    var Cattributes = `
+    <ul class="ml-5 cattributes">
+        <li><span id="eyeName`+ id + `"></span></li>
+        <li><span id="decorationName`+ id + `"></span></li>
+        <li><span id="animationName`+ id + `"></span></li>
+    </ul>`
+
+    return Cattributes;
 }
 
 
