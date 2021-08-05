@@ -28,38 +28,38 @@ function getRandCol() {
 
 //This function code needs to modified so that it works with Your cat code.
 function bodyColor(color, code) {
-    $('.cat__head, .cat__body, .hindLegsShape, .frontLegs_left, .frontLegs_rt').css('background', '#' + color)  //This changes the color of the cat
+    $('#cat__head, #cat__body, #hindLegsShape, #frontLegs_left, #frontLegs_rt').css('background', '#' + color)  //This changes the color of the cat
     $('#headcode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnabody').html(code) //This updates the body color part of the DNA that is displayed below the cat
     
 }
 
 function mouthColor(color,code) {
-    $('.cat__mouth, .cat__tail, .front_pawsL, .front_pawsR').css('background', '#' + color)  //This changes the color of the cat's mouth
+    $('#cat__mouth, #cat__tail, #front_pawsL, #front_pawsR').css('background', '#' + color)  //This changes the color of the cat's mouth
     $('#mouthcode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnamouth').html(code) //This updates the body color part of the DNA that is displayed below the cat
 }
 
 function eyesColor(color,code) {
-    $('.pupils').css('background', '#' + color)  //This changes the color of the cat's eyes
+    $('#pupils').css('background', '#' + color)  //This changes the color of the cat's eyes
     $('#eyescode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnaeyes').html(code) //This updates the body color part of the DNA that is displayed below the cat
 }
 
 function earsColor(color,code) {
-    $('.earShape').css('background', '#' + color)  //This changes the color of the cat's ears
+    $('#earShape').css('background', '#' + color)  //This changes the color of the cat's ears
     $('#earscode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnaears').html(code) //This updates the body color part of the DNA that is displayed below the cat
 }
 
 function decorationMidColorFunc(color,code) {
-    $('.patternShapeL2, .patternShapeR2').css('background', '#' + color)  //This changes the color of the cat's ears
+    $('#patternShapeL2, #patternShapeR2').css('background', '#' + color)  //This changes the color of the cat's ears
     $('#decoMidColcode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnadecorationMid').html(code) //This updates the body color part of the DNA that is displayed below the cat
 }
 
 function decorationSidesColorFunc(color,code) {
-    $('.patternShapeL1, .patternShapeR1, .patternShapeL3, .patternShapeR3').css('background', '#' + color)  //This changes the color of the cat's ears
+    $('#patternShapeL1, #patternShapeR1, #patternShapeL3, #patternShapeR3').css('background', '#' + color)  //This changes the color of the cat's ears
     $('#decoSideColcode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnadecorationSides').html(code) //This updates the body color part of the DNA that is displayed below the cat
 }
@@ -246,32 +246,32 @@ function earsReset() {
 //----------------eyes variations-----------------------------
 
 async function normalEyes() {
-    await $('.cat__eye').find('span').css({"border": "none", "border-radius": "50px", "width": "28px", "height": "28px", "left": "7px"})
+    await $('#cat__eye').find('span').css({"border": "none", "border-radius": "50px", "width": "28px", "height": "28px", "left": "7px"})
 }
 
 async function eyesType1() {
-    await $('.cat__eye').find('span').css('border-top', '15px solid', )
+    await $('#cat__eye').find('span').css('border-top', '15px solid', )
   
 }
 
 async function eyesType2() {
-    await $('.cat__eye').find('span').css('border-bottom', '15px solid')
+    await $('#cat__eye').find('span').css('border-bottom', '15px solid')
 }
 
 async function eyesType3() {
-    await $('.cat__eye').find('span').css('border-radius', '10px')
+    await $('#cat__eye').find('span').css('border-radius', '10px')
 }
 
 async function eyesType4() {
-    await $('.cat__eye').find('span').css('height', '40px')
+    await $('#cat__eye').find('span').css('height', '40px')
 }
 
 async function eyesType5() {
-    await $('.cat__eye').find('span').css('height', '20px')
+    await $('#cat__eye').find('span').css('height', '20px')
 }
 
 async function eyesType6() {
-    await $('.cat__eye').find('span').css({'width': '10px', 'height': '35px', "left": "14px"})
+    await $('#cat__eye').find('span').css({'width': '10px', 'height': '35px', "left": "14px"})
 }
 
 
@@ -279,14 +279,14 @@ async function normaldecoration() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     //-------left--------------
-    $('.patternShapeL1').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%", "background": "rgb(122, 190, 31)"})
-    $('.patternShapeL2').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeL3').css({ "transform": "rotate(15deg)", "height": "13px", "width": "34px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL1').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%", "background": "rgb(122, 190, 31)"})
+    $('#patternShapeL2').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL3').css({ "transform": "rotate(15deg)", "height": "13px", "width": "34px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
 
     //-------right--------------
-    $('.patternShapeR1').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeR2').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeR3').css({ "transform": "rotate(15deg)", "height": "13px", "width": "34px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeR1').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeR2').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeR3').css({ "transform": "rotate(15deg)", "height": "13px", "width": "34px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
  
 }
 
@@ -294,14 +294,14 @@ async function altDecoration1() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     //-------left--------------
-    $('.patternShapeL1').css({ "transform": "rotate(45deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "20%"})
-    $('.patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px", "width": "36px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "20%" })
-    $('.patternShapeL3').css({ "transform": "rotate(88deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "96px", "left": "20px", "border-radius": "20%"})
+    $('#patternShapeL1').css({ "transform": "rotate(45deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "20%"})
+    $('#patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px", "width": "36px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "20%" })
+    $('#patternShapeL3').css({ "transform": "rotate(88deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "96px", "left": "20px", "border-radius": "20%"})
 
      //-------right--------------
-     $('.patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "20%"})
-     $('.patternShapeR2').css({ "transform": "rotate(15deg)", "height": "25px", "width": "7px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "20%"})
-     $('.patternShapeR3').css({ "transform": "rotate(47deg)", "height": "60px", "width": "60px", "position": "absolute", "top": "166px", "left": "-47px", "border-radius": "20%"})
+     $('#patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "20%"})
+     $('#patternShapeR2').css({ "transform": "rotate(15deg)", "height": "25px", "width": "7px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "20%"})
+     $('#patternShapeR3').css({ "transform": "rotate(47deg)", "height": "60px", "width": "60px", "position": "absolute", "top": "166px", "left": "-47px", "border-radius": "20%"})
     
 
 }
@@ -310,14 +310,14 @@ async function altDecoration2() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     //-------left--------------
-    $('.patternShapeL1').css({ "transform": "rotate(45deg)", "height": "9px", "width": "30px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px", "width": "23px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeL3').css({ "transform": "rotate(15deg)", "height": "9px", "width": "51px", "position": "absolute", "top": "56px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL1').css({ "transform": "rotate(45deg)", "height": "9px", "width": "30px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px", "width": "23px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL3').css({ "transform": "rotate(15deg)", "height": "9px", "width": "51px", "position": "absolute", "top": "56px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
 
      //-------right--------------
-     $('.patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "5% 70% 70% 5%"})
-     $('.patternShapeR2').css({ "transform": "rotate(15deg)", "height": "9px", "width": "23px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-     $('.patternShapeR3').css({ "transform": "rotate(15deg)", "height": "9px", "width": "51px", "position": "absolute", "top": "58px", "left": "0px", "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR2').css({ "transform": "rotate(15deg)", "height": "9px", "width": "23px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR3').css({ "transform": "rotate(15deg)", "height": "9px", "width": "51px", "position": "absolute", "top": "58px", "left": "0px", "border-radius": "5% 70% 70% 5%"})
 
 }
 
@@ -325,56 +325,56 @@ async function altDecoration3() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     //-------left--------------
-    $('.patternShapeL1').css({ "transform": "rotate(70deg)", "height": "14px", "width": "42px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px", "width": "28px", "position": "absolute", "top": "55px", "left": "3px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeL3').css({ "transform": "rotate(15deg)", "height": "14px", "width": "31px", "position": "absolute", "top": "180px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL1').css({ "transform": "rotate(70deg)", "height": "14px", "width": "42px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px", "width": "28px", "position": "absolute", "top": "55px", "left": "3px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL3').css({ "transform": "rotate(15deg)", "height": "14px", "width": "31px", "position": "absolute", "top": "180px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
 
      //-------right--------------
-     $('.patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "42px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "5% 70% 70% 5%"})
-     $('.patternShapeR2').css({ "transform": "rotate(15deg)", "height": "9px", "width": "28px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-     $('.patternShapeR3').css({ "transform": "rotate(15deg)", "height": "14px", "width": "31px", "position": "absolute", "top": "180px", "left": "0px", "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "42px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR2').css({ "transform": "rotate(15deg)", "height": "9px", "width": "28px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR3').css({ "transform": "rotate(15deg)", "height": "14px", "width": "31px", "position": "absolute", "top": "180px", "left": "0px", "border-radius": "5% 70% 70% 5%"})
 }
 
 async function altDecoration4() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     //-------left--------------
-    $('.patternShapeL1').css({ "transform": "rotate(125deg)", "height": "57px", "width": "42px", "position": "absolute", "top": "31px", "left": "28px",  "border-radius": "0% 0% 0% 0%"})
-    $('.patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px",  "width": "23px", "position": "absolute", "top": "55px", "left": "3px", "border-radius": "5% 70% 70% 5%"})
-    $('.patternShapeL3').css({ "transform": "rotate(15deg)", "height": "14px",  "width": "36px", "position": "absolute", "top": "180px", "left": "2px",  "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL1').css({ "transform": "rotate(125deg)", "height": "57px", "width": "42px", "position": "absolute", "top": "31px", "left": "28px",  "border-radius": "0% 0% 0% 0%"})
+    $('#patternShapeL2').css({ "transform": "rotate(0deg)", "height": "36px",  "width": "23px", "position": "absolute", "top": "55px", "left": "3px", "border-radius": "5% 70% 70% 5%"})
+    $('#patternShapeL3').css({ "transform": "rotate(15deg)", "height": "14px",  "width": "36px", "position": "absolute", "top": "180px", "left": "2px",  "border-radius": "5% 70% 70% 5%"})
 
      //-------right--------------
-     $('.patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "50% 50% 50% 50%"})
-     $('.patternShapeR2').css({ "transform": "rotate(15deg)", "height": "9px", "width": "23px", "position": "absolute", "top": "95px", "left": "2px",  "border-radius": "5% 70% 70% 5%"})
-     $('.patternShapeR3').css({ "transform": "rotate(15deg)", "height": "20px", "width": "20px", "position": "absolute",  "top": "180px", "left": "0px","border-radius": "50% 50% 50% 50%"})
+     $('#patternShapeR1').css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "50% 50% 50% 50%"})
+     $('#patternShapeR2').css({ "transform": "rotate(15deg)", "height": "9px", "width": "23px", "position": "absolute", "top": "95px", "left": "2px",  "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR3').css({ "transform": "rotate(15deg)", "height": "20px", "width": "20px", "position": "absolute",  "top": "180px", "left": "0px","border-radius": "50% 50% 50% 50%"})
 }
 
 async function altDecoration5() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     //-------left--------------
-    $('.patternShapeL1').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%", "background": "rgb(122, 190, 31)"})
-    $('.patternShapeL2').css({ "transform": "rotate(200deg)", "height": "43px", "width": "51px", "position": "absolute", "top": "40px", "left": "2px", "border-radius": "13% 62% 28% 94%"})
-    $('.patternShapeL3').css({ "transform": "rotate(15deg)", "height": "25px", "width": "51px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "13% 62% 7% 94%"})
+    $('#patternShapeL1').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%", "background": "rgb(122, 190, 31)"})
+    $('#patternShapeL2').css({ "transform": "rotate(200deg)", "height": "43px", "width": "51px", "position": "absolute", "top": "40px", "left": "2px", "border-radius": "13% 62% 28% 94%"})
+    $('#patternShapeL3').css({ "transform": "rotate(15deg)", "height": "25px", "width": "51px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "13% 62% 7% 94%"})
 
      //-------right--------------
-     $('.patternShapeR1').css({ "transform": "rotate(-46deg)", "height": "24px", "width": "22px", "position": "absolute", "top": "80px", "left": "1px", "border-radius": "13% 62% 7% 94%"})
-     $('.patternShapeR2').css({ "transform": "rotate(47deg)", "height": "31px", "width": "53px", "position": "absolute", "top": "114px", "left": "-16px", "border-radius": "13% 62% 7% 94%"})
-     $('.patternShapeR3').css({ "transform": "rotate(47deg)", "height": "60px", "width": "60px", "position": "absolute", "top": "166px", "left": "-47px", "border-radius": "20%"})
+     $('#patternShapeR1').css({ "transform": "rotate(-46deg)", "height": "24px", "width": "22px", "position": "absolute", "top": "80px", "left": "1px", "border-radius": "13% 62% 7% 94%"})
+     $('#patternShapeR2').css({ "transform": "rotate(47deg)", "height": "31px", "width": "53px", "position": "absolute", "top": "114px", "left": "-16px", "border-radius": "13% 62% 7% 94%"})
+     $('#patternShapeR3').css({ "transform": "rotate(47deg)", "height": "60px", "width": "60px", "position": "absolute", "top": "166px", "left": "-47px", "border-radius": "20%"})
 }
 
 async function altDecoration6() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     //-------left--------------
-    $('.patternShapeL1').css({ "transform": "rotate(75deg)", "height": "24px", "width": "22px", "position": "absolute", "top": "137px", "left": "15px", "border-radius": "50% 50% 7% 50%"})
-    $('.patternShapeL2').css({ "transform": "rotate(286deg)", "height": "28px", "width": "36px", "position": "absolute", "top": "27px", "left": "10px", "border-radius": "50% 50% 7% 50%"})
-    $('.patternShapeL3').css({ "transform": "rotate(15deg)", "height": "27px", "width": "51px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "50% 50% 50% 50%"})
+    $('#patternShapeL1').css({ "transform": "rotate(75deg)", "height": "24px", "width": "22px", "position": "absolute", "top": "137px", "left": "15px", "border-radius": "50% 50% 7% 50%"})
+    $('#patternShapeL2').css({ "transform": "rotate(286deg)", "height": "28px", "width": "36px", "position": "absolute", "top": "27px", "left": "10px", "border-radius": "50% 50% 7% 50%"})
+    $('#patternShapeL3').css({ "transform": "rotate(15deg)", "height": "27px", "width": "51px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "50% 50% 50% 50%"})
 
      //-------right--------------
-     $('.patternShapeR1').css({ "transform": "rotate(-84deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "64px", "left": "9px", "border-radius": "50% 50% 7% 50%"})
-     $('.patternShapeR2').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-     $('.patternShapeR3').css({ "transform": "rotate(15deg)", "height": "23px", "width": "51px", "position": "absolute", "top": "175px", "left": "-3px", "border-radius": "50% 50% 7% 50%"})
+     $('#patternShapeR1').css({ "transform": "rotate(-84deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "64px", "left": "9px", "border-radius": "50% 50% 7% 50%"})
+     $('#patternShapeR2').css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+     $('#patternShapeR3').css({ "transform": "rotate(15deg)", "height": "23px", "width": "51px", "position": "absolute", "top": "175px", "left": "-3px", "border-radius": "50% 50% 7% 50%"})
 }
 
 

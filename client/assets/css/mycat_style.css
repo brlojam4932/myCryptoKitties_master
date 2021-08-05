@@ -22,7 +22,7 @@ body{
   left: -35px;
 }
 
-.cat__head{
+#cat__head{
   background-color: rgb(136, 150, 150);
   width: 140px;
   height: 140px;
@@ -47,7 +47,7 @@ body{
   position: relative;
 }
 
-.pupils{
+#pupils{
   background-color: rgb(0, 0, 0);
   width: 28px;
   height: 28px;
@@ -72,21 +72,28 @@ body{
   top: 1px;
 }
 
-.earShape{
+#earL{
+  position: relative;
+}
+#earR{
+  position: relative;
+}
+
+#left_ear{
+  left: 0;
+  top: -22px;
+}
+#right_ear{
+  left: 80px;
+  top: -21px;
+}
+
+#earShape{
   border-radius: 90px 0px 90px 0px;
   background-color: rgb(121, 151, 151);
   height: 90px;
   width: 60px;
-  position: absolute;
-}
-
-.left_ear{
-  left: 0;
-  top: -22px;
-}
-.right_ear{
-  left: 80px;
-  top: -21px;
+  position: relative;
 }
 
 .nose{
@@ -122,7 +129,7 @@ body{
   transform: rotate(-186deg);
 }
 
-.cat__mouth{
+#cat__mouth{
   background-color: #a5bba5;
   width: 45px;
   height: 42px;
@@ -165,7 +172,7 @@ body{
   transform: rotate(-186deg);
 }
 
-.cat__body{
+#cat__body{
   background-color: rgb(136, 150, 150);
   width: 220px;
   height: 259px;
@@ -200,7 +207,7 @@ body{
   right: 29px;
 }
 
-.patternShapeL1{
+#patternShapeL1{
   background-color: rgb(122, 190, 31);
   width: 41px;
   height: 16px;
@@ -211,7 +218,7 @@ body{
   left: 20px;
 }
 
-.patternShapeL2{
+#patternShapeL2{
   background-color: rgb(122, 190, 31);
   width: 41px;
   height: 16px;
@@ -222,7 +229,7 @@ body{
   left: 2px;
 }
 
-.patternShapeL3{
+#patternShapeL3{
   background-color: rgb(122, 190, 31);
   width: 34px;
   height: 13px;
@@ -233,7 +240,7 @@ body{
   left: 2px;
 }
 
-.patternShapeR1{
+#patternShapeR1{
   background-color: rgb(122, 190, 31);
   width: 41px;
   height: 16px;
@@ -244,7 +251,7 @@ body{
   left: 20px;
 }
 
-.patternShapeR2{
+#patternShapeR2{
   background-color: rgb(122, 190, 31);
   width: 41px;
   height: 16px;
@@ -255,7 +262,7 @@ body{
   left: 2px;
 }
 
-.patternShapeR3{
+#patternShapeR3{
   background-color: rgb(122, 190, 31);
   width: 34px;
   height: 13px;
@@ -278,7 +285,7 @@ body{
   left: 0px;
 }
 
-.hindLegsShape{
+#hindLegsShape{
   background-color: rgb(136, 150, 150);
   width: 130px;
   height: 143px;
@@ -296,7 +303,7 @@ body{
  
 }
 
-.cat__tail{
+#cat__tail{
   position: relative;
   background-color: rgb(57, 128, 128);
   width: 169px;
@@ -312,7 +319,7 @@ body{
   top: 30px;
 }
 
-.leg{
+#leg{
   background-color: rgb(136, 150, 150);
   width: 66px;
   height: 245px;
@@ -320,17 +327,17 @@ body{
   position: absolute;
 }
 
-.frontLegs_lft{
+#frontLegs_lft{
   left: 10px;
 }
 
-.frontLegs_rt{
+#frontLegs_rt{
   left: 123px;
 }
 
 
 
-.front_pawsR{
+#front_pawsR{
   background-color: rgb(197, 206, 206);
   top: 200px;
   width: 66px;
@@ -340,7 +347,7 @@ body{
   top: 200;
 }
 
-.front_pawsL{
+#front_pawsL{
   background-color: rgb(197, 206, 206);
   top: 200px;
   width: 66px;
