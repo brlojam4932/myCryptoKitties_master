@@ -4,17 +4,18 @@
 
 @keyframes headTransY {
   0% {
-    top: 0;
+    transform: translateY(0px);
   }
   45% {
-    top: -4;
+    transform: translateY(-4px);
   }
   75% {
-    top: 8;
+    transform: translateY(8px);
   }
   100% {
-    top: 0;
+    transform: translateY(0px);
   }
+
 }
 
 
