@@ -41,7 +41,7 @@ function mouthColor(color,code) {
 }
 
 function eyesColor(color,code) {
-    $('#pupils').css('background', '#' + color)  //This changes the color of the cat's eyes
+    $("#pupils1, #pupils2" ).css('background', '#' + color)  //This changes the color of the cat's eyes
     $('#eyescode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnaeyes').html(code) //This updates the body color part of the DNA that is displayed below the cat
 }
@@ -190,7 +190,8 @@ function animationVariation(num) {
 function animationType1() {
     resetAnimation()
     earsReset() 
-    $("#cat__head").addClass("headTransY");
+    $("#cat__head").addClass("headTransY"); 
+    $("#earsParent").addClass("headTransY");
 }
 
 function animationType2() {
@@ -203,6 +204,7 @@ function animationType3() {
     resetAnimation()
     earsReset() 
     $("#cat__head").addClass("headRot");
+    $("#earsParent").addClass("headRot");
     
     // add any animationclass that you create
 }
@@ -219,7 +221,7 @@ function animationType4() {
 function animationType5() {
     resetAnimation()
     earsReset() 
-    $("#tail").addClass("tailRot");
+    $("#cat__tail").addClass("tailRot");
     // add any animationclass that you create
 }
 
@@ -230,10 +232,12 @@ function animationType6() {
 
 function resetAnimation() {
     $("#cat__head").removeClass("headTransY");
+    $("#earsParent").removeClass("headTransY");
     $("#cat__head").removeClass("headRot");
+    $("#earsParent").removeClass("headRot");
     $("#earL").removeClass("earRotL");
     $("#earR").removeClass("earRotR");
-    $("#tail").removeClass("tailRot");
+    $("#cat__tail").removeClass("tailRot");
     $("#mouth").removeClass("mouthMove");
     // add any animationclass that you create   
 }

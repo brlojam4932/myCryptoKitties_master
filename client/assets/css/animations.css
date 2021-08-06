@@ -7,10 +7,10 @@
     transform: translateY(0px);
   }
   45% {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
   }
   75% {
-    transform: translateY(8px);
+    transform: translateY(4px);
   }
   100% {
     transform: translateY(0px);
@@ -47,11 +47,11 @@
   0% {
     transform: scale(1, -1) rotate(-2deg);
   }
-  45% {
-    transform: scale(1, -1) rotate(-15deg);
+  50% {
+    transform: scale(1, -1) rotate(-4deg);
   }
   75% {
-    transform: scale(1, -1) rotate(15deg);
+    transform: scale(1, -1) rotate(4deg);
   }
   100% {
     transform: scale(1, -1) rotate(-2deg);
@@ -65,16 +65,16 @@
 
 @keyframes earRotR {
   0% {
-    transform: scale(1, 1) rotate(-2deg);
+    transform: scale(1, 1) rotate(6deg);
+  }
+  30% {
+    transform: scale(1, 1) rotate(3deg);
   }
   45% {
-    transform: scale(1, 1) rotate(-15deg);
-  }
-  75% {
-    transform: scale(1, 1) rotate(15deg);
+    transform: scale(1, 1) rotate(-2deg);
   }
   100% {
-    transform: scale(1, 1) rotate(-2deg);
+    transform: scale(1, 1) rotate(6deg);
   }
   
 }
@@ -105,44 +105,44 @@
 
 @keyframes earStaticR {
   0% {
-    transform: scale(1, 1) rotate(-2deg);
+    transform: scale(1, 1) rotate(6deg);
   }
   45% {
-    transform: scale(1, 1) rotate(-2deg);
+    transform: scale(1, 1) rotate(6deg);
   }
   75% {
-    transform: scale(1, 1) rotate(-2deg);
+    transform: scale(1, 1) rotate(6deg);
   }
   100% {
-    transform: scale(1, 1) rotate(-2deg);
+    transform: scale(1, 1) rotate(6deg);
   }
   
 }
 
 .tailRot{
-  animation: tailRot 3s infinite;
+  animation: tailRot 4s infinite;
 }
 
 @keyframes tailRot {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(-60deg);
   }
   45% {
-    transform: rotate(15deg);
+    transform: rotate(-70deg);
 
   }
   75% {
-    transform: rotate(-15deg);
+    transform: rotate(-60deg);
 
   }
   100% {
-    transform: rotate(0deg);
+    transform: rotate(-60deg);
 
   }
 }
 
 .mouthMove{
-  animation: mouthMove 3s infinite;
+  animation: mouthMove 2s infinite;
 
 }
 
@@ -150,12 +150,12 @@
   0% {
     top: 0px;
   }
-  45% {
-    top: 8px;
+  70% {
+    top: 5px; /* up */
 
   }
-  75% {
-    top: 5px;
+  90% {
+    top: 3px; /* down */
 
   }
   100% {

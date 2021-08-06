@@ -17,7 +17,7 @@ function mouthColor(code, id) {
 
 function eyesColor(code, id) {
   var color = colors[code]
-  $('#pupils' + id).css('background', '#' + color)  //This changes the color of the cat's eyes
+  $("#pupils1, #pupils2" + id).css('background', '#' + color)  //This changes the color of the cat's eyes
 
 }
 
@@ -126,12 +126,12 @@ function animationVariation(num, id) {
 
   switch (num) {
       case 1:
-          $('#animationCode' + id).html('heads Up')
-          animationType1(id)
+          $('#animationCode' + id).html('basic')
+          animationType2(id)
           break
       case 2:
-          $('#animationCode' + id).html("basic")
-          animationType2(id)
+          $('#animationCode' + id).html("heads Up")
+          animationType1(id)
           break
       case 3:
           $('#animationCode' + id).html("head rot")
@@ -158,6 +158,7 @@ function animationType1(id) {
   resetAnimation(id)
   earsReset(id) 
   $("#cat__head" + id).addClass("headTransY");
+  $("#earsParent").addClass("headTransY");
 }
 
 function animationType2(id) {
@@ -170,6 +171,7 @@ function animationType3(id) {
   resetAnimation(id)
   earsReset(id) 
   $("#cat__head" + id).addClass("headRot");
+  $("#earsParent").addClass("headRot");
   
   // add any animationclass that you create
 }
@@ -186,7 +188,7 @@ function animationType4(id) {
 function animationType5(id) {
   resetAnimation(id)
   earsReset(id) 
-  $("#tail" + id).addClass("tailRot");
+  $("#cat_tail" + id).addClass("tailRot");
   // add any animationclass that you create
 }
 
@@ -197,7 +199,9 @@ function animationType6(id) {
 
 function resetAnimation(id) {
   $("#cat__head" + id).removeClass("headTransY");
-  $("#head" + id).removeClass("headRot");
+  $("#earsParent").removeClass("headTransY");
+  $("#cat__head" + id).removeClass("headRot");
+  $("#earsParent").removeClass("headRot");
   $("#earL" + id).removeClass("earRotL");
   $("#earR" + id).removeClass("earRotR");
   $("#tail" + id).removeClass("tailRot");

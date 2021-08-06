@@ -20,12 +20,13 @@ body{
   height: 140px;
   border-radius: 50%;
   position: relative; 
+  top: -173px;
   
 }
 
 .eyesParent{
   position: relative;
-  top: 30px;
+  top: 35px;
   left: 0px;
   display: flex;
   justify-content: center;
@@ -40,7 +41,17 @@ body{
   position: relative;
 }
 
-#pupils{
+#pupils1{
+  background-color: rgb(0, 0, 0);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 7px;
+}
+
+#pupils2{
   background-color: rgb(0, 0, 0);
   width: 28px;
   height: 28px;
@@ -60,9 +71,9 @@ body{
   left: 15px;
 }
 
-.earsParent{
+#earsParent{
   position: relative;
-  top: 1px;
+  top: 20px;
 }
 
 #earL{
@@ -74,16 +85,24 @@ body{
 
 #left_ear{
   position: relative;
-  left: 0;
-  top: -22px;
+  left: -8;
+  top: 25px;
 }
 #right_ear{
   position: relative;
-  left: 80px;
-  top: -21px;
+  left: 72px;
+  top: -113px;
 }
 
-#earShape{
+#earShape1{
+  border-radius: 90px 0px 90px 0px;
+  background-color: rgb(121, 151, 151);
+  height: 90px;
+  width: 60px;
+  position: relative;
+}
+
+#earShape2{
   border-radius: 90px 0px 90px 0px;
   background-color: rgb(121, 151, 151);
   height: 90px;
@@ -106,7 +125,7 @@ body{
   width: 89px;
   height: 61px;
   position: relative;
-  top: 0px;
+  top: 2px;
   left: -22px;
   transform: scale(.85);
 }
@@ -304,8 +323,9 @@ body{
   width: 169px;
   height: 43px;
   border-radius: 99% 42% 91% 21%;
-  top: 200px;
-  left: 132px;
+  top: -89px;
+  left: 140px;
+  transform: rotate(-60deg);
   z-index: -2;
 }
 
