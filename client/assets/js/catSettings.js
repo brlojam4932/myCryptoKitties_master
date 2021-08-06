@@ -18,7 +18,7 @@ var defaultDNA = {
 
 // when page loads
 $( document ).ready(function() {
-  $('#dnabody').html(defaultDNA.headColor);
+  $('#dnabody').html(defaultDNA.bodyColor);
   $('#dnamouth').html(defaultDNA.mouthColor);
   $('#dnaeyes').html(defaultDNA.eyesColor);
   $('#dnaears').html(defaultDNA.earsColor);

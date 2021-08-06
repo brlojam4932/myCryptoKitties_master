@@ -28,7 +28,7 @@ function getRandCol() {
 
 //This function code needs to modified so that it works with Your cat code.
 function bodyColor(color, code) {
-    $('#cat__head, #cat__body, #hindLegsShape, #frontLegs_left, #frontLegs_rt').css('background', '#' + color)  //This changes the color of the cat
+    $('#cat__head, #cat__body, #hindLegsShape, #leg1, #leg2').css('background', '#' + color)  //This changes the color of the cat
     $('#headcode').html('code: ' + code) //This updates text of the badge next to the slider
     $('#dnabody').html(code) //This updates the body color part of the DNA that is displayed below the cat
     
@@ -157,12 +157,12 @@ function animationVariation(num) {
     $('#dnaanimation').html(num)
     switch (num) {
         case 1:
-            $('#animationCode').html('heads Up')
-            animationType1()
-            break
-        case 2:
             $('#animationCode').html("basic")
             animationType2()
+            break
+        case 2:
+            $('#animationCode').html("heads Up")
+            animationType1()
             break
         case 3:
             $('#animationCode').html("head rot")
@@ -190,7 +190,7 @@ function animationVariation(num) {
 function animationType1() {
     resetAnimation()
     earsReset() 
-    $("#head").addClass("headTransY");
+    $("#cat__head").addClass("headTransY");
 }
 
 function animationType2() {
@@ -202,7 +202,7 @@ function animationType2() {
 function animationType3() {
     resetAnimation()
     earsReset() 
-    $("#head").addClass("headRot");
+    $("#cat__head").addClass("headRot");
     
     // add any animationclass that you create
 }
@@ -229,8 +229,8 @@ function animationType6() {
 }
 
 function resetAnimation() {
-    $("#head").removeClass("headTransY");
-    $("#head").removeClass("headRot");
+    $("#cat__head").removeClass("headTransY");
+    $("#cat__head").removeClass("headRot");
     $("#earL").removeClass("earRotL");
     $("#earR").removeClass("earRotR");
     $("#tail").removeClass("tailRot");
@@ -246,32 +246,32 @@ function earsReset() {
 //----------------eyes variations-----------------------------
 
 async function normalEyes() {
-    await $('#cat__eye').find('span').css({"border": "none", "border-radius": "50px", "width": "28px", "height": "28px", "left": "7px"})
+    await $('.cat__eye').find('span').css({"border": "none", "border-radius": "50px", "width": "28px", "height": "28px", "left": "7px"})
 }
 
 async function eyesType1() {
-    await $('#cat__eye').find('span').css('border-top', '15px solid', )
+    await $('.cat__eye').find('span').css('border-top', '15px solid', )
   
 }
 
 async function eyesType2() {
-    await $('#cat__eye').find('span').css('border-bottom', '15px solid')
+    await $('.cat__eye').find('span').css('border-bottom', '15px solid')
 }
 
 async function eyesType3() {
-    await $('#cat__eye').find('span').css('border-radius', '10px')
+    await $('.cat__eye').find('span').css('border-radius', '10px')
 }
 
 async function eyesType4() {
-    await $('#cat__eye').find('span').css('height', '40px')
+    await $('.cat__eye').find('span').css('height', '40px')
 }
 
 async function eyesType5() {
-    await $('#cat__eye').find('span').css('height', '20px')
+    await $('.cat__eye').find('span').css('height', '20px')
 }
 
 async function eyesType6() {
-    await $('#cat__eye').find('span').css({'width': '10px', 'height': '35px', "left": "14px"})
+    await $('.cat__eye').find('span').css({'width': '10px', 'height': '35px', "left": "14px"})
 }
 
 

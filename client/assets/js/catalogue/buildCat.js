@@ -5,7 +5,7 @@ var colors = Object.values(allColors())
 //This function code needs to modified so that it works with Your cat code.
 function bodyColor(code, id) {
   var color = colors[code]
-  $('#cat__head' + id + ', #cat__body' + id + ', #hindLegsShape' + id + ', #frontLegs_left' + id + ', #frontLegs_rt' + id).css('background', '#' + color)  //This changes the color of the cat
+  $('#cat__head' + id + ', #cat__body' + id + ', #hindLegsShape' + id + ', #leg1' + id + ', #leg2' + id).css('background', '#' + color)  //This changes the color of the cat
   
 }
 
@@ -157,7 +157,7 @@ function animationVariation(num, id) {
 function animationType1(id) {
   resetAnimation(id)
   earsReset(id) 
-  $("#head" + id).addClass("headTransY");
+  $("#cat__head" + id).addClass("headTransY");
 }
 
 function animationType2(id) {
@@ -169,7 +169,7 @@ function animationType2(id) {
 function animationType3(id) {
   resetAnimation(id)
   earsReset(id) 
-  $("#head" + id).addClass("headRot");
+  $("#cat__head" + id).addClass("headRot");
   
   // add any animationclass that you create
 }
@@ -196,7 +196,7 @@ function animationType6(id) {
 }
 
 function resetAnimation(id) {
-  $("#head" + id).removeClass("headTransY");
+  $("#cat__head" + id).removeClass("headTransY");
   $("#head" + id).removeClass("headRot");
   $("#earL" + id).removeClass("earRotL");
   $("#earR" + id).removeClass("earRotR");

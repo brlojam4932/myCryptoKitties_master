@@ -12,15 +12,7 @@ html{
 body{
   background: #242627;
 }
-.head_ears_loc{
-  position: relative;
-}
 
-#cat__loc{
-  position: relative;
-  top: -25px;
-  left: -35px;
-}
 
 #cat__head{
   background-color: rgb(136, 150, 150);
@@ -28,6 +20,7 @@ body{
   height: 140px;
   border-radius: 50%;
   position: relative; 
+  
 }
 
 .eyesParent{
@@ -80,10 +73,12 @@ body{
 }
 
 #left_ear{
+  position: relative;
   left: 0;
   top: -22px;
 }
 #right_ear{
+  position: relative;
   left: 80px;
   top: -21px;
 }
@@ -178,8 +173,8 @@ body{
   height: 259px;
   border-radius: 30% 49% 30% 50%;
   position: absolute;
-  top: 100px;
-  left: -27px;
+  top: 163px;
+  left: 35px;
   transform: scale(0.8);
 }
 
@@ -314,18 +309,33 @@ body{
   z-index: -2;
 }
 
+
 .front_legs_Parent{
+  display: flex;
   position: relative;
   top: 30px;
 }
 
-#leg{
+
+#leg1{
   background-color: rgb(136, 150, 150);
   width: 66px;
   height: 245px;
   border-radius: 30%;
-  position: absolute;
+  position: relative;
+  left: -3px;
 }
+
+
+#leg2{
+  background-color: rgb(136, 150, 150);
+  width: 66px;
+  height: 245px;
+  border-radius: 30%;
+  position: relative;
+  left: 60px;
+}
+
 
 #frontLegs_lft{
   left: 10px;
@@ -357,10 +367,6 @@ body{
   top: 200;
 }
 
-/*
-b, strong{
-  color: #ab706d;
-}
-*/
+
 
 
