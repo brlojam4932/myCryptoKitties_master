@@ -27,7 +27,7 @@ var dnaStr = "457896541299";
 var contractAddress = "0x75F3803AadcABe526DCEfA7523602d2FeB76D06E";
 var contractOwner;
 
-$(document).ready(function(){
+$(document).ready(function() {
   window.ethereum.enable().then(function(accounts){
     instance = new web3.eth.Contract(abi, contractAddress, {from: accounts[0]});
     instance.methods.owner().call().then(test => {
@@ -44,7 +44,7 @@ $(document).ready(function(){
     *   when the _createKitty internal method is called
     */
 
-    instance.events.Birth().on('data', function(event) { //function with callback
+    instance.events.Birth().on('data', (event) => { //function with callback
       console.log(event);
       let owner = event.returnValues.owner;
       let kittenId = event.returnValues.kittenId;
@@ -61,8 +61,45 @@ $(document).ready(function(){
       
     })
     .on('error', console.error);
-    
+
+
+    instance.events.MarketTransactions()
+      .on("data", (event) => {
+        console.log(event);
+        var eventType = event.returnValues["TxType"].toString()
+        var tokenId = event.returnValues["tokenId"]
+        if (eventType == "Buy") {
+          alert_msg('Succesfully Kitty purchase! Now you own this Kitty with TokenId: ' + tokenId, 'success')
+        }
+        if (eventType == "Create offer") {
+          alert_msg('Successfully Offer set for Kitty id: ' + tokenId, 'success')
+          $("#cancelBox").removeClass("hidden")
+          $("#cancelBtn").attr("onclick", "deleteOffer(" + tokenId + ") ")
+          $("#sellBtn").attr("onclick", "")
+          $("#sellBtn").addClass("btn-warning")
+          $("#sellBtn").html("<b>For sale at:</b>")
+          var price = $("#catPrice").val()
+          $("#catPrice").val(price)
+          $("#catPrice").prop("readonly", true)
+
+        }
+        if (eventType == "Remove offer") {
+          alert_msg('Successfully Offer removed for Kitty id: ' + tokenId, 'success')
+          $("#cancelBox").addClass("hidden")
+          $("#cancelBtn").attr("onclick", "")
+          $("#catPrice").val("")
+          $("#catPrice").prop("readonly", false)
+          $("#sellBtn").removeClass("btn-warning")
+          $("#sellBtn").addClass("btn-success")
+          $("#sellBtn").html("<b>Sell me</b>")
+          $("#sellBtn").attr("onclick", "sellCat(" + tokenId + ") ")
+        }
+      })
+      .on("error", console.error);
     });
+
+  });
+
 
     function createKitty() {
       var dnaStr = getDna();
@@ -79,6 +116,33 @@ $(document).ready(function(){
       createKitty(getDna());
     })
 
+
+    async function checkOffer(id) {
+
+      let res;
+      try {
+
+        res = await instance.methods.getOffer(id).call();
+        var price = res["price"];
+        var seller = res["seller"];
+        var onsale = false
+        //If price is more than 0, then cat is for sale
+        if (price > 0) {
+          onsale = true
+        }
+        //check that it belongs to someone
+        price = Web3.utils.fromWei(price, "ether");
+        var offer = {seller: seller, price: price, onsale: onsale}
+        return offer
+
+      } catch (err) {
+        console.log(err);
+        return
+      }
+
+    }
+
+
     // Get all the kitties from address
     async function kittyByOwner(address) {
 
@@ -92,7 +156,7 @@ $(document).ready(function(){
 
    //Gen 0 cats for sale
    async function contractCatalog() {
-     var arrayId = await instance.methods.getAllTokenOnSale().call();
+     var arrayId = await instance.methods.getAllTokensForUser().call();
      for (i = 0; i < arrayId.length; i++) {
        if(arrayId[i] != "0") {
          appendKitty(arrayId[i])
@@ -139,7 +203,7 @@ $(document).ready(function(){
     
   // -----------------create cat end--------------////
 
-  /*
+ 
 
     getAccountsButton.addEventListener('click', async () => {
       //we use eth_accounts because it returns a list of addresses owned by us.
@@ -152,9 +216,9 @@ $(document).ready(function(){
     
     });
 
-    */
+ 
 
-  }) 
+  
  
 
 //==================Ivan on Tech Code===============================
