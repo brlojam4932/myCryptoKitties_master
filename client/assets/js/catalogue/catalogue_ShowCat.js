@@ -47,7 +47,7 @@ function renderCat(dna, id) {
     eyeVariation(dna.eyeVariation, id)
     decorationVariation(dna.decorationVariation, id)
     decorationMidColorFunc(dna.decorationMidColorFunc, id)
-    decorationSidescolor(dna.decorationSidescolor, id)
+    decorationSidesColorFunc(dna.decorationSidesColorFunc, id)
     animationVariation(dna.animation)
 }
 
@@ -67,7 +67,7 @@ function catDna(dnaStr) {
         "eyesShape": dnaStr.substring(8, 9),
         "decorationVariation": dnaStr.substring(9, 10),
         "decorationMidColorFunc": dnaStr.substring(10, 12),
-        "decorationSidescolor": dnaStr.substring(12, 14),
+        "decorationSidesColorFunc": dnaStr.substring(12, 14),
         "animation": dnaStr.substring(14, 15),
         "lastNum": dnaStr.substring(15, 16)
     }
@@ -99,13 +99,13 @@ function catBody(id) {
     var single = `
     <div class="col-lg-4 catBox m-2 light-b-shadow">
       <div id="earsParent">
-                  <div id`+ id + ` ="earL">
-                    <div id`+ id + `="left_ear">
+                  <div id ="earL">
+                    <div id="left_ear">
                       <div id`+ id + `="earShape1"></div>
                     </div>
                   </div>
-                  <div id`+ id + `="earR">
-                    <div id`+ id + `="right_ear">
+                  <div id="earR">
+                    <div id="right_ear">
                       <div id`+ id + `="earShape2"></div>
                     </div>
                   </div>
@@ -128,7 +128,7 @@ function catBody(id) {
       
                               </div> <!--cat eyes end-->
       
-                              <div id`+ id + `="mouth" class="mouthParent">
+                              <div id="mouth" class="mouthParent">
                                   <div class="left_mouth">
                                     <div id`+ id + `="cat__mouth">
                                       <div class="whiskers1"></div>
