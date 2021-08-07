@@ -55,7 +55,8 @@ function renderCat(dna, id) {
 //Substring: extracts characters from a string
 //DNA: 26 37 86 14 1 1 14 20 1 1 
 //key: 01234...
-function dna(dnaStr) {
+function catDna(dnaStr) {
+
     var dna = {
         //colors
         "bodyColor": dnaStr.substring(0, 2),  
@@ -78,12 +79,12 @@ function dna(dnaStr) {
 function catBox(id) {
 
     var catDiv = `
-        <div class="col-lg-4 pointer fit-content" id="catview` + id +`">
+        <div class="col-lg-4 pointer fit-content" id="catview` + id + `">
             <div class="featureBox catDiv">
-            `+ catBody(id) +`
+            `+ catBody(id) + `
             </div>
-            <div class="dnaDiv" id="catDNA` + id +`"></div>
-            `+ cattributes(id) +`
+            <div class="dnaDiv" id="catDNA` + id + `"></div>
+            `+ cattributes(id) + ` 
         </div>`
     var catView = $(`#catview` + id)
     if(!catView.length) {
@@ -98,13 +99,13 @@ function catBody(id) {
     var single = `
     <div class="col-lg-4 catBox m-2 light-b-shadow">
       <div id="earsParent">
-                  <div id ="earL">
-                    <div id="left_ear">
+                  <div id`+ id + ` ="earL">
+                    <div id`+ id + `="left_ear">
                       <div id`+ id + `="earShape1"></div>
                     </div>
                   </div>
-                  <div id="earR">
-                    <div id="right_ear">
+                  <div id`+ id + `="earR">
+                    <div id`+ id + `="right_ear">
                       <div id`+ id + `="earShape2"></div>
                     </div>
                   </div>
@@ -127,7 +128,7 @@ function catBody(id) {
       
                               </div> <!--cat eyes end-->
       
-                              <div id="mouth" class="mouthParent">
+                              <div id`+ id + `="mouth" class="mouthParent">
                                   <div class="left_mouth">
                                     <div id`+ id + `="cat__mouth">
                                       <div class="whiskers1"></div>
@@ -203,7 +204,7 @@ function catBody(id) {
 
 }
 
-function cattrubutes(id) {
+function cattributes(id) {
 
     var Cattributes = `
     <ul class="ml-5 cattributes">

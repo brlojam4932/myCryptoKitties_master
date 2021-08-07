@@ -16,15 +16,17 @@
   <!--<script src="assets/bootstrap/js/popper.js"></script>-->
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
-  <script src="assets/js/web3.minFilip.js"></script>
+  
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
  
   <script type="module" src="./ethers-5.1.esm.min.js"></script>
  
-  
+  <script type="text/javascript" src="assets/js/web3.minFilip.js"></script>
   <script type="text/javascript" src="./abi.js" ></script>
   <script type="text/javascript" src="./index.js"></script>
+  
+  
 
   <script type="text/javascript" src="../node_modules/@metamask/onboarding/dist/metamask-onboarding.bundle.js"></script>
 
@@ -74,7 +76,7 @@
       </div>
     </div>
 
-    <div class="container my-container">
+    <div class="container middleBox my-container">
       <div class="row" id="catsDiv">
         
       </div><!--row end--> 
@@ -91,16 +93,18 @@
 
   </body>
 
+  
   <script>
     // when page loads create the catalog
-  
+ 
     $(document).ready(function () {
       setTimeout(() => {
-        contractCatalog()
+        myKitties()
       }, 1000)
     });
   
   </script>
+  
   <!--need to wait until page loads before executing these scripts below-->
   
   <script type="text/javascript" src="assets/js/colors.js"></script>

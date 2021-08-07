@@ -22,17 +22,15 @@ if (typeof window.ethereum !== 'undefined') {
 
 var instance;
 var user;
-var dnaStr = "457896541299";
+//var dnaStr = "457896541299";
+//var dnaStr = "";
 
 var contractAddress = "0x75F3803AadcABe526DCEfA7523602d2FeB76D06E";
 var contractOwner;
 
-$(document).ready(function() {
+$(document).ready(function(){
   window.ethereum.enable().then(function(accounts){
     instance = new web3.eth.Contract(abi, contractAddress, {from: accounts[0]});
-    instance.methods.owner().call().then(test => {
-      contractOwner = test;
-    });
     user = accounts[0];
 
     console.log(instance);
@@ -62,7 +60,7 @@ $(document).ready(function() {
     })
     .on('error', console.error);
 
-
+/*
     instance.events.MarketTransactions()
       .on("data", (event) => {
         console.log(event);
@@ -96,20 +94,24 @@ $(document).ready(function() {
         }
       })
       .on("error", console.error);
+       */
     });
+   
 
   });
 
 
-    function createKitty() {
-      var dnaStr = getDna();
-      let res;
-      try {
-        res = instance.methods.createKittyGen0(dnaStr).send();
-      } catch (err) {
-        console.log(err);
-      }
-    }
+  function createKitty() {
+    var dnaStr = getDna();
+    instance.methods.createKittyGen0(dnaStr).send({}, function(error, txHash) {
+      if(error)
+        console.log(error);
+      else{
+        console.log(txHash);
+      } 
+    })
+
+  }
 
 
     $('#createCat').click(() =>{
@@ -154,17 +156,19 @@ $(document).ready(function() {
       }     
     }
 
+/*
    //Gen 0 cats for sale
    async function contractCatalog() {
-     var arrayId = await instance.methods.getAllTokensForUser().call();
+     var arrayId = await instance.methods.getAllTokenOnSale().call();
      for (i = 0; i < arrayId.length; i++) {
        if(arrayId[i] != "0") {
          appendKitty(arrayId[i])
        }
      }
    }
+   */
 
-   //Get kittues of a current address
+   //Get kitties of a current address
    async function myKitties() {
      var arrayId = await instance.methods.tokensOfOwner(user).call();
      for (i = 0; i < arrayId.length; i++) {
@@ -199,12 +203,13 @@ $(document).ready(function() {
 
   async function totalCats() {
     var cats = await instance.methods.totalSupply().call();
+    console.log("total cats: " + cats)
   }
     
   // -----------------create cat end--------------////
 
  
-
+/*
     getAccountsButton.addEventListener('click', async () => {
       //we use eth_accounts because it returns a list of addresses owned by us.
       const accounts = await ethereum.request({ method: 'eth_accounts' });
@@ -216,10 +221,8 @@ $(document).ready(function() {
     
     });
 
- 
+    */
 
-  
- 
 
 //==================Ivan on Tech Code===============================
 
