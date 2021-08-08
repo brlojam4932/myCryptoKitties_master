@@ -96,9 +96,7 @@ function catBox(id) {
 //Simple body of a cat
 function catBody(id) {
     
-    var single = `
-    <div class="col-lg-4 catBox m-2 light-b-shadow">
-      <div id="earsParent">
+    var single = `<div id="earsParent">
                   <div id ="earL">
                     <div id="left_ear">
                       <div id`+ id + `="earShape1"></div>
@@ -197,8 +195,7 @@ function catBody(id) {
                                   <div id`+ id + `="cat__tail"></div>
                               </div>         
                       
-                      </div> <!--cat body loc end--> 
-    </div>`
+                      </div> <!--cat body loc end--> `
 
     return single
 
