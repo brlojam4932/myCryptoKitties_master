@@ -207,7 +207,7 @@ function cattributes(id) {
     <ul class="ml-5 cattributes">
         <li><span id="eyeName`+ id + `"></span></li>
         <li><span id="decorationName`+ id + `"></span></li>
-        <li><span id="animationName`+ id + `"></span></li>
+        <li><span id="animationCode`+ id + `"></span></li>
     </ul>`
 
     return Cattributes;
