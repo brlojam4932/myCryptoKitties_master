@@ -15,12 +15,12 @@ body{
 
 
 #cat__head{
+  position: relative; 
   background-color: rgb(136, 150, 150);
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  position: relative; 
-  top: -173px;
+  top: -83px;
   
 }
 
@@ -74,24 +74,25 @@ body{
 #earsParent{
   position: relative;
   top: 20px;
+  display: flex;
 }
 
-#earL{
+.earL{
   position: relative;
 }
-#earR{
+.earR{
   position: relative;
 }
 
-#left_ear{
+.left_ear{
   position: relative;
-  left: -8;
-  top: 25px;
+  
+  top: 24px;
 }
-#right_ear{
+.right_ear{
   position: relative;
-  left: 72px;
-  top: -113px;
+  left: 22px;
+  top: -28px;
 }
 
 #earShape1{

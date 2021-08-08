@@ -211,10 +211,10 @@ function animationType3() {
 
 function animationType4() {
     resetAnimation()
-    $("#earL").removeClass("earStaticL");
-    $("#earR").removeClass("earStaticR");
-    $("#earL").addClass("earRotL");
-    $("#earR").addClass("earRotR");
+    $(".earL").removeClass("earStaticL");
+    $(".earR").removeClass("earStaticR");
+    $(".earL").addClass("earRotL");
+    $(".earR").addClass("earRotR");
     // add any animationclass that you create
 }
 
@@ -235,16 +235,16 @@ function resetAnimation() {
     $("#earsParent").removeClass("headTransY");
     $("#cat__head").removeClass("headRot");
     $("#earsParent").removeClass("headRot");
-    $("#earL").removeClass("earRotL");
-    $("#earR").removeClass("earRotR");
+    $(".earL").removeClass("earRotL");
+    $(".earR").removeClass("earRotR");
     $("#cat__tail").removeClass("tailRot");
     $("#mouth").removeClass("mouthMove");
     // add any animationclass that you create   
 }
 
 function earsReset() {
-    $("#earL").addClass("earStaticL");
-    $("#earR").addClass("earStaticR");
+    $(".earL").addClass("earStaticL");
+    $(".earR").addClass("earStaticR");
 }
 
 //----------------eyes variations-----------------------------

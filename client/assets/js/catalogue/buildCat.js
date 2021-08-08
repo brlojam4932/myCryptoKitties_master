@@ -17,7 +17,7 @@ function mouthColor(code, id) {
 
 function eyesColor(code, id) {
   var color = colors[code]
-  $("#pupils1, #pupils2" + id).css('background', '#' + color)  //This changes the color of the cat's eyes
+  $("#pupils1" + id + ", #pupils2" + id).css('background', '#' + color)  //This changes the color of the cat's eyes
 
 }
 
@@ -178,10 +178,10 @@ function animationType3(id) {
 
 function animationType4(id) {
   resetAnimation(id)
-  $("#earL" + id).removeClass("earStaticL");
-  $("#earR" + id).removeClass("earStaticR");
-  $("#earL" + id).addClass("earRotL");
-  $("#earR" + id).addClass("earRotR");
+  $(".earL" + id).removeClass("earStaticL");
+  $(".earR" + id).removeClass("earStaticR");
+  $(".earL" + id).addClass("earRotL");
+  $(".earR" + id).addClass("earRotR");
   // add any animationclass that you create
 }
 
@@ -202,47 +202,47 @@ function resetAnimation(id) {
   $("#earsParent").removeClass("headTransY");
   $("#cat__head" + id).removeClass("headRot");
   $("#earsParent").removeClass("headRot");
-  $("#earL" + id).removeClass("earRotL");
-  $("#earR" + id).removeClass("earRotR");
-  $("#tail" + id).removeClass("tailRot");
+  $(".earL" + id).removeClass("earRotL");
+  $(".earR" + id).removeClass("earRotR");
+  $("#cat__tail" + id).removeClass("tailRot");
   $("#mouth" + id).removeClass("mouthMove");
   // add any animationclass that you create   
 }
 
 function earsReset(id) {
-  $("#earL" + id).addClass("earStaticL");
-  $("#earR" + id).addClass("earStaticR");
+  $(".earL" + id).addClass("earStaticL");
+  $(".earR" + id).addClass("earStaticR");
 }
 
 //----------------eyes variations-----------------------------
 
 function normalEyes(id) {
-   $('#cat__eye' + id).find('span').css({"border": "none", "border-radius": "50px", "width": "28px", "height": "28px", "left": "7px"})
+   $('.cat__eye' + id).find('span').css({"border": "none", "border-radius": "50px", "width": "28px", "height": "28px", "left": "7px"})
 }
 
 function eyesType1(id) {
-   $('#cat__eye' + id).find('span').css('border-top', '15px solid', )
+   $('.cat__eye' + id).find('span').css('border-top', '15px solid', )
 
 }
 
 function eyesType2(id) {
-   $('#cat__eye' + id).find('span').css('border-bottom', '15px solid')
+   $('.cat__eye' + id).find('span').css('border-bottom', '15px solid')
 }
 
 function eyesType3(id) {
-   $('#cat__eye' + id).find('span').css('border-radius', '10px')
+   $('.cat__eye' + id).find('span').css('border-radius', '10px')
 }
 
 function eyesType4(id) {
-   $('#cat__eye' + id).find('span').css('height', '40px')
+   $('.cat__eye' + id).find('span').css('height', '40px')
 }
 
 function eyesType5(id) {
-   $('#cat__eye' + id).find('span').css('height', '20px')
+   $('.cat__eye' + id).find('span').css('height', '20px')
 }
 
 function eyesType6(id) {
-   $('#cat__eye' + id).find('span').css({'width': '10px', 'height': '35px', "left": "14px"})
+   $('.cat__eye' + id).find('span').css({'width': '10px', 'height': '35px', "left": "14px"})
 }
 
 // **   Decoration **  //

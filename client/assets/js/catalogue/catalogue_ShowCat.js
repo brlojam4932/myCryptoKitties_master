@@ -37,7 +37,7 @@ async function singleCat(dna, id, gen) {
 }
 
 
-//Apply cat CSS Styles from buidCat.js
+//Apply cat CSS Styles from buildCat.js
 function renderCat(dna, id) {
 
     bodyColor(dna.bodyColor, id)
@@ -96,29 +96,29 @@ function catBox(id) {
 //Simple body of a cat
 function catBody(id) {
     
-    var single = `<div id="earsParent">
-                  <div id ="earL">
-                    <div id="left_ear">
-                      <div id`+ id + `="earShape1"></div>
+    var single = `<div id="earsParent`+ id + `">
+                  <div class="earL">
+                    <div class="left_ear">
+                      <div id="earShape1`+ id + `"></div>
                     </div>
                   </div>
-                  <div id="earR">
-                    <div id="right_ear">
-                      <div id`+ id + `="earShape2"></div>
+                  <div class="earR">
+                    <div class="right_ear">
+                      <div id="earShape2`+ id + `"></div>
                     </div>
                   </div>
                 </div>
-                          <div id`+ id + `="cat__head"> <!--cat head start-->
+                          <div id="cat__head`+ id + `"> <!--cat head start-->
       
                               <div class="eyesParent"> <!--cat eyes start-->
                                   <div class="cat__eye">
-                                      <span id`+ id + ` = "pupils1">
+                                      <span id="pupils1`+ id + `">
                                           <div class="ref"></div>
                                       </span>
                                   </div>
               
                                   <div class="cat__eye">
-                                      <span id`+ id + ` = "pupils2">
+                                      <span id="pupils2`+ id + `">
                                           <div class="ref"></div>
                                       </span>
                                   </div> 
@@ -126,9 +126,9 @@ function catBody(id) {
       
                               </div> <!--cat eyes end-->
       
-                              <div id="mouth" class="mouthParent">
+                              <div id="mouth`+ id + `" class="mouthParent">
                                   <div class="left_mouth">
-                                    <div id`+ id + `="cat__mouth">
+                                    <div id="cat__mouth`+ id + `">
                                       <div class="whiskers1"></div>
                                       <div class="whiskers2"></div>
                                       <div class="whiskers3"></div>
@@ -138,7 +138,7 @@ function catBody(id) {
                                   <div class="nose"></div>
                                                     
                                   <div class="right_mouth">
-                                    <div id`+ id + `="cat__mouth">
+                                    <div id="cat__mouth`+ id + `">
                                       <div class="whiskers1"></div>
                                       <div class="whiskers2"></div>
                                       <div class="whiskers3"></div>
@@ -149,42 +149,42 @@ function catBody(id) {
               
                           </div> <!--cat head end-->
 
-                      <div id`+ id + `="cat__body">
+                      <div id="cat__body`+ id + `">
                           <div class="cat__chest"></div>
               
                           <div class="pattern_Parent"> <!--patterns loc start-->
                             <div class="patternLt">
-                              <div id`+ id + `="patternShapeL1"></div>
-                              <div id`+ id + `="patternShapeL2"></div>
-                              <div id`+ id + `="patternShapeL3"></div>
+                              <div id="patternShapeL1`+ id + `"></div>
+                              <div id="patternShapeL2`+ id + `"></div>
+                              <div id="patternShapeL3`+ id + `"></div>
                             </div>
               
                             <div class="patternRt">
-                              <div id`+ id + `="patternShapeR1"></div>
-                              <div id`+ id + `="patternShapeR2"></div>
-                              <div id`+ id + `="patternShapeR3"></div>
+                              <div id="patternShapeR1`+ id + `"></div>
+                              <div id="patternShapeR2`+ id + `"></div>
+                              <div id="patternShapeR3`+ id + `"></div>
                             </div>
                           
                           </div> <!--patterns loc end-->
                 
                               <div class="hindLegsParent">
                                 <div class="left_hindLegs">
-                                  <div id`+ id + `="hindLegsShape"></div>
+                                  <div id="hindLegsShape`+ id + `"></div>
                                 </div>
                                 <div class="right_hindLegs">
-                                  <div id`+ id + `="hindLegsShape"></div>
+                                  <div id="hindLegsShape`+ id + `"></div>
                                 </div>
                               </div>
                     
                               <div class="front_legs_Parent"> <!--f-legP loc start-->
-                                <div id`+ id + `="leg1"> <!--hey-->
-                                  <div id`+ id + `="front_pawsL">
+                                <div id="leg1`+ id + `"> <!--hey-->
+                                  <div id="front_pawsL`+ id + `">
                                     <div class="pawL"></div>
                                   </div>
                                 </div>
                     
-                                <div id`+ id + `="leg2">
-                                  <div id`+ id + `="front_pawsR">
+                                <div id="leg2`+ id + `">
+                                  <div id="front_pawsR`+ id + `">
                                     <div class="pawR"></div>
                                   </div>
                                 </div>
@@ -192,7 +192,7 @@ function catBody(id) {
                               </div> <!--f-legP loc end-->
 
                               <div class="cat_tail_loc">
-                                  <div id`+ id + `="cat__tail"></div>
+                                  <div id="cat__tail`+ id + `"></div>
                               </div>         
                       
                       </div> <!--cat body loc end--> `
