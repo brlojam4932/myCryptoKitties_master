@@ -1,9 +1,9 @@
 var web3 = new Web3(Web3.givenProvider);
 var instance;
 var user;
-var dnaStr = "457896541299";
+//var dnaStr = "457896541299";
 
-var contract = "0xe754839f150f637fdf5748974C6146240818468C";
+var contract = "0x6eeCBd4492381081313F1aEA2E3FF54Fd60490ae";
 var contractOwner;
 
 $(document).ready(function () {

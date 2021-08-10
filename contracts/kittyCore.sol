@@ -11,9 +11,9 @@ contract KittyCore is Ownable, KittyMarketPlace {
   // Counts the number of cats the contract owner has created.
   uint256 public gen0Counter;
 
-  constructor() public {
+  constructor() {
     // We are creating the first kitty at index 0  
-    _createKitty(0, 0, 0, uint256(-1), address(0));
+    _createKitty(0, 0, 0, uint256(0), address(0));
   }
 
 /*
@@ -57,7 +57,7 @@ contract KittyCore is Ownable, KittyMarketPlace {
       uint256 geneKid;
       uint256 [8] memory geneArray;
       uint256 index = 7;
-      uint8 random = uint8(now % 255);
+      uint8 random = uint8(block.timestamp % 255);
       uint256 i = 0;
       
       for(i = 1; i <= 128; i=i*2){

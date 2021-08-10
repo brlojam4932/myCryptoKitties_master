@@ -1,248 +1,200 @@
+
 // CSS properties to build each cat depending on the DNA
+
 
 var colors = Object.values(allColors())
 
-//This function code needs to modified so that it works with Your cat code.
-function bodyColor(code, id) {
-  var color = colors[code]
-  $('#cat__head' + id + ', #cat__body' + id + ', #hindLegsShape' + id + ', #leg1' + id + ', #leg2' + id).css('background', '#' + color)  //This changes the color of the cat
-  
+function headColor(code, id) {
+
+    var color = colors[code]
+    $('#head' + id + ', #chest' + id).css('background', '#' + color)
 }
 
-function mouthColor(code, id) {
-  var color = colors[code]
-  $('#cat__mouth' + id + ', #cat__tail' + id + ', #front_pawsL' + id + ', #front_pawsR' + id).css('background', '#' + color)  //This changes the color of the cat's mouth
-
+function mouthAndBelly(code, id) {
+    var color = colors[code]
+    $('#mouth-contour' + id + ', #tail' + id + ', #chest_inner' + id).css('background', '#' + color)
 }
 
-function eyesColor(code, id) {
-  var color = colors[code]
-  $("#pupils1" + id + ", #pupils2" + id).css('background', '#' + color)  //This changes the color of the cat's eyes
-
+function eyeColor(code, id) {
+    var color = colors[code]
+    $('#catEye' + id).find('span').css('background', '#' + color)
 }
 
-function earsColor(code, id) {
-  var color = colors[code]
-  $('#earShape' + id).css('background', '#' + color)  //This changes the color of the cat's ears
+function earsAndPaw(code, id) {
+    var color = colors[code]
+    $('#leftEar' + id + ', #rightEar' + id + ', #pawLeft' + id + ', #pawRight' + id + ', #pawRightInner' + id + ', #pawLeftInner' + id).css('background', '#' + color)
 
 }
 
-function decorationMidColorFunc(code, id) {
-  var color = colors[code]
-  $('#patternShapeL2' + id + ', #patternShapeR2' + id).css('background', '#' + color)  //This changes the color of the cat's ears
-
+//Middle decoration color
+function midColor(code, id) {
+    var color = colors[code]
+    $('#midDot' + id).css('background', '#' + color)
 }
 
-function decorationSidesColorFunc(code, id) {
-  var color = colors[code]
-  $('#patternShapeL1' + id + ', #patternShapeR1' + id + ', #patternShapeL3' + id + ', #patternShapeR3' + id).css('background', '#' + color)  //This changes the color of the cat's ears
-
+//Sides decoration color
+function SidesColor(code, id) {
+    var color = colors[code]
+    $('#leftDot' + id).css('background', '#' + color)
+    $('#rightDot' + id).css('background', '#' + color)
 }
-
 
 // Variation functions for range-bars
 
-// 7 eye types
+//8 eye types
 function eyeVariation(num, id) {
 
- 
-  switch (num) {
-      case 1:
-          normalEyes(id)
-          $('#eyeName' + id).html('Basic') // Set the badge to basic, chill, etc.
-          break
-      case 2:
-          normalEyes(id) // reset
-          $('#eyeName' + id).html('Chill') // Set the badge to "Chill"
-          eyesType1(id) // set border to change shape of the eye element
-          break
-      case 3:
-          normalEyes(id) // reset
-          $('#eyeName' + id).html('Chill 2') // Set the badge to "Chill 2"
-          eyesType2(id) // set border to change shape of the eye element
-          break
-
-      case 4:
-          normalEyes(id) // reset
-          $('#eyeName' + id).html('Roboto') // Set the badge to "Box eyes"
-          eyesType3(id) // set border to change shape of the eye element
-          break
-      case 5:
-          normalEyes(id) // reset
-          $('#eyeName' + id).html('Sad') // Set the badge to "Sad face"
-          eyesType4(id) // set border to change shape of the eye element
-          break
-      case 6:
-          normalEyes(id) // reset
-          $('#eyeName' + id).html('Techy') // Set the badge to "Tech"
-          eyesType5(id) // set border to change shape of the eye element
-          break
-      case 7:
-          normalEyes(id) // reset
-          $('#eyeName' + id).html('Cat Eyes') // Set the badge to "Tech"
-          eyesType6(id) // set border to change shape of the eye element
-          break
-  }
+    switch (num) {
+        case "1":
+            normalEyes(id)
+            $('#eyeName' + id).html('Basic')
+            break
+        case "2":
+            normalEyes(id)
+            $('#eyeName' + id).html('Chill')
+            return eyesType1(id)
+            break
+        case "3":
+            normalEyes(id)
+            $('#eyeName' + id).html('Cute')
+            return eyesType2(id)
+            break
+        case "4":
+            normalEyes(id)
+            $('#eyeName' + id).html('Watching')
+            return eyesType3(id)
+            break
+        case "5":
+            normalEyes(id)
+            $('#eyeName' + id).html('Night')
+            return eyesType4(id)
+            break
+        case "6":
+            normalEyes(id)
+            $('#eyeName' + id).html('Wonder down')
+            return eyesType5(id)
+            break
+        case "7":
+            normalEyes(id)
+            $('#eyeName' + id).html('Wonder up')
+            return eyesType6(id)
+            break
+        case "8":
+            normalEyes(id)
+            $('#eyeName' + id).html('Circle')
+            return eyesType7(id)
+            break
+    }
 }
 
+
+//8 decorations types
 function decorationVariation(num, id) {
-  
-  switch (num) {
-      case 1:
-          $('#decorationName' + id).html('Basic')
-          normaldecoration(id)
-          break
-      case 2:
-          $('#decorationName' + id).html('Alt Pattern 1')
-          altDecoration1(id)
-          break
-      case 3:
-          $('#decorationName' + id).html('Alt Pattern 2')
-          altDecoration2(id)
-          break
-      case 4:
-          $('#decorationName' + id).html('Alt Pattern 3')
-          altDecoration3(id)
-          break
-      case 5:
-          $('#decorationName' + id).html('Alt Pattern 4')
-          altDecoration4(id)
-          break
-      case 6:
-          $('#decorationName' + id).html('Alt Pattern 5')
-          altDecoration5(id)
-          break
-      case 7:
-          $('#decorationName' + id).html('Alt Pattern 6')
-          altDecoration6(id)
-          break
 
-  }
+    switch (num) {
+        case "1":
+            $('#decorationName' + id).html('Basic')
+            normaldecoration(id)
+            break
+        case "2":
+            $('#decorationName' + id).html('Inverted')
+            decorationType1(id)
+            break
+        case "3":
+            $('#decorationName' + id).html('Twisted')
+            decorationType2(id)
+            break
+        case "4":
+            $('#decorationName' + id).html('Uniform')
+            decorationType3(id)
+            break
+        case "5":
+            $('#decorationName' + id).html('Uniform twist')
+            decorationType4(id)
+            break
+        case "6":
+            $('#decorationName' + id).html('Tribal')
+            decorationType5(id)
+            break
+        case "7":
+            $('#decorationName' + id).html('Propeller')
+            decorationType6(id)
+            break
+        case "8":
+            $('#decorationName' + id).html('Single')
+            decorationType7(id)
+            break
+    }
 }
 
-//----------------animation--------------------------------------
-
+//6 Animations 
 function animationVariation(num, id) {
 
-  switch (num) {
-      case 1:
-          $('#animationCode' + id).html('basic')
-          animationType2(id)
-          break
-      case 2:
-          $('#animationCode' + id).html("heads Up")
-          animationType1(id)
-          break
-      case 3:
-          $('#animationCode' + id).html("head rot")
-          animationType3(id)
-          break
-      case 4:
-          $('#animationCode' + id).html("ear rotations")
-          animationType4(id)
-          break
-      case 5:
-          $('#animationCode' + id).html("tail rot")
-          animationType5(id)
-          break
-      case 6:
-          $('#animationCode' + id).html("mouth move")
-          animationType6(id)
-          break
-  }
+    switch (num) {
+        case "1":
+            $('#animationName' + id).html('Moving head')
+            movingHead(id)
+            break
+        case "2":
+            $('#animationName' + id).html('Moving tail')
+            movingTail(id)
+            break
+        case "3":
+            $('#animationName' + id).html('Moving ears')
+            movingEars(id)
+            break
+        case "4":
+            $('#animationName' + id).html('Move left Ear')
+            leftEar(id)
+            break
+        case "5":
+            $('#animationName' + id).html('Move right Ear')
+            rightEar(id)
+            break
+        case "6":
+            $('#animationName' + id).html('Attentive ears')
+            attentiveCat(id)
+            break
+    }
 }
 
-/** Animations **/
-
-function animationType1(id) {
-  resetAnimation(id)
-  earsReset(id) 
-  $("#cat__head" + id).addClass("headTransY");
-  $("#earsParent").addClass("headTransY");
-}
-
-function animationType2(id) {
-  resetAnimation(id)
-  earsReset(id) 
-  // add any animationclass that you create
-}
-
-function animationType3(id) {
-  resetAnimation(id)
-  earsReset(id) 
-  $("#cat__head" + id).addClass("headRot");
-  $("#earsParent").addClass("headRot");
-  
-  // add any animationclass that you create
-}
-
-function animationType4(id) {
-  resetAnimation(id)
-  $(".earL" + id).removeClass("earStaticL");
-  $(".earR" + id).removeClass("earStaticR");
-  $(".earL" + id).addClass("earRotL");
-  $(".earR" + id).addClass("earRotR");
-  // add any animationclass that you create
-}
-
-function animationType5(id) {
-  resetAnimation(id)
-  earsReset(id) 
-  $("#cat_tail" + id).addClass("tailRot");
-  // add any animationclass that you create
-}
-
-function animationType6(id) {
-  resetAnimation(id)
-  $("#mouth" + id).addClass("mouthMove");
-}
-
-function resetAnimation(id) {
-  $("#cat__head" + id).removeClass("headTransY");
-  $("#earsParent").removeClass("headTransY");
-  $("#cat__head" + id).removeClass("headRot");
-  $("#earsParent").removeClass("headRot");
-  $(".earL" + id).removeClass("earRotL");
-  $(".earR" + id).removeClass("earRotR");
-  $("#cat__tail" + id).removeClass("tailRot");
-  $("#mouth" + id).removeClass("mouthMove");
-  // add any animationclass that you create   
-}
-
-function earsReset(id) {
-  $(".earL" + id).addClass("earStaticL");
-  $(".earR" + id).addClass("earStaticR");
-}
-
-//----------------eyes variations-----------------------------
+// **   Eyes **  //
 
 function normalEyes(id) {
-   $('.cat__eye' + id).find('span').css({"border": "none", "border-radius": "50px", "width": "28px", "height": "28px", "left": "7px"})
+    $('#catEye' + id).find('span').css('border', 'none')
 }
 
+//top
 function eyesType1(id) {
-   $('.cat__eye' + id).find('span').css('border-top', '15px solid', )
-
+    $('#catEye' + id).find('span').css('border-top', '15px solid')
 }
 
+//bottom
 function eyesType2(id) {
-   $('.cat__eye' + id).find('span').css('border-bottom', '15px solid')
+    $('#catEye' + id).find('span').css('border-bottom', '15px solid')
 }
 
+//top and bottom
 function eyesType3(id) {
-   $('.cat__eye' + id).find('span').css('border-radius', '10px')
+    $('#catEye' + id).find('span').css({ 'border-top': '15px solid', 'border-bottom': '15px solid' })
 }
 
+//Right and left
 function eyesType4(id) {
-   $('.cat__eye' + id).find('span').css('height', '40px')
+    $('#catEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid' })
 }
 
+//Right left top
 function eyesType5(id) {
-   $('.cat__eye' + id).find('span').css('height', '20px')
+    $('#catEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-top': '15px solid' })
 }
-
+//Right left botton
 function eyesType6(id) {
-   $('.cat__eye' + id).find('span').css({'width': '10px', 'height': '35px', "left": "14px"})
+    $('#catEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-bottom': '15px solid' })
+}
+//Full shape
+function eyesType7(id) {
+    $('#catEye' + id).find('span').css('border', '15px solid')
 }
 
 // **   Decoration **  //
@@ -250,106 +202,128 @@ function eyesType6(id) {
 // ** Angles ** //
 
 function normaldecoration(id) {
-  //Remove all style from other decorations
-  //In this way we can also use normalDecoration() to reset the decoration style
-  //-------left--------------
-  $('#patternShapeL1' + id).css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%", "background": "rgb(122, 190, 31)"})
-  $('#patternShapeL2' + id).css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-  $('$patternShapeL3' + id).css({ "transform": "rotate(15deg)", "height": "13px", "width": "34px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-
-  //-------right--------------
-  $('#patternShapeR1' + id).css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%"})
-  $('#patternShapeR2' + id).css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-  $('#patternShapeR3' + id).css({ "transform": "rotate(15deg)", "height": "13px", "width": "34px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+    //Remove all style from other decorations
+    //In this way we can also use normalDecoration() to reset the decoration style
+    $('#midDot' + id).css({ "transform": "rotate(0deg)", "height": "48px", "width": "14px", "top": "1px", "border-radius": "0 0 50% 50%" })
+    $('#leftDot' + id).css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "50% 0 50% 50%" })
+    $('#rightDot' + id).css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "0 50% 50% 50%" })
 }
 
-function altDecoration1(id) {
-  //Remove all style from other decorations
-  //In this way we can also use normalDecoration() to reset the decoration style
-  //-------left--------------
-  $('#patternShapeL1' + id).css({ "transform": "rotate(45deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "20%"})
-  $('#patternShapeL2' + id).css({ "transform": "rotate(0deg)", "height": "36px", "width": "36px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "20%" })
-  $('#patternShapeL3' + id).css({ "transform": "rotate(88deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "96px", "left": "20px", "border-radius": "20%"})
-
-   //-------right--------------
-   $('#patternShapeR1' + id).css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "20%"})
-   $('#patternShapeR2' + id).css({ "transform": "rotate(15deg)", "height": "25px", "width": "7px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "20%"})
-   $('#patternShapeR3' + id).css({ "transform": "rotate(47deg)", "height": "60px", "width": "60px", "position": "absolute", "top": "166px", "left": "-47px", "border-radius": "20%"})
-  
-
+//inverted
+function decorationType1(id) {
+    $('#midDot' + id).css("transform", "rotate(180deg)")
+    $('#leftDot' + id).css("transform", "rotate(0deg)")
+    $('#rightDot' + id).css("transform", "rotate(0deg)")
 }
 
-function altDecoration2(id) {
-  //Remove all style from other decorations
-  //In this way we can also use normalDecoration() to reset the decoration style
-  //-------left--------------
-  $('#patternShapeL1' + id).css({ "transform": "rotate(45deg)", "height": "9px", "width": "30px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "5% 70% 70% 5%"})
-  $('#patternShapeL2' + id).css({ "transform": "rotate(0deg)", "height": "36px", "width": "23px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-  $('#patternShapeL3' + id).css({ "transform": "rotate(15deg)", "height": "9px", "width": "51px", "position": "absolute", "top": "56px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
+//Twiss
+function decorationType2(id) {
+    $('#midDot' + id).css("transform", "rotate(180deg)")
+    $('#leftDot' + id).css("transform", "rotate(180deg)")
+    $('#rightDot' + id).css("transform", "rotate(180deg)")
 
-   //-------right--------------
-   $('#patternShapeR1' + id).css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "5% 70% 70% 5%"})
-   $('#patternShapeR2' + id).css({ "transform": "rotate(15deg)", "height": "9px", "width": "23px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-   $('#patternShapeR3' + id).css({ "transform": "rotate(15deg)", "height": "9px", "width": "51px", "position": "absolute", "top": "58px", "left": "0px", "border-radius": "5% 70% 70% 5%"})
 
 }
 
 // ** Parterns **//
 // Unifrom partern
-function altDecoration3(id) {
-  //Remove all style from other decorations
-  //In this way we can also use normalDecoration() to reset the decoration style
-  //-------left--------------
-  $('#patternShapeL1' + id).css({ "transform": "rotate(70deg)", "height": "14px", "width": "42px", "position": "absolute", "top": "31px", "left": "28px", "border-radius": "5% 70% 70% 5%"})
-  $('#patternShapeL2' + id).css({ "transform": "rotate(0deg)", "height": "36px", "width": "28px", "position": "absolute", "top": "55px", "left": "3px", "border-radius": "5% 70% 70% 5%"})
-  $('#patternShapeL3' + id).css({ "transform": "rotate(15deg)", "height": "14px", "width": "31px", "position": "absolute", "top": "180px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-
-   //-------right--------------
-   $('#patternShapeR1' + id).css({ "transform": "rotate(-23deg)", "height": "30px", "width": "42px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "5% 70% 70% 5%"})
-   $('#patternShapeR2' + id).css({ "transform": "rotate(15deg)", "height": "9px", "width": "28px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-   $('#patternShapeR3' + id).css({ "transform": "rotate(15deg)", "height": "14px", "width": "31px", "position": "absolute", "top": "180px", "left": "0px", "border-radius": "5% 70% 70% 5%"})
+function decorationType3(id) {
+    $('.cat__head-dots, #leftDot,+id #rightDot' + id).css({ "height": "40px" })
 }
 
- function altDecoration4(id) {
-  //Remove all style from other decorations
-  //In this way we can also use normalDecoration() to reset the decoration style
-  //-------left--------------
-  $('#patternShapeL1' + id).css({ "transform": "rotate(125deg)", "height": "57px", "width": "42px", "position": "absolute", "top": "31px", "left": "28px",  "border-radius": "0% 0% 0% 0%"})
-  $('#patternShapeL2' + id).css({ "transform": "rotate(0deg)", "height": "36px",  "width": "23px", "position": "absolute", "top": "55px", "left": "3px", "border-radius": "5% 70% 70% 5%"})
-  $('#patternShapeL3' + id).css({ "transform": "rotate(15deg)", "height": "14px",  "width": "36px", "position": "absolute", "top": "180px", "left": "2px",  "border-radius": "5% 70% 70% 5%"})
-
-   //-------right--------------
-   $('#patternShapeR1' + id).css({ "transform": "rotate(-23deg)", "height": "30px", "width": "30px", "position": "absolute", "top": "17px", "left": "43px", "border-radius": "50% 50% 50% 50%"})
-   $('#patternShapeR2' + id).css({ "transform": "rotate(15deg)", "height": "9px", "width": "23px", "position": "absolute", "top": "95px", "left": "2px",  "border-radius": "5% 70% 70% 5%"})
-   $('#patternShapeR3' + id).css({ "transform": "rotate(15deg)", "height": "20px", "width": "20px", "position": "absolute",  "top": "180px", "left": "0px","border-radius": "50% 50% 50% 50%"})
+//Combination of 3 and 4
+function decorationType4(id) {
+    $('.cat__head-dots, #leftDot,+id #rightDot' + id).css({ "height": "40px", "transform": "rotate(180deg)" })
 }
 
-function altDecoration5(id) {
-  //Remove all style from other decorations
-  //In this way we can also use normalDecoration() to reset the decoration style
-  //-------left--------------
-  $('#patternShapeL1' + id).css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "24px", "left": "20px", "border-radius": "5% 70% 70% 5%", "background": "rgb(122, 190, 31)"})
-  $('#patternShapeL2' + id).css({ "transform": "rotate(200deg)", "height": "43px", "width": "51px", "position": "absolute", "top": "40px", "left": "2px", "border-radius": "13% 62% 28% 94%"})
-  $('#patternShapeL3' + id).css({ "transform": "rotate(15deg)", "height": "25px", "width": "51px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "13% 62% 7% 94%"})
-
-   //-------right--------------
-   $('#patternShapeR1' + id).css({ "transform": "rotate(-46deg)", "height": "24px", "width": "22px", "position": "absolute", "top": "80px", "left": "1px", "border-radius": "13% 62% 7% 94%"})
-   $('#patternShapeR2' + id).css({ "transform": "rotate(47deg)", "height": "31px", "width": "53px", "position": "absolute", "top": "114px", "left": "-16px", "border-radius": "13% 62% 7% 94%"})
-   $('#patternShapeR3' + id).css({ "transform": "rotate(47deg)", "height": "60px", "width": "60px", "position": "absolute", "top": "166px", "left": "-47px", "border-radius": "20%"})
+//Tribal decoration
+function decorationType5(id) {
+    $('#midDot' + id).css({ "transform": "rotate(180deg)", "height": "50px", "border-radius": "50% 50% 50% 50%" })
+    $('#leftDot' + id).css({ "transform": "rotate(35deg)", "height": "40px" })
+    $('#rightDot' + id).css({ "transform": "rotate(-35deg)", "height": "40px" })
 }
 
-function altDecoration6(id) {
-  //Remove all style from other decorations
-  //In this way we can also use normalDecoration() to reset the decoration style
-  //-------left--------------
-  $('#patternShapeL1' + id).css({ "transform": "rotate(75deg)", "height": "24px", "width": "22px", "position": "absolute", "top": "137px", "left": "15px", "border-radius": "50% 50% 7% 50%"})
-  $('#patternShapeL2' + id).css({ "transform": "rotate(286deg)", "height": "28px", "width": "36px", "position": "absolute", "top": "27px", "left": "10px", "border-radius": "50% 50% 7% 50%"})
-  $('#patternShapeL3' + id).css({ "transform": "rotate(15deg)", "height": "27px", "width": "51px", "position": "absolute", "top": "95px", "left": "2px", "border-radius": "50% 50% 50% 50%"})
+//Sides down
+function decorationType6(id) {
+    $('#midDot' + id).css({ "transform": "rotate(180deg)", "height": "50px", "border-radius": "50% 50% 50% 50%" })
+    $('#leftDot' + id).css({ "transform": "rotate(135deg)", "height": "45px", "top": "-25px" })
+    $('#rightDot' + id).css({ "transform": "rotate(-135deg)", "height": "45px", "top": "-25px" })
 
-   //-------right--------------
-   $('#patternShapeR1' + id).css({ "transform": "rotate(-84deg)", "height": "20px", "width": "20px", "position": "absolute", "top": "64px", "left": "9px", "border-radius": "50% 50% 7% 50%"})
-   $('#patternShapeR2' + id).css({ "transform": "rotate(47deg)", "height": "16px", "width": "41px", "position": "absolute", "top": "55px", "left": "2px", "border-radius": "5% 70% 70% 5%"})
-   $('#patternShapeR3' + id).css({ "transform": "rotate(15deg)", "height": "23px", "width": "51px", "position": "absolute", "top": "175px", "left": "-3px", "border-radius": "50% 50% 7% 50%"})
+}
+
+//Single dot decoration
+function decorationType7(id) {
+    var dots2 = $('#leftDot' + id)
+    var dots3 = $('#rightDot' + id)
+    dots2.css('height', '0px')
+    dots3.css('height', '0px')
+
+}
+
+/** Animations **/
+
+async function resetAnimation(id) {
+    document.getElementById("head" + id).classList.remove("movingHead")
+    document.getElementById("leftEar" + id).classList.remove("movingEarsLeft", "moving-Single-EarLeft", "attentionLeft")
+    document.getElementById("rightEar" + id).classList.remove("movingEarsRight", "moving-Single-EarRight", "attentionRight")
+    document.getElementById("tail" + id).classList.remove("movingTail")
+
+}
+
+function movingHead(id) {    
+    $('#head' + id).addClass('movingHead')
+    $('#leftEar' + id).addClass('movingEarsLeft')
+    $('#rightEar' + id).addClass('movingEarsRight')
+}
+
+function movingTail(id) {    
+    $('#tail' + id).addClass('movingTail')
+
+}
+
+//moving both ears
+function movingEars(id) {    
+    $('#leftEar' + id).addClass('movingEarsLeft')
+    $('#rightEar' + id).addClass('movingEarsRight')
+
+}
+
+// Single Ears
+
+function leftEar(id) {    
+    $('#leftEar' + id).addClass('moving-Single-EarLeft')
+
+}
+
+function rightEar(id) {    
+    $('#rightEar' + id).addClass('moving-Single-EarRight')
+
+}
+
+// Attentive Cat Ears animation
+
+function attentiveCat(id) {    
+    $('#leftEar' + id).addClass('attentionLeft')
+    $('#rightEar' + id).addClass('attentionRight')
+
 }
 
 
+// Eyes of the car followign the cursor
+const closer = 4;
+const further = -4;
+
+document.addEventListener('mousemove', (e) => {
+    let positionX = e.pageX;
+    let positionY = e.pageY;
+
+    let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    let moveX = (positionX - width) / (width) * closer;
+    let moveY = (positionY - height) / (height) * closer;
+
+    $('.pupil-left').css('transform', 'translate(' + moveX + 'px,' + moveY + 'px)')
+    $('.pupil-right').css('transform', 'translate(' + moveX + 'px,' + moveY + 'px)')
+
+}, false);
