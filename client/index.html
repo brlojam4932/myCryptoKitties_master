@@ -1,75 +1,102 @@
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="text/javascript" src="assets/js/jquery-3.4.1.js"></script>
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <!--<script src="assets/bootstrap/js/popper.js"></script>-->
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academy kitties </title>
 
-  <script src="assets/js/web3.minFilip.js"></script>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
- 
-  <script type="module" src="./ethers-5.1.esm.min.js"></script>
- 
-  
-  <script type="text/javascript" src="./abi.js" ></script>
+    <script type="text/javascript" src="assets/js/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <script src="assets/bootstrap/js/popper.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/css/mystyle.css">
+    <link rel="stylesheet" href="assets/css/colors.css">
+    <link rel="stylesheet" href="assets/css/frontend.css">
 
-  <script type="text/javascript" src="../node_modules/@metamask/onboarding/dist/metamask-onboarding.bundle.js"></script>
-
-  <link rel="stylesheet" href="assets/css/animations.css"> 
-  <link rel="stylesheet" href="assets/css/mystyle.css">
-  <link rel="stylesheet" href="assets/css/myCat_style.css">
- 
-  <link rel="stylesheet" href="assets/css/colors.css">
-  <link rel="stylesheet" href="assets/css/factory.css">
-  <link rel="stylesheet" href="assets/css/frontend.css">
 </head>
-  <body>
-    <header>
-      <nav class="menu navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand" href="index.html"><b style="color:rgb(55, 174, 238)">My NFT Kitties</b></a>
-        <div class="navbar-collapse collapse justify-content-end">
-          <div>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a style="color:rgb(55, 174, 238)" href="index.html">Home</a>
-              </li>
-              <li class="navbar-item">
-                <a style="color:rgb(55, 174, 238)" href="factory.html">Factory</a>
-              </li>
-              <li class="navbar-item">
-                <a style="color:rgb(55, 174, 238)" href="catalogue.html">Catalogue</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <div class="container p-5" style="margin-top: 12vh;margin-bottom: 10vh;">
-        <div align="center">
-        <h1 class="c-white">Home Kitties</h1>
-        <p class="c-white">Welcome</p>
+
+<body cz-shortcut-listen="true">
+
+    <!-- Start menu -->
+ <div id="menu"></div>
+    <!-- End menu -->
+    <div class="animation-wrapper">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
     </div>
 
-    
+
+    <div class="frontend" align="center">
+
+        <img src="assets/images/group.png" class="catGroup">
+        <div class="container">
+            <div class="banner">
+                <h3 class="c-white m-2">Collect and breed furrever friends!</h3>
+                <button class="btn white-btn mt-2 c-red">Get your own kitty</button>
+            </div>
+        </div>
+        <div>
+
+        </div>
+
+    </div>
+
+    <div class="container middleBox" align="center">
+        <h1 class="m-4">Features</h1>
+        <div class="row">
+
+            <div class="col-lg-4 pointer">
+                <div class="featureBox">
+                    <div class="egg">
+                        <img src="assets/images/coin.png" style="margin: 25px;">
+                    </div>
+
+                    <h4>Buy & sell Cats</h4>
+                    <p>
+                     Buy or sell kitties in a market place using crypto-currency!
+                     you can find all kind or weird and special kitties.
+                     
+                     
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 pointer">
+                <div class="featureBox">
+                    <div class="egg">
+                        <img src="assets/images/reward.png" style="margin: 25px;">
+                    </div>
+                    <h4>Create collections & earn rewards</h4>
+                    <p>
+                       Collect all types of kitties with unique Cattributes!
+                       Earn special kitties from breeding, sell them or <b>Love</b> them.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 pointer">
+                <div class="featureBox">
+                    <div class="egg">
+                        <img src="assets/images/pop.png" style="margin: 25px;">
+                    </div>
+                    <h4>Breed adorable cats & unlock rare traits</h4>
+                    <p>
+                        Create unique kitties by pairing two cats. Fuse them to get the most rare kitties!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <footer align="left">
         <p>Ivan on Tech Academy Bootcamp July 2020</p>
     </footer>
 
-  </body>
-  <!--need to wait until page loads before executing these scripts below-->
-  <script src="assets/js/colors.js"></script>
-  <script src="assets/js/catSettings.js"></script>
-  <script src="assets/js/catFactory.js"></script>
-  <!--
-  <script>
-   // document.getElementById("log").innerHTML;
-  </script> 
-  
--->
+</body>
+
+<script src="assets/js/components.js"></script>
+
 
 </html>

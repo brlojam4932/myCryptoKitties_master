@@ -1,78 +1,20 @@
 .catBox {
-    background-color: rgb(37 42 49);
+    background-color: #e2efff;
     border-radius: 10px;
-    padding-top: 63px;
+    padding-top: 50px;
     padding-left: 65px;
-    padding-bottom: 97px;
+    padding-bottom: 100px;
 }
-
 
 .cattributes {
-    width: 300px;
-    height: 500px;
     padding: 25px;
-    background-color: #404144;
+    background-color: #ededed;
     border-radius: 10px;
 }
 
-.dnaDiv {
+.dnaBox {
     position: absolute;
-    left: 20px;
+    left:22%;
     bottom: 5px;
-    /* original settings: 20, 5 */  
 
 }
-
-.buttonsBox {
-    background-color: #362f2f;
-    padding: 12px;
-    border-radius: 10px;
-    margin: 10;
-}
-
-.buttonsBox2 {
-    background-color: #424349;
-    width: 280px;
-    height: 80px;
-    padding: 12px;
-    border-radius: 10px;
-    margin: 10;
-    
-}
-
-.buttonsBox3 {
-    
-    padding: 12px;
-    border-radius: 10px;
-    margin: 10;
-    
-}
-
-.catButtons {
-    background-color: rgb(96 102 109);
-    border-radius: 4px;
-    border: 2px solid rgb(84, 117, 135);
-    width: 200px;
-    padding: 10px 12px;
-    cursor: pointer;
-    font-size: 18px;
-    text-align: center;
-    color: #fff;
-    box-shadow: 2px 5px #999;
-   
-}
-
-.catButtons:hover {background-color: #01498c}
-
-.catButtons:active {
-  background-color: #2f3438;
-  box-shadow: 2px 3px #666;
-  transform: translateY(4px);
-}
-
-.smallType {
-    background-color: #008cff;
-    text-size-adjust: 24px;
-}
-
-

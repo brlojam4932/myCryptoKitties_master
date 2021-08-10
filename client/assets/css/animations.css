@@ -1,168 +1,186 @@
-.headTransY {
-  animation: headTransY 3s infinite;
+
+
+/* Moving head with ears together */
+.movingHead {
+  animation: moveHead 6s infinite;       
 }
 
-@keyframes headTransY {
+.movingEarsRight {
+  animation: moveEarsRight 6s infinite;       
+}
+
+.movingEarsLeft {
+  animation: moveEarsLeft 6s infinite;       
+}
+
+
+/* Single ears move */
+.moving-Single-EarRight {
+  animation: earRight 3s infinite;       
+}
+
+.moving-Single-EarLeft {
+  animation: earLeft 3s infinite;       
+}
+
+/* attentive cat anim */
+.attentionRight {
+  animation: earUpRight 6s infinite;       
+}
+
+.attentionLeft {
+  animation: earUpLeft 6s infinite;       
+}
+
+/* Tail movement */
+
+.movingTail {
+
+  animation: moveTail 2.5s infinite;       
+}
+
+@keyframes moveTail {
+  
   0% {
-    transform: translateY(0px);
+      transform: rotate(-45deg);
   }
-  45% {
-    transform: translateY(-6px);
-  }
-  75% {
-    transform: translateY(4px);
+   50% {
+      transform: rotate(-30deg);
   }
   100% {
-    transform: translateY(0px);
+      transform: rotate(-45deg);
   }
-
 }
 
+/* KeyFrames */
+@keyframes moveHead {
+  0%, 50% {
+      transform: rotate(0deg);
+  }
 
-.headRot{
-  animation: headRot 3s infinite;
-}
+  51%, 55% {
+      transform: rotate(5deg);
+  }
 
-@keyframes headRot {
-  0% {
-    transform: rotate(0deg);
-  }
-  45% {
-    transform: rotate(-7deg);
-  }
-  75% {
-    transform: rotate(7deg);
-  }
+  56%, 89% {
+      transform: rotate(0deg);
+  }    
+
+  90%, 98% {
+      transform: rotate(-5deg);
+  } 
+  
   100% {
-    transform: rotate(0deg);
-  }
-
-}
-
-.earRotL{
-  animation: earRotL 3s infinite;
-}
-
-@keyframes earRotL {
-  0% {
-    transform: scale(1, -1) rotate(-2deg);
-  }
-  50% {
-    transform: scale(1, -1) rotate(-4deg);
-  }
-  75% {
-    transform: scale(1, -1) rotate(4deg);
-  }
-  100% {
-    transform: scale(1, -1) rotate(-2deg);
-  }
+      transform: rotate(0deg);
+  } 
   
 }
 
-.earRotR{
-  animation: earRotR 3s infinite;
-}
+@keyframes moveEarsRight {
+  0%, 50% {
+      transform: rotate(170deg);
+  }
 
-@keyframes earRotR {
-  0% {
-    transform: scale(1, 1) rotate(6deg);
+  51%, 55% {
+      transform: rotate(175deg);
   }
-  30% {
-    transform: scale(1, 1) rotate(3deg);
-  }
-  45% {
-    transform: scale(1, 1) rotate(-2deg);
-  }
+
+  56%, 89% {
+      transform: rotate(170deg);
+  }    
+
+  90%, 98% {
+      transform: rotate(165deg);
+  } 
+  
   100% {
-    transform: scale(1, 1) rotate(6deg);
-  }
+      transform: rotate(170deg);
+  } 
   
 }
 
-.earStaticL{
-  animation: earStaticL 3s infinite;
+@keyframes earRight {
+  0%, 50% {
+      transform: rotate(170deg);
+  }
+
+  51%, 55% {
+      transform: rotate(175deg);
+  }
+
+  56%, 100% {
+      transform: rotate(170deg);
+  }    
 }
 
-@keyframes earStaticL {
-  0% {
-    transform: scale(1, -1) rotate(-2deg);
+@keyframes earLeft {
+  0%, 50% {
+      transform: scale(-1, 1) rotate(170deg);
   }
-  45% {
-    transform: scale(1, -1) rotate(-2deg);
+
+  51%, 55% {
+      transform: scale(-1, 1) rotate(175deg);
   }
-  75% {
-    transform: scale(1, -1) rotate(-2deg);
-  }
-  100% {
-    transform: scale(1, -1) rotate(-2deg);
-  }
+
+  56%, 100% {
+      transform: scale(-1, 1) rotate(170deg);
+  }      
   
 }
 
-.earStaticR{
-  animation: earStaticR 3s infinite;
+@keyframes earUpRight {
+  0%, 30% {
+      transform: rotate(170deg);        
+  }
+
+  31%, 89% {        
+      transform: rotate(160deg);
+  }
+
+  90%, 100% {
+      
+      transform: rotate(170deg);
+  }    
+
 }
 
-@keyframes earStaticR {
-  0% {
-    transform: scale(1, 1) rotate(6deg);
+@keyframes earUpLeft {
+  0%, 30%  {
+      transform: scale(-1, 1) rotate(170deg);        
   }
-  45% {
-    transform: scale(1, 1) rotate(6deg);
+  
+  31%, 89% {
+      transform: scale(-1, 1) rotate(160deg);        
   }
-  75% {
-    transform: scale(1, 1) rotate(6deg);
-  }
-  100% {
-    transform: scale(1, 1) rotate(6deg);
-  }
+
+  90%, 100%  {
+      transform: scale(-1, 1) rotate(170deg);
+  }      
   
 }
 
-.tailRot{
-  animation: tailRot 4s infinite;
-}
 
-@keyframes tailRot {
-  0% {
-    transform: rotate(-60deg);
-  }
-  45% {
-    transform: rotate(-70deg);
 
-  }
-  75% {
-    transform: rotate(-60deg);
 
+@keyframes moveEarsLeft {
+  0%, 50% {
+      transform: scale(-1, 1) rotate(170deg);
   }
+
+  51%, 55% {
+      transform: scale(-1, 1) rotate(165deg);
+  }
+
+  56%, 89% {
+      transform: scale(-1, 1) rotate(170deg);
+  }    
+
+  90%, 98% {
+      transform: scale(-1, 1) rotate(180deg);
+  } 
+  
   100% {
-    transform: rotate(-60deg);
-
-  }
+      transform: scale(-1, 1) rotate(170deg);
+  } 
+  
 }
-
-.mouthMove{
-  animation: mouthMove 2s infinite;
-
-}
-
-@keyframes mouthMove {
-  0% {
-    top: 0px;
-  }
-  70% {
-    top: 5px; /* up */
-
-  }
-  90% {
-    top: 3px; /* down */
-
-  }
-  100% {
-    top: 0px;
-
-  }
-
-}
-
-
