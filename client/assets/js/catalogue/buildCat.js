@@ -17,7 +17,7 @@ function mouthAndBelly(code, id) {
 
 function eyeColor(code, id) {
     var color = colors[code]
-    $('#catEye' + id).find('span').css('background', '#' + color)
+    $('#robotEye' + id).find('span').css('background', '#' + color)
 }
 
 function earsAndPaw(code, id) {
@@ -161,40 +161,40 @@ function animationVariation(num, id) {
 // **   Eyes **  //
 
 function normalEyes(id) {
-    $('#catEye' + id).find('span').css('border', 'none')
+    $('#robotEye' + id).find('span').css('border', 'none')
 }
 
 //top
 function eyesType1(id) {
-    $('#catEye' + id).find('span').css('border-top', '15px solid')
+    $('#robotEye' + id).find('span').css('border-top', '15px solid')
 }
 
 //bottom
 function eyesType2(id) {
-    $('#catEye' + id).find('span').css('border-bottom', '15px solid')
+    $('#robotEye' + id).find('span').css('border-bottom', '15px solid')
 }
 
 //top and bottom
 function eyesType3(id) {
-    $('#catEye' + id).find('span').css({ 'border-top': '15px solid', 'border-bottom': '15px solid' })
+    $('#robotEye' + id).find('span').css({ 'border-top': '15px solid', 'border-bottom': '15px solid' })
 }
 
 //Right and left
 function eyesType4(id) {
-    $('#catEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid' })
+    $('#robotEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid' })
 }
 
 //Right left top
 function eyesType5(id) {
-    $('#catEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-top': '15px solid' })
+    $('#robotEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-top': '15px solid' })
 }
 //Right left botton
 function eyesType6(id) {
-    $('#catEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-bottom': '15px solid' })
+    $('#robotEye' + id).find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-bottom': '15px solid' })
 }
 //Full shape
 function eyesType7(id) {
-    $('#catEye' + id).find('span').css('border', '15px solid')
+    $('#robotEye' + id).find('span').css('border', '15px solid')
 }
 
 // **   Decoration **  //

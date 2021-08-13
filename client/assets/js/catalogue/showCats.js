@@ -211,25 +211,25 @@ function catBox(id) {
 //Simple body of a cat
 function catBody(id) {
 
-  var single = `<div class="cat__ear">
-                      <div id="leftEar`+ id + `" class="cat__ear--left">
+  var single = `<div class="robot__ear">
+                      <div id="leftEar`+ id + `" class="robot__ear--left">
                           <div class="cat__ear--left-inside"></div>
                       </div>
-                      <div id="rightEar`+ id + `" class="cat__ear--right">
-                          <div class="cat__ear--right-inside"></div>
+                      <div id="rightEar`+ id + `" class="robot__ear--right">
+                          <div class="robot__ear--right-inside"></div>
                       </div>
                   </div>
 
-                  <div id="head`+ id + `" class="cat__head">
-                      <div id="midDot`+ id + `" class="cat__head-dots">
-                          <div id="leftDot`+ id + `" class="cat__head-dots_first"></div>
-                          <div id="rightDot`+ id + `" class="cat__head-dots_second"></div>
+                  <div id="head`+ id + `" class="robot__head">
+                      <div id="midDot`+ id + `" class="robot__head-dots">
+                          <div id="leftDot`+ id + `" class="robot__head-dots_first"></div>
+                          <div id="rightDot`+ id + `" class="robot__head-dots_second"></div>
                       </div>
-                      <div id="catEye`+ id + `" class="cat__eye">
-                          <div class="cat__eye--left">
+                      <div id="robotEye`+ id + `" class="robot__eye">
+                          <div class="robot__eye--left">
                               <span class="pupil-left"></span>
                           </div>
-                          <div class="cat__eye--right">
+                          <div class="robot__eye--right">
                               <span class="pupil-right"></span>
                           </div>
                       </div>
