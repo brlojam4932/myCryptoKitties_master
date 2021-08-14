@@ -91,7 +91,7 @@ body {
     background: #e2cccc;
   }
 
-  #robot__eye {
+  .robot__eye {
     position: absolute;
     top: -20px;
     left: -25px;
@@ -139,8 +139,8 @@ body {
 
 .cat__nose {
     position: absolute;
-    top: 115px;
-    left: 95px;
+    top: 51px;
+    left: 53px;
     width: 0;
     height: 0;
     border-right: 14px solid rgba(255, 255, 255, 0);
@@ -151,17 +151,17 @@ body {
 }
 .cat__mouth-contour {
     position: absolute;
-    top: 97px;
-    left: 19px;
-    background: #fff3e0;
-    width: 180px;
-    height: 90px;
+    top: 66px;
+    left: 20px;
+    background: #053716;
+    width: 87px;
+    height: 25px;
     -webkit-border-radius: 55% 55% 60% 60%;
-    border-radius: 55% 55% 60% 60%;
+    border-radius: 10%;
 }
 .cat__mouth-left, .cat__mouth-right {
     position: absolute;
-    top: 120px;
+    top: 66px;
     width: 23px;
     height: 23px;
     -webkit-border-radius: 50%;
@@ -172,10 +172,10 @@ body {
     transform: rotate(-45deg);
 }
 .cat__mouth-left {
-    left: 88px;
+    left: 43px;
 }
 .cat__mouth-right {
-    left: 108px;
+    left: 66px;
 }
 .cat__whiskers-left, .cat__whiskers-right {
     position: relative;
@@ -191,8 +191,8 @@ body {
     left: 0;
 }
 .cat__whiskers-left {
-    top: 112px;
-    left: -18px;
+    top: 65px;
+    left: -21px;
 }
 .cat__whiskers-left::before {
     top: -16px;
@@ -203,8 +203,8 @@ body {
     transform: rotate(-15deg);
 }
 .cat__whiskers-right {
-    top: 108px;
-    left: 205px;
+    top: 60px;
+    left: 115px;
 }
 .cat__whiskers-right::before {
     top: -16px;
@@ -231,20 +231,20 @@ body {
 .cat__chest_inner {
     content: '';
     position: absolute;
-    top: 30px;
-    left: 70px;
-    width: 88px;
+    top: 9px;
+    left: 82px;
+    width: 57px;
     height: 35px;
-    border-radius: 50%;
+    border-radius: 15%;
     background: #fff3e0;
     z-index: 4;
 }
 .cat__paw-left, .cat__paw-right {
     position: absolute;
-    top: 24px;
+    top: 36px;
     width: 28px;
     height: 48px;
-    background: #ffcc80;
+    background: #4d3410;
     border: none;
     border-bottom: 5px solid transparent;
     border-left: 5px solid transparent;
@@ -259,7 +259,7 @@ body {
     left: 148px;
     width: 35px;
     height: 32px;
-    background: #ffcc80;
+    background: #8f5a0a;
     border-radius: 45%;
     border: 5px solid transparent;
     z-index: 2;
@@ -272,7 +272,7 @@ body {
     left: 48px;
     width: 35px;
     height: 32px;
-    background: #ffcc80;
+    background: #8f5a0a;
     border-radius: 45%;
     border: 5px solid transparent;
     z-index: 2;

@@ -15,7 +15,7 @@ function genColors(){
 }
 
 function headColor(color,code) {
-    $('.cat__head, .cat__chest').css('background', '#' + color)
+    $('.robot__head, .cat__chest').css('background', '#' + color)
     $('#headcode').html('code: '+code)
     $('#dnabody').html(code)
 }
@@ -27,28 +27,28 @@ function mouthAndBelly(color,code) {
 }
 
 function eyeColor(color,code) {
-    $('.cat__eye').find('span').css('background', '#' + color)
+    $('.robot__eye').find('span').css('background', '#' + color)
     $('#eyecode').html('code: '+code)
     $('#dnaeyes').html(code)
 }
 
 function earsAndPaw(color,code) {
-    $('.cat__ear--left, .cat__ear--right, .cat__paw-left, .cat__paw-right,  .cat__paw-left_inner, .cat__paw-right_inner').css('background', '#' + color)
+    $('.robot__ear--left, .robot__ear--right, .cat__paw-left, .cat__paw-right,  .cat__paw-left_inner, .cat__paw-right_inner').css('background', '#' + color)
     $('#earscode').html('code: '+code)
     $('#dnaears').html(code)
 }
 
 //Middle decoration color
 function midColor(color,code) {
-    $('.cat__head-dots').css('background', '#' + color)
+    $('.robot__head-dots').css('background', '#' + color)
     $('#midcode').html('code: '+code)
     $('#dnadecorationMid').html(code)
 }
 
 //Sides decoration color
 function SidesColor(color,code) {
-    $('.cat__head-dots_first').css('background', '#' + color)
-    $('.cat__head-dots_second').css('background', '#' + color)
+    $('.robot__head-dots_first').css('background', '#' + color)
+    $('.robot__head-dots_second').css('background', '#' + color)
     $('#sidecode').html('code: '+code)
     $('#dnadecorationSides').html(code)
 }
@@ -178,40 +178,40 @@ function animationVariation(num) {
 // **   Eyes **  //
 
 function normalEyes() {
-    $('.cat__eye').find('span').css('border', 'none')
+    $('.robot__eye').find('span').css('border', 'none')
 }
 
 //top
 function eyesType1() {
-    $('.cat__eye').find('span').css('border-top', '15px solid')
+    $('.robot__eye').find('span').css('border-top', '15px solid')
 }
 
 //bottom
 function eyesType2() {
-    $('.cat__eye').find('span').css('border-bottom', '15px solid')
+    $('.robot__eye').find('span').css('border-bottom', '15px solid')
 }
 
 //top and bottom
 function eyesType3() {
-    $('.cat__eye').find('span').css({ 'border-top': '15px solid', 'border-bottom': '15px solid' })
+    $('.robot__eye').find('span').css({ 'border-top': '15px solid', 'border-bottom': '15px solid' })
 }
 
 //Right and left
 function eyesType4() {
-    $('.cat__eye').find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid' })
+    $('.robot__eye').find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid' })
 }
 
 //Right left top
 function eyesType5() {
-    $('.cat__eye').find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-top': '15px solid' })
+    $('.robot__eye').find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-top': '15px solid' })
 }
 //Right left botton
 function eyesType6() {
-    $('.cat__eye').find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-bottom': '15px solid' })
+    $('.robot__eye').find('span').css({ 'border-right': '15px solid', 'border-left': '15px solid', 'border-bottom': '15px solid' })
 }
 //Full shape
 function eyesType7() {
-    $('.cat__eye').find('span').css('border', '15px solid')
+    $('.robot__eye').find('span').css('border', '15px solid')
 }
 
 // **   Decoration **  //
@@ -221,25 +221,25 @@ function eyesType7() {
 function normaldecoration() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
-    $('.cat__head-dots').css({ "transform": "rotate(0deg)", "height": "48px", "width": "14px", "top": "1px", "border-radius": "0 0 50% 50%" })
-    $('.cat__head-dots_first').css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "50% 0 50% 50%" })
-    $('.cat__head-dots_second').css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "0 50% 50% 50%" })
+    $('.robot__head-dots').css({ "transform": "rotate(0deg)", "height": "48px", "width": "14px", "top": "1px", "border-radius": "0 0 50% 50%" })
+    $('.robot__head-dots_first').css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "50% 0 50% 50%" })
+    $('.robot__head-dots_second').css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "0 50% 50% 50%" })
 }
 
 //inverted
 function decorationType1() {
     normaldecoration()
-        $('.cat__head-dots').css("transform", "rotate(180deg)")
-        $('.cat__head-dots_first').css("transform", "rotate(0deg)")
-        $('.cat__head-dots_second').css("transform", "rotate(0deg)")
+        $('.robot__head-dots').css("transform", "rotate(180deg)")
+        $('.robot__head-dots_first').css("transform", "rotate(0deg)")
+        $('.robot__head-dots_second').css("transform", "rotate(0deg)")
 }
 
 //Twiss
 function decorationType2() {
     normaldecoration()
-        $('.cat__head-dots').css("transform", "rotate(180deg)")
-        $('.cat__head-dots_first').css("transform", "rotate(180deg)")
-        $('.cat__head-dots_second').css("transform", "rotate(180deg)")
+        $('.robot__head-dots').css("transform", "rotate(180deg)")
+        $('.robot__head-dots_first').css("transform", "rotate(180deg)")
+        $('.robot__head-dots_second').css("transform", "rotate(180deg)")
  
 
 }
@@ -248,37 +248,37 @@ function decorationType2() {
 // Unifrom partern
 function decorationType3() {
     normaldecoration()
-        $('.cat__head-dots, .cat__head-dots_first, .cat__head-dots_second').css({ "height": "40px", "width": "20px" })   
+        $('.robot__head-dots, .robot__head-dots_first, .robot__head-dots_second').css({ "height": "40px", "width": "20px" })   
 }
 
 //Combination of 3 and 4
 function decorationType4() {
     normaldecoration()
-        $('.cat__head-dots, .cat__head-dots_first, .cat__head-dots_second').css({ "height": "40px", "width": "20px", "transform": "rotate(180deg)" })   
+        $('.robot__head-dots, .robot__head-dots_first, .robot__head-dots_second').css({ "height": "40px", "width": "20px", "transform": "rotate(180deg)" })   
 }
 
 //Tribal decoration
 function decorationType5() {
     normaldecoration()
-        $('.cat__head-dots').css({ "transform": "rotate(180deg)", "height": "50px", "border-radius": "50% 50% 50% 50%" })
-        $('.cat__head-dots_first').css({ "transform": "rotate(35deg)", "height": "40px" })
-        $('.cat__head-dots_second').css({ "transform": "rotate(-35deg)", "height": "40px" })   
+        $('.robot__head-dots').css({ "transform": "rotate(180deg)", "height": "50px", "border-radius": "50% 50% 50% 50%" })
+        $('.robot__head-dots_first').css({ "transform": "rotate(35deg)", "height": "40px" })
+        $('.robot__head-dots_second').css({ "transform": "rotate(-35deg)", "height": "40px" })   
 }
 
 //Sides down
 function decorationType6() {
     normaldecoration()
-        $('.cat__head-dots').css({ "transform": "rotate(180deg)", "height": "50px", "border-radius": "50% 50% 50% 50%" })
-        $('.cat__head-dots_first').css({ "transform": "rotate(135deg)", "height": "45px", "top": "-25px" })
-        $('.cat__head-dots_second').css({ "transform": "rotate(-135deg)", "height": "45px", "top": "-25px" }) 
+        $('.robot__head-dots').css({ "transform": "rotate(180deg)", "height": "50px", "border-radius": "50% 50% 50% 50%" })
+        $('.robot__head-dots_first').css({ "transform": "rotate(135deg)", "height": "45px", "top": "-25px" })
+        $('.robot__head-dots_second').css({ "transform": "rotate(-135deg)", "height": "45px", "top": "-25px" }) 
 
 }
 
 //Single dot decoration
 function decorationType7() {
     normaldecoration()
-        var dots2 = $('.cat__head-dots_first')
-        var dots3 = $('.cat__head-dots_second')
+        var dots2 = $('.robot__head-dots_first')
+        var dots3 = $('.robot__head-dots_second')
         dots2.css('height', '0px')
         dots3.css('height', '0px') 
 
