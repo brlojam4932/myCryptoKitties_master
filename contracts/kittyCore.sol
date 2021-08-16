@@ -105,7 +105,7 @@ contract KittyCore is Ownable, KittyMarketPlace {
 
     gen0Counter++;
 
-    // Gen0 have no owners they are own by the contract
+    // Gen0 have no owners they are owned by the contract
     uint256 tokenId = _createKitty(0, 0, 0, _genes, msg.sender);
     setOffer(0.2 ether, tokenId);
   }

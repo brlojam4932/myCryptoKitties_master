@@ -1,9 +1,9 @@
 var web3 = new Web3(Web3.givenProvider);
 var instance;
 var user;
-//var dnaStr = "457896541299";
+var dnaStr = "457896541299";
 
-var contract = "0x59cf44E2FBE8FbC5FE326fE49A35397A4ac4Ae9A";
+var contract = "0xef69e9d5b203dfFd0Ea3d9e85C4cD9cC87C561a9";
 var contractOwner;
 
 $(document).ready(function () {
@@ -13,6 +13,7 @@ $(document).ready(function () {
       contractOwner = test;
     });
     user = accounts[0];
+    console.log(instance);
     /*     
     EVENTS
     *   Listen for the `Birth` event, and update the UI
@@ -24,18 +25,19 @@ $(document).ready(function () {
       .on('data', (event) => {
         console.log(event);
         let owner = event.returnValues.owner;
-        let kittyId = event.returnValues.kittyId;
+        let kittenId = event.returnValues.newKittenId;
         let mumId = event.returnValues.mumId;
         let dadId = event.returnValues.dadId;
         let genes = event.returnValues.genes        
         alert_msg("owner:" + owner
-          + " kittyId:" + kittyId
+          + " kittyId:" + kittenId
           + " mumId:" + mumId
           + " dadId:" + dadId
           + " genes:" + genes,'success')
       })
       .on('error', console.error);
 
+/*
     instance.events.MarketTransaction()
       .on('data', (event) => {
         console.log(event);
@@ -70,9 +72,12 @@ $(document).ready(function () {
         }
       })
       .on('error', console.error);
+      */
   });
 
 });
+
+
 
 function createKitty() {
   var dnaStr = getDna();
@@ -179,7 +184,7 @@ async function breed(dadId, mumId) {
 
 //Appending cats for catalog
 async function appendKitty(id) {
-  var kitty = await instance.methods.getKitty(id).call()
+  var kitty = await instance.methods.myGetKitty(id).call()
   appendCat(kitty[0], id, kitty['generation'])
 }
 

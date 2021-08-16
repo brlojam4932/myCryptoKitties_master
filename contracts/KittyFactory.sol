@@ -15,7 +15,7 @@ contract KittyFactory {
 
   /*
   *   Here we will use the same structure as the original crypto kitties game
-  *   As it fit exactly into two bit words
+  *   As it fits exactly into two bit words
   */
   struct Kitty {
 
