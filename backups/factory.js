@@ -34,13 +34,13 @@ $(document).ready(function(){
     instance.events.Birth().on('data', function(event) { //function with callback
       console.log(event);
       let owner = event.returnValues.owner;
-      let newKittenId = event.returnValues.newKittenId;
+      let kittenId = event.returnValues.newKittenId;
       let mumId = event.returnValues.mumId;
       let dadId = event.returnValues.dadId;
       let genes = event.returnValues.genes
 
       $("#catResultId").text("owner: " + owner
-      +" KittyId: " + newKittenId
+      +" KittyId: " + kittenId
       +" mumId: " + mumId
       +" dadId: " + dadId
       +" genes: " + genes)

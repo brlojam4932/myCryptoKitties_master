@@ -1,7 +1,7 @@
 var web3 = new Web3(Web3.givenProvider);
 var instance;
 var user;
-var dnaStr = "457896541299";
+//var dnaStr = "457896541299";
 
 var contract = "0xef69e9d5b203dfFd0Ea3d9e85C4cD9cC87C561a9";
 var contractOwner;
@@ -21,6 +21,7 @@ $(document).ready(function () {
     *   when the _createKitty internal method is called
     */
 
+   
     instance.events.Birth()
       .on('data', (event) => {
         console.log(event);
@@ -36,6 +37,8 @@ $(document).ready(function () {
           + " genes:" + genes,'success')
       })
       .on('error', console.error);
+
+  
 
 /*
     instance.events.MarketTransaction()
@@ -169,7 +172,7 @@ async function catOwnership(id) {
 
 //Appending cats to breed selection
 async function appendBreed(id, gender) {
-  var kitty = await instance.methods.getKitty(id).call()
+  var kitty = await instance.methods.getKittyFilip(id).call()
   breedAppend(kitty[0], id, kitty['generation'], gender)
 }
 
@@ -184,14 +187,14 @@ async function breed(dadId, mumId) {
 
 //Appending cats for catalog
 async function appendKitty(id) {
-  var kitty = await instance.methods.myGetKitty(id).call()
+  var kitty = await instance.methods.getKittyFilip(id).call()
   appendCat(kitty[0], id, kitty['generation'])
 }
 
 
 async function singleKitty() {
   var id = get_variables().catId
-  var kitty = await instance.methods.getKitty(id).call()
+  var kitty = await instance.methods.getKittyFilip(id).call()
   singleCat(kitty[0], id, kitty['generation'])
 }
 
