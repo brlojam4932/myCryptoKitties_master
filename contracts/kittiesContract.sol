@@ -407,7 +407,7 @@ contract myKittiesContract is Ownable {
     return size > 0;
   }
 
-  function _mixDna(uint256 _dadDna, uint256 _mumDna) private returns (uint256) {
+  function _mixDnaPrev(uint256 _dadDna, uint256 _mumDna) private returns (uint256) {
     //dadDna: 11 22 33 44 55 66 77 88 (in remix: remove spances => 1122334455667788)
     //mumDna: 88 77 66 55 44 33 22 11 (8877665544332211)
     uint256 firstHalf =  _dadDna / 100000000; // 11 22 33 44 (8 zeroes as there are 16 DNA intergers total)
@@ -425,6 +425,88 @@ contract myKittiesContract is Ownable {
     // 11 22 33 44 | 44 33 22 1 1
 
   }
+
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) private view returns(uint256) {
+    uint256[8] memory geneArray;
+    uint8 random = uint8( block.timestamp % 255 ); // 0-255 max random numbers | binary between 00000000-11111111 (example rand num: 11001011)
+    uint256 i;
+    uint256 index = 7;
+
+    //DBA [11, 22, 33, 44, 55 66 77 (88)] //we remove the last pair by deviding by 100
+
+    for ( i = 1; i <= 128; i=i*2) { 
+      if(random & i !=0) {
+        geneArray[index] =  uint8( _mumDna % 100); // we set the index pos in array at #7; then / by 100 and move the index back by 1 to get rid of the last two digits
+      }
+      else {
+        geneArray[index] =  uint8( _dadDna % 100);
+      }
+      _mumDna = _mumDna / 100;
+      _mumDna = _mumDna / 100;
+
+      index = index - 1; // from the 7th pos, we move back in pos of the array[,,,,<==] 
+
+    }
+    // Combine DNA from both parents as one string of numbers
+    uint256 newGene;
+
+    // new gene
+    //[12, 23, 34, 45, 56, 67, 78, 98]
+
+    // we take our first pos and add (+) our new gene
+    // [12]
+    // we then take our new gene and mult by (100)
+    // [1200]
+    // we then add from our geneArray[i] then next index num
+    // [1223]
+    // we then mult by 100 again
+    // [122300]
+    // add again from our geneArray[i] the next index
+    // [122324]
+    // mult again
+    // [12233400]... and so on
+    
+    for(i = 0; i < 8; i++) {
+      newGene = newGene + geneArray[i]; // we need to stop before the last index [1,2,3,4,5,6,7, stop]
+      if(i != 7) { // if i is not index 7, mult; otherwise stop and return new gene
+         newGene = newGene * 100;
+      } 
+  
+    }
+    return newGene;
+  }
+
+  /* bitwise operator
+      00000001 => 1
+      00000010 => 2
+      00000100 => 4
+      00001000 => 8
+      00010000 => 16
+      00100000 => 32
+      01000000 => 64
+      10000000 => 128
+      if (true && false) = false (1, 0) = 0
+      if we compare something to both true and false, is false because it cannot be both true and false
+      if (true || false) = true -- we compare something to true or false, is true; it could be either true or false (1, 0) = 1
+      if ( true && true) = true (1, 1) = 1
+      if ( false || false) = false (0, 0) = 0 .... one needs to be true
+      if ( false && false) = false (0, 0) = 0 .... one needs to be true
+
+      11001011 (random number from block.timestamp)
+      &
+      integers < 128
+      00000001 1 
+      00000010 1
+      00000100 0
+      00001000 1
+      00010010 0
+      00100010 0
+      01000010 1
+      10000010 0
+
+      if(1) use mum gene
+      if(0) use dad gene
+      */
 
 
 
