@@ -41,7 +41,7 @@ contract myKittiesContract is Ownable {
   string constant _symbol = "MCRC";
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
-  uint256 newDna;
+  uint256 newGene;
   uint256 nextId = 0;
 
   // 11 22 33 44 | 44 33 22 1 1
@@ -56,7 +56,7 @@ contract myKittiesContract is Ownable {
     (uint256 dadDna,,,,uint256 DadGeneration) = myGetKitty(_dadId);
     (uint256 mumDna,,,,uint256 MumGeneration) = myGetKitty(_mumId);
 
-    newDna = _mixDna(dadDna, mumDna);
+    newGene = _mixDna(dadDna, mumDna);
 
     uint256 kittenGen = 0;
     if (DadGeneration < MumGeneration) {
@@ -69,9 +69,9 @@ contract myKittiesContract is Ownable {
       kittenGen = DadGeneration + 1;
     }
 
-    _createKitty(_mumId, _dadId, kittenGen, newDna, msg.sender);
+    _createKitty(_mumId, _dadId, kittenGen, newGene, msg.sender);
 
-    return newDna;
+    return newGene;
    
   }
 
@@ -407,6 +407,7 @@ contract myKittiesContract is Ownable {
     return size > 0;
   }
 
+/*
   function _mixDnaPrev(uint256 _dadDna, uint256 _mumDna) private returns (uint256) {
     //dadDna: 11 22 33 44 55 66 77 88 (in remix: remove spances => 1122334455667788)
     //mumDna: 88 77 66 55 44 33 22 11 (8877665544332211)
@@ -425,58 +426,15 @@ contract myKittiesContract is Ownable {
     // 11 22 33 44 | 44 33 22 1 1
 
   }
+  */
 
-  function _mixDna(uint256 _dadDna, uint256 _mumDna) private view returns(uint256) {
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
     uint256[8] memory geneArray;
     uint8 random = uint8( block.timestamp % 255 ); // 0-255 max random numbers | binary between 00000000-11111111 (example rand num: 11001011)
     uint256 i;
     uint256 index = 7;
 
-    //DBA [11, 22, 33, 44, 55 66 77 (88)] //we remove the last pair by deviding by 100
-
-    for ( i = 1; i <= 128; i=i*2) { 
-      if(random & i !=0) {
-        geneArray[index] =  uint8( _mumDna % 100); // we set the index pos in array at #7; then / by 100 and move the index back by 1 to get rid of the last two digits
-      }
-      else {
-        geneArray[index] =  uint8( _dadDna % 100);
-      }
-      _mumDna = _mumDna / 100;
-      _mumDna = _mumDna / 100;
-
-      index = index - 1; // from the 7th pos, we move back in pos of the array[,,,,<==] 
-
-    }
-    // Combine DNA from both parents as one string of numbers
-    uint256 newGene;
-
-    // new gene
-    //[12, 23, 34, 45, 56, 67, 78, 98]
-
-    // we take our first pos and add (+) our new gene
-    // [12]
-    // we then take our new gene and mult by (100)
-    // [1200]
-    // we then add from our geneArray[i] then next index num
-    // [1223]
-    // we then mult by 100 again
-    // [122300]
-    // add again from our geneArray[i] the next index
-    // [122324]
-    // mult again
-    // [12233400]... and so on
-    
-    for(i = 0; i < 8; i++) {
-      newGene = newGene + geneArray[i]; // we need to stop before the last index [1,2,3,4,5,6,7, stop]
-      if(i != 7) { // if i is not index 7, mult; otherwise stop and return new gene
-         newGene = newGene * 100;
-      } 
-  
-    }
-    return newGene;
-  }
-
-  /* bitwise operator
+    /* bitwise operator
       00000001 => 1
       00000010 => 2
       00000100 => 4
@@ -508,7 +466,49 @@ contract myKittiesContract is Ownable {
       if(0) use dad gene
       */
 
+    //DNA [11, 22, 33, 44, 55 66 77 (88)] //we remove the last pair by deviding by 100
 
+    for ( i = 1; i <= 128; i=i*2) { 
+      if(random & i !=0) {
+        geneArray[index] =  uint8( _mumDna % 100); // we set the index pos in array at #7; then / by 100 and move the index back by 1 to get rid of the last two digits
+      }
+      else {
+        geneArray[index] =  uint8( _dadDna % 100);
+      }
+      _mumDna = _mumDna / 100;
+      _mumDna = _mumDna / 100;
+
+      index = index - 1; // from the 7th pos, we move back in pos of the array[,,,,<==] 
+
+    }
+    // Combine DNA from both parents as one string of numbers
+    //uint256 newGene; (already delcard at start of contract)
+
+    // new gene
+    //[12, 23, 34, 45, 56, 67, 78, 98]
+
+    // we take our first pos and add (+) our new gene
+    // [12]
+    // we then take our new gene and mult by (100)
+    // [1200]
+    // we then add from our geneArray[i] then next index num
+    // [1223]
+    // we then mult by 100 again
+    // [122300]
+    // add again from our geneArray[i] the next index
+    // [122324]
+    // mult again
+    // [12233400]... and so on
+    
+    for(i = 0; i < 8; i++) {
+      newGene = newGene + geneArray[i]; // we need to stop before the last index [1,2,3,4,5,6,7, stop]
+      if(i != 7) { // if i is not index 7, mult; otherwise stop and return new gene
+         newGene = newGene * 100;
+      } 
+  
+    }
+    return newGene; // 12 23 34 45 56 67 78 98
+  }
 
 
 }
