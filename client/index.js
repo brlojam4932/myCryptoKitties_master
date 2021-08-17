@@ -3,7 +3,7 @@ var instance;
 var user;
 //var dnaStr = "457896541299";
 
-var contract = "0xef69e9d5b203dfFd0Ea3d9e85C4cD9cC87C561a9";
+var contract = "0x32E0781896BE3442e1dC01d3a6ABB04B1C4DC885";
 var contractOwner;
 
 $(document).ready(function () {

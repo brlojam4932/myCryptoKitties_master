@@ -1,4 +1,4 @@
-var abi = [
+var abi =[
   {
     "anonymous": false,
     "inputs": [
