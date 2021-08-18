@@ -3,7 +3,7 @@ var instance;
 var user;
 //var dnaStr = "457896541299";
 
-var contract = "0x7E7F82497A58b61f590A724F1987a3a93f8327e6";
+var contract = "0x1666aeA8021aCdF22d01b0D273707e6Bd4EDFe76";
 var contractOwner;
 
 $(document).ready(function () {
@@ -77,9 +77,9 @@ $(document).ready(function () {
       .on('error', console.error);
       */
   });
+  
 
 });
-
 
 
 function createKitty() {

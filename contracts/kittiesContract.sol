@@ -41,7 +41,7 @@ contract myKittiesContract is Ownable {
   string constant _symbol = "MCRC";
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
-  uint256 newGene;
+  uint256 newGene; // prev: newDna
   uint256 nextId = 0;
 
   // 11 22 33 44 | 44 33 22 1 1
