@@ -25,21 +25,30 @@ contract KittyMarketPlace is Ownable, myKittiesContract {
   }
 
    function getOffer(uint256 _tokenId) external view returns (address seller, uint256 price, uint256 tokenId) {
-
-     Offer storage returnOffers =  offers[_tokenId];
+     Offer storage returnOffers = offers[_tokenId];
      return (returnOffers.seller, returnOffers.price, returnOffers.tokenId);
-
-
-
-
      
    }
 
    function getAllTokenOnSale() external view returns(uint256[] memory listOfOffers) {
      uint256 totalOffers = offers.length;
 
+     if (totalOffers == 0) {
+       return new uint256[](0);
+     } 
+     else {
+       uint256[] memory resultOfToken = new uint256[](totalOffers);
 
+       uint256 offerId; 
 
+       for(offerId = 0; offerId < totalOffers; offerId++) {
+         if(offers[offerId].price != 0) { // if - offers array, [offer id] -> price does not equal 0, then result of token Id array [offerId] equals offers array [offerId] -> tokenId
+         resultOfToken[offerId] = offers[offerId].tokenId;
+         }
+       }
+       return resultOfToken;
+
+     }
    }
 
    /*
