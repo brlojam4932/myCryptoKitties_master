@@ -6,10 +6,14 @@ import "./kittiesContract.sol";
 
 contract KittyMarketPlace is myKittiesContract {
 
+  myKittiesContract private _kittyContract;
+
   struct Offer {
     address payable seller;
     uint256 price;
+    uint256 index;
     uint256 tokenId;
+    bool active;
   }
 
   mapping(uint256 => Offer) tokenIdToOffer;
@@ -20,19 +24,25 @@ contract KittyMarketPlace is myKittiesContract {
 
   Offer[] offers;
 
-/*
-  function setKittyContract(address _kittyContractAddress) external onlyOwner() {
+
+  function setKittyContract(address _kittyContractAddress) public onlyOwner() { // External functions read from calldata, directly || Public functions copies array arguments to memory)
+    _kittyContract = myKittiesContract(_kittyContractAddress);
 
   }
-  */
 
-   function getOffer(uint256 _tokenId) external view returns (address seller, uint256 price, uint256 tokenId) {
-     Offer storage returnOffers = offers[_tokenId];
-     return (returnOffers.seller, returnOffers.price, returnOffers.tokenId);
+  constructor(address _kittyContractAddress) {
+        setKittyContract(_kittyContractAddress) ;
+    }
+  
+
+   function getOffer(uint256 _tokenId) external view returns (address seller, uint256 price, uint256 index, uint256 tokenId, bool active) {
+     Offer storage returnOffers = tokenIdToOffer[_tokenId];
+     return (returnOffers.seller, returnOffers.price, returnOffers.index, returnOffers.tokenId, returnOffers.active);
      
    }
 
    function getAllTokenOnSale() external view returns(uint256[] memory listOfOffers) {
+     // this array lets us loop through the array and find all of the tokens so we can then display them all on a web page
      uint256 totalOffers = offers.length;
 
      if (totalOffers == 0) {
@@ -43,8 +53,10 @@ contract KittyMarketPlace is myKittiesContract {
 
        uint256 offerId; 
 
+       // cannot remove inactive orders from arrays so this is the best solution thus far
+
        for(offerId = 0; offerId < totalOffers; offerId++) {
-         if(offers[offerId].price != 0) { // if - offers array, [offer id] -> price does not equal 0, then result of token Id array [offerId] equals offers array [offerId] -> tokenId
+         if(offers[offerId].active == true) { // if - offers array, [offer id] -> price is true, then result is resultOfToken [offerId] equals; offers array [offerId] of tokenId
          resultOfToken[offerId] = offers[offerId].tokenId;
          }
        }
@@ -61,23 +73,25 @@ contract KittyMarketPlace is myKittiesContract {
 
    function setOffer(uint256 _price, uint256 _tokenId) public {
      require(_price > 0.009 ether, "Cat price should be greater than 0.01" );
-     require(tokenIdToOffer[_tokenId].price == 0, "You can't sell twice the same offers");
+     require(tokenIdToOffer[_tokenId].active == false, "You can't sell twice the same offers");
 
      approve(address(this), _tokenId);
 
      Offer memory _offer = Offer({
        seller: (payable(msg.sender)),
        price: _price,
-       tokenId: _tokenId
+       index: offers.length,
+       tokenId: _tokenId,
+       active: true
      });
 
+    // we add new offer, this specific tokenId, to tokenIdToOffer mapping and it's pushed into the offer's array
      tokenIdToOffer[_tokenId] = _offer;
-
      offers.push(_offer);
 
-     uint256 index = offers.length -1;
-
-     tokenIdToOfferId[_tokenId] = index;
+     // here, Filip created offers.length with the object's index parameter so we don't neet this function any more
+     //uint256 index = offers.length -1; 
+     //tokenIdToOfferId[_tokenId] = index;
 
      emit MarketTransaction("Create offer", msg.sender, _tokenId);
 
@@ -91,37 +105,47 @@ contract KittyMarketPlace is myKittiesContract {
 
      require(offer.seller == msg.sender, "This asset must be owned by the seller in order to remove offer");
 
-     /* we delete the offer info */
-     delete offers[tokenIdToOfferId[_tokenId]];
+    /* Remove the offer in the mapping*/
+     /* we set mapping to false */
+     // tutorial functions are different than final contract on github
 
-     /* Remove the offer in the mapping*/
-     delete tokenIdToOffer[_tokenId];
+     //delete offers[tokenIdToOfferId[_tokenId]]; previous function
+     delete tokenIdToOffer[_tokenId]; //we delete tokenIdToOffer, then we set the offer in array to false
+     //offers[tokenIdToOfferId[_tokenId]].active == false; // mine, not sure if this works
+     //offers[tokenIdToOffer[_tokenId].index].active = false; // filip's functions
+     offers[offer.index].active = false; // cleaner from Filip
 
-     _deleteApproval(_tokenId);
-
+     //_deleteApproval(_tokenId); filip did not use this in tutorial
       emit MarketTransaction("Remove offer", msg.sender, _tokenId);
       
    }
 
 
-    function buyKitty(uint256 _tokenId) public payable {
+    function buyKitty(uint256 _tokenId) public payable { // we input the offer, we get back the offer
       Offer memory offer = tokenIdToOffer[_tokenId];
-      require(msg.value == offer.price);
-      require(offers.length > 0);
-
-      /* we delete the offer info */
-      delete offers[tokenIdToOfferId[_tokenId]];
+      require(msg.value == offer.price, "The price is correct");
+      require(tokenIdToOffer[_tokenId].active == true, "No active order present");
 
       /* Remove the offer in the mapping*/
-      delete tokenIdToOffer[_tokenId];
+      /* we set mapping to false */
+      // Important: delete kitty from mapping BEFORE paying out; to prevent reentry attacks
+      delete tokenIdToOffer[_tokenId]; // we can delete from mapping but not from the array since it will alter the index positions
+      offers[offer.index].active = false;
+
+      // This was in the video but not in final contract
+      // transfer funds to seller
+      // TO DO: make this pull logic instead of push
+      if(offer.price > 0) { // we send the funds to seller
+        offer.seller.transfer(offer.price);
+      }
       
-      //_approve(_tokenId, msg.sender);
-      transferFrom(offer.seller, msg.sender, _tokenId);
+      //* TMP REMOVE THIS*/
+      //_approve(_tokenId, msg.sender); 
+
+      _kittyContract.transferFrom(offer.seller, msg.sender, _tokenId); // we send tokens to buyer: (seller, buyer, token)
 
       offer.seller.transfer(msg.value);
-
       emit MarketTransaction("Buy", msg.sender, _tokenId);
-
     }
 
 }

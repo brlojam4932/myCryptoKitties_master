@@ -46,6 +46,13 @@ contract myKittiesContract is Ownable {
 
   // 11 22 33 44 | 44 33 22 1 1
 
+  // this cat will just take up space, cannot be transacted in any way
+  // prevents buyKitty function require statement resulting to an empty array; being true
+  constructor() {
+    _createKitty(0, 0, 0, uint256(0), address(0));
+    // (mumId, dadId, gen, genes, owner)
+  }
+
   function breed(uint256 _dadId, uint256 _mumId) public returns (uint256) {
     //Check ownership
     //Use new DNA
