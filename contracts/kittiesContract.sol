@@ -262,6 +262,7 @@ contract myKittiesContract is Ownable {
 
   }
 
+
   function getAllTokensForUser(address user) public view returns(uint256[] memory) {
     uint256 tokenCount = balanceOf(user);
     if(tokenCount == 0) {
@@ -304,18 +305,16 @@ contract myKittiesContract is Ownable {
       }
 
       return result;
-    }
-    
+    }   
   }
 
 
-  function _safeTransfer(address _from, address _to, uint256 _tokenId, bytes calldata _data) internal {
-    _transfer(_from, _to, _tokenId);
-    require(_checkERC721Support(_from, _to, _tokenId, _data));
-  }
+  //Smart Contract Programmer(youTuber) ...
+  //transferFrom - how it is used:
+  //trader calls approve(dexAddress, amount)
+  //dex calls transferFrom(traderAddress, dexAddress, amount)
 
-
-  function transferFrom(address _from, address _to, uint256 _tokenId) external {
+  function transferFrom(address _from, address _to, uint256 _tokenId) public {
     /// Throws if `_to` is the zero address. 
     /// Throws if `_tokenId` is not a valid NFT.
 
@@ -330,10 +329,6 @@ contract myKittiesContract is Ownable {
     _transfer(_from, _to, _tokenId);
   }
 
-  //Smart Contract Programmer(youTuber) ...
-  //transferFrom - how it is used:
-  //trader calls approve(dexAddress, amount)
-  //dex calls transferFrom(traderAddress, dexAddress, amount)
 
   // must transfer from address 0
   function _transfer(address from, address to, uint256 tokenId) internal {
@@ -358,6 +353,12 @@ contract myKittiesContract is Ownable {
   }
 
 
+  function _safeTransfer(address _from, address _to, uint256 _tokenId, bytes calldata _data) internal {
+    _transfer(_from, _to, _tokenId);
+    require(_checkERC721Support(_from, _to, _tokenId, _data));
+  }
+
+
   function  _removeTokenIdFromOwner(address owner, uint256 tokenId) internal {
     uint256 lastId = ownerToCats[owner][ownerToCats[owner].length -1];
     for (uint256 i = 0; i < ownerToCats[owner].length -1; i++) {
@@ -371,6 +372,12 @@ contract myKittiesContract is Ownable {
 
   function _owns(address _claimant, uint256 tokenId ) internal view returns(bool) {
     return kittyIndexToOwner[tokenId] == _claimant;
+  }
+
+
+  function _deleteApproval(uint256 _tokenId) internal {
+      require(_owns(msg.sender, _tokenId));
+      delete kittyIndexToApproved[_tokenId];
   }
 
 

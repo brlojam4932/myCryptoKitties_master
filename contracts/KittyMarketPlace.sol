@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+//import "@openzeppelin/contracts/access/Ownable.sol";
 import "./kittiesContract.sol";
 
-contract KittyMarketPlace is Ownable, myKittiesContract {
+contract KittyMarketPlace is myKittiesContract {
 
   struct Offer {
     address payable seller;
@@ -20,9 +20,11 @@ contract KittyMarketPlace is Ownable, myKittiesContract {
 
   Offer[] offers;
 
+/*
   function setKittyContract(address _kittyContractAddress) external onlyOwner() {
 
   }
+  */
 
    function getOffer(uint256 _tokenId) external view returns (address seller, uint256 price, uint256 tokenId) {
      Offer storage returnOffers = offers[_tokenId];
@@ -79,7 +81,47 @@ contract KittyMarketPlace is Ownable, myKittiesContract {
 
      emit MarketTransaction("Create offer", msg.sender, _tokenId);
 
-
    }
+
+
+   function removeOffer(uint256 _tokenId) external {
+     require(_owns(msg.sender, _tokenId), "User does not own this token");
+
+     Offer memory offer = tokenIdToOffer[_tokenId];
+
+     require(offer.seller == msg.sender, "This asset must be owned by the seller in order to remove offer");
+
+     /* we delete the offer info */
+     delete offers[tokenIdToOfferId[_tokenId]];
+
+     /* Remove the offer in the mapping*/
+     delete tokenIdToOffer[_tokenId];
+
+     _deleteApproval(_tokenId);
+
+      emit MarketTransaction("Remove offer", msg.sender, _tokenId);
+      
+   }
+
+
+    function buyKitty(uint256 _tokenId) public payable {
+      Offer memory offer = tokenIdToOffer[_tokenId];
+      require(msg.value == offer.price);
+      require(offers.length > 0);
+
+      /* we delete the offer info */
+      delete offers[tokenIdToOfferId[_tokenId]];
+
+      /* Remove the offer in the mapping*/
+      delete tokenIdToOffer[_tokenId];
+      
+      //_approve(_tokenId, msg.sender);
+      transferFrom(offer.seller, msg.sender, _tokenId);
+
+      offer.seller.transfer(msg.value);
+
+      emit MarketTransaction("Buy", msg.sender, _tokenId);
+
+    }
 
 }
