@@ -65,6 +65,20 @@ contract KittyMarketPlace is myKittiesContract {
      }
    }
 
+  /*
+  // my version
+   function _ownsKitty(address _address, uint256 _tokenId) internal returns (bool) {
+    kittyIndexToOwner[_tokenId] = _address;
+    return true;
+   }
+   */
+
+  // Filip's version
+  function _ownsKitty(address _address, uint256 _tokenId) internal view returns (bool) {
+    return (_kittyContract.ownerOf(_tokenId) == _address);
+  }
+
+
    /*
     *   We give the contract the ability to transfer kitties
     *   As the kitties will be in the market place we need to be able to transfert them
@@ -74,8 +88,11 @@ contract KittyMarketPlace is myKittiesContract {
    function setOffer(uint256 _price, uint256 _tokenId) public {
      require(_price > 0.009 ether, "Cat price should be greater than 0.01" );
      require(tokenIdToOffer[_tokenId].active == false, "You can't sell twice the same offers");
+     require (_ownsKitty(msg.sender, _tokenId), "You are not the owner that kitty");
+     // kitty contract needs to be approved for all
+     require(_kittyContract.isApprovedForAll(msg.sender, address(this)), "Contract needs approval for future transfers"); // Market Place needs to be approved as the operator
 
-     approve(address(this), _tokenId);
+     //approve(address(this), _tokenId); // from gitHub contract
 
      Offer memory _offer = Offer({
        seller: (payable(msg.sender)),
