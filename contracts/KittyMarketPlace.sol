@@ -144,12 +144,14 @@ contract KittyMarketPlace is myKittiesContract {
       require(tokenIdToOffer[_tokenId].active == true, "No active order present");
 
       /* Remove the offer in the mapping*/
-      /* we set mapping to false */
+      
       // Important: delete kitty from mapping BEFORE paying out; to prevent reentry attacks
       delete tokenIdToOffer[_tokenId]; // we can delete from mapping but not from the array since it will alter the index positions
+
+      /* we set mapping to false */
       offers[offer.index].active = false;
 
-      // This was in the video but not in final contract
+      // This was in the video but not in final gitHub contract
       // transfer funds to seller
       // TO DO: make this pull logic instead of push
       if(offer.price > 0) { // we send the funds to seller
