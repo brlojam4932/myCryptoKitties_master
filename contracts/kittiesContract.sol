@@ -449,14 +449,22 @@ contract myKittiesContract is Ownable {
     uint256 index = 7;
 
     /* bitwise operator
-      00000001 => 1
-      00000010 => 2
-      00000100 => 4
-      00001000 => 8
-      00010000 => 16
-      00100000 => 32
-      01000000 => 64
-      10000000 => 128
+      ==============================
+      00000001 = 1     ==> 1 bit
+      00000010 = 2     ==> 1 bit
+      00000100 = 4     ==> 1 bit
+      00001000 = 8     ==> 1 bit
+      00010000 = 16    ==> 1 bit
+      00100000 = 32    ==> 1 bit
+      01000000 = 64    ==> 1 bit
+      10000000 = 128   ==> 1 bit
+      -----------------------------
+      8 bits
+      -----------------------------
+      =============================
+
+      We use the && and || or operators to compare the 8 bit random number we got from the timestamp % 255, to the 8 bits of integers which range from 1-128
+
       if (true && false) = false (1, 0) = 0
       if we compare something to both true and false, is false because it cannot be both true and false
       if (true || false) = true -- we compare something to true or false, is true; it could be either true or false (1, 0) = 1
@@ -464,20 +472,22 @@ contract myKittiesContract is Ownable {
       if ( false || false) = false (0, 0) = 0 .... one needs to be true
       if ( false && false) = false (0, 0) = 0 .... one needs to be true
 
-      11001011 (random number from block.timestamp)
-      &
-      integers < 128
-      00000001 1 
-      00000010 1
-      00000100 0
-      00001000 1
-      00010010 0
-      00100010 0
-      01000010 1
-      10000010 0
+      11001011 (random number from block.timestamp is compared to the loop of integers 1 < 128 => [1,2,4,8,16,32,64,128])     
+      &&&&&&&&        | resulted number | assignment - after comparison, number sequnce is assigned either mumId or dadId
+      00000001        1 true              = mum
+      00000010        1 true              = mum
+      00000100        0 false             = dad
+      00001000        1 true              = mum
+      00010010        0 false             = dad
+      00100010        0 false             = dad
+      01000010        1 true              = mum
+      10000010        0 false             = dad  reminder compare 1 && 0 is false: a true and a false cannot be both true, thus is false
 
+      integers < 128 is the 8 bit operator
       if(1) use mum gene
       if(0) use dad gene
+
+     
       */
 
     //DNA [11, 22, 33, 44, 55 66 77 (88)] //we remove the last pair by deviding by 100
@@ -496,9 +506,9 @@ contract myKittiesContract is Ownable {
 
     }
     // Combine DNA from both parents as one string of numbers
-    //uint256 newGene; (already delcard at start of contract)
+    //uint256 newGene; (already declared at start of contract)
 
-    // new gene
+    // new gene (imaginary string from both parents - just an example) => into one string of numbers
     //[12, 23, 34, 45, 56, 67, 78, 98]
 
     // we take our first pos and add (+) our new gene
@@ -521,7 +531,7 @@ contract myKittiesContract is Ownable {
       } 
   
     }
-    return newGene; // 12 23 34 45 56 67 78 98
+    return newGene; // 1223344556677898
   }
 
 
