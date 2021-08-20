@@ -487,10 +487,17 @@ contract myKittiesContract is Ownable {
       if(1) use mum gene
       if(0) use dad gene
 
-     
+      from the resulted sequnce 11010010; 1's were assigned to mumId and 0's to dadId
+      mumDNA
+      11 22 33 44 55 66 77 88
+      dadDNA
+      10 20 30 40 50 60 70 80 
+      result DNA
+      mum mum dad mum dad dad mum dad
+      
+      DNA from both parents: geneArray [11, 22, 30, 44, 50 60 77 (80)] //we remove the last pair by deviding by 100; the function below will perform this operation
+  
       */
-
-    //DNA [11, 22, 33, 44, 55 66 77 (88)] //we remove the last pair by deviding by 100
 
     for ( i = 1; i <= 128; i=i*2) { 
       if(random & i !=0) {
@@ -505,10 +512,11 @@ contract myKittiesContract is Ownable {
       index = index - 1; // from the 7th pos, we move back in pos of the array[,,,,<==] 
 
     }
-    // Combine DNA from both parents as one string of numbers
-    //uint256 newGene; (already declared at start of contract)
+    // Combined DNA from both parents as one string of numbers
+    // uint256 newGene variable; (already declared at start of contract)
 
-    // new gene (imaginary string from both parents - just an example) => into one string of numbers
+    // imaginary string from both parents geneArray - just an example => will be merged into one string of numbers
+
     //[12, 23, 34, 45, 56, 67, 78, 98]
 
     // we take our first pos and add (+) our new gene
@@ -517,12 +525,12 @@ contract myKittiesContract is Ownable {
     // [1200]
     // we then add from our geneArray[i] then next index num
     // [1223]
-    // we then mult by 100 again
+    // we then mult by 100 again since it is not index 7 yet
     // [122300]
     // add again from our geneArray[i] the next index
     // [122324]
     // mult again
-    // [12233400]... and so on
+    // [12233400]... and so on unit it reaches index 7
     
     for(i = 0; i < 8; i++) {
       newGene = newGene + geneArray[i]; // we need to stop before the last index [1,2,3,4,5,6,7, stop]
