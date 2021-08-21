@@ -42,6 +42,7 @@ contract myKittiesContract is Ownable {
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
   uint256 newGene; // prev: newDna
+  uint256 newRandGene;
   uint256 nextId = 0;
 
   // 11 22 33 44 | 44 33 22 1 1
@@ -445,7 +446,7 @@ contract myKittiesContract is Ownable {
   function _mixDna(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
     uint256[8] memory geneArray;
     uint8 random = uint8( block.timestamp % 255 ); // 0-255 max random numbers | binary between 00000000-11111111 (example rand num: 11001011)
-    uint256 i;
+    uint256 i = 1;
     uint256 index = 7;
 
     /* bitwise operator
@@ -472,6 +473,7 @@ contract myKittiesContract is Ownable {
       if ( false || false) = false (0, 0) = 0 .... one needs to be true
       if ( false && false) = false (0, 0) = 0 .... one needs to be true
 
+      BIT WISE AND OPERATOR & AND COMPARE
       11001011 (random number from block.timestamp is compared to the loop of integers 1 < 128 => [1,2,4,8,16,32,64,128])     
       &&&&&&&&        | resulted number | assignment - after comparison, number sequnce is assigned either mumId or dadId
       00000001        1 true              = mum
@@ -481,7 +483,7 @@ contract myKittiesContract is Ownable {
       00010010        0 false             = dad
       00100010        0 false             = dad
       01000010        1 true              = mum
-      10000010        0 false             = dad  reminder compare 1 && 0 is false: a true and a false cannot be both true, thus is false
+      10000010        1 true              = mum  reminder compare 1 && 0 is false: a true and a false cannot be both true, thus is false
 
       integers < 128 is the 8 bit operator
       if(1) use mum gene
@@ -506,6 +508,16 @@ contract myKittiesContract is Ownable {
       else {
         geneArray[index] =  uint8( _dadDna % 100);
       }
+
+      // divide by 100 to loop backwards in the array and choose mum or dad gene
+      //11 22 33 44 55 66 77
+      //11 22 33 44 55 66
+      //11 22 33 44 55
+      //11 22 33 44
+      //11 22 33
+      //11 22
+      //11 
+
       _mumDna = _mumDna / 100;
       _mumDna = _mumDna / 100;
 
@@ -540,6 +552,62 @@ contract myKittiesContract is Ownable {
   
     }
     return newGene; // 1223344556677898
+  }
+
+  function _mixDnaMoreRand(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
+    uint256[8] memory moreRandGeneArray;
+    uint8 moreRand = uint8(block.timestamp % 255);
+    uint256 i = 1;
+    uint256 index = 7;
+
+    /*
+    8 bit wise AND operator (&) and XOR
+      00000001 = 1     ==> 1 bit
+      00000010 = 2     ==> 1 bit
+      00000100 = 4     ==> 1 bit
+      00001000 = 8     ==> 1 bit
+      00010000 = 16    ==> 1 bit
+      00100000 = 32    ==> 1 bit
+      01000000 = 64    ==> 1 bit
+      10000000 = 128   ==> 1 bit
+      &
+      11001011 8 bit fictional random number from timestamp modulo 255
+      ================================================================
+      11001011 result from AND & operator
+
+      if random & != 0: pick mumId = > do more random here - how about compare with XOR operator
+      else
+      pick dadId
+
+      00110100 result from XOR ^
+    */
+
+    for (i = 1; i <= 128; i=i*2) { // remix error fix #1 -- 64 instead of 128
+      if (moreRand & i != 0) {
+        moreRandGeneArray[index] = uint8(_mumDna % 100);
+      }
+      else {
+         moreRandGeneArray[index] = uint8(_dadDna % 100);
+      }
+
+      _mumDna = _mumDna / 100;
+      _dadDna = _dadDna / 100;
+
+      //index = index -1;
+      if(i != 128){index = index-1;} // remix fix #2
+
+    }
+
+    // convert dna pairs into one string of numbers
+    for (i = 0; i < 8; i++) {
+      newRandGene = newRandGene + moreRandGeneArray[i];
+
+      if (i != 7 ) {
+        newRandGene = newRandGene * 100;
+      }
+
+    }
+    return newRandGene;
   }
 
 
