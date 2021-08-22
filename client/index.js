@@ -3,7 +3,7 @@ var instance;
 var user;
 //var dnaStr = "457896541299";
 
-var contract = "0x1666aeA8021aCdF22d01b0D273707e6Bd4EDFe76";
+var contract = "0x5A03946706C2460651eD85074f39c49c87306449";
 var contractOwner;
 
 $(document).ready(function () {
@@ -39,7 +39,6 @@ $(document).ready(function () {
       .on('error', console.error);
 
   
-
 /*
     instance.events.MarketTransaction()
       .on('data', (event) => {
@@ -74,8 +73,8 @@ $(document).ready(function () {
           $('#sellBtn').attr('onclick', 'sellCat(' + tokenId + ')')          
         }
       })
-      .on('error', console.error);
-      */
+      .on('error', console.error); // function ends here
+    */
   });
   
 
@@ -120,7 +119,6 @@ async function checkOffer(id) {
 
 // Get all the kitties from address
 async function kittyByOwner(address) {
-
   let res;
   try {
     res = await instance.methods.tokensOfOwner(address).call();
@@ -179,7 +177,7 @@ async function appendBreed(id, gender) {
 //Appending cats to breed selection
 async function breed(dadId, mumId) {
   try {
-    await instance.methods.Breeding(dadId, mumId).send()
+    await instance.methods.breed(dadId, mumId).send()
   } catch (err) {
     log(err)
   }
