@@ -64,7 +64,7 @@ contract myKittiesContract is Ownable {
     (uint256 dadDna,,,,uint256 DadGeneration) = myGetKitty(_dadId);
     (uint256 mumDna,,,,uint256 MumGeneration) = myGetKitty(_mumId);
 
-    newGene = _mixDna(dadDna, mumDna);
+    newGene = _mixDnaMoreRand(dadDna, mumDna);
 
     uint256 kittenGen = 0;
     if (DadGeneration < MumGeneration) {
@@ -472,6 +472,8 @@ contract myKittiesContract is Ownable {
       if ( true && true) = true (1, 1) = 1
       if ( false || false) = false (0, 0) = 0 .... one needs to be true
       if ( false && false) = false (0, 0) = 0 .... one needs to be true
+      if ( true XOR true) = false) exactly only one can be true "Exlusive OR"
+
 
       BIT WISE AND OPERATOR & AND COMPARE
       11001011 (random number from block.timestamp is compared to the loop of integers 1 < 128 => [1,2,4,8,16,32,64,128])     
@@ -521,9 +523,16 @@ contract myKittiesContract is Ownable {
       _mumDna = _mumDna / 100;
       _mumDna = _mumDna / 100;
 
-      index = index - 1; // from the 7th pos, we move back in pos of the array[,,,,<==] 
+      //index = index - 1; // from the 7th pos, we move back in pos of the array[,,,,<==] 
+      if (i != 128) {index = index -1;}  
 
     }
+
+     // Add a random parameter in a random place 
+      uint8 newGeneIndex = random % 7;
+      geneArray[newGeneIndex] = random % 99;
+
+      
     // Combined DNA from both parents as one string of numbers
     // uint256 newGene variable; (already declared at start of contract)
 
@@ -556,7 +565,7 @@ contract myKittiesContract is Ownable {
 
   function _mixDnaMoreRand(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
     uint256[8] memory moreRandGeneArray;
-    uint8 moreRand = uint8(block.timestamp % 255);
+    uint8 rand = uint8(block.timestamp % 255);
     uint256 i = 1;
     uint256 index = 7;
 
@@ -580,10 +589,14 @@ contract myKittiesContract is Ownable {
       pick dadId
 
       00110100 result from XOR ^
+
+      Take the random number we calculated in the previous video, and use it to select one of the pairs that will get an extra randomness treatment. Then generate a new, 2 digit, random number and set it as that pair. That DNA pair will now be completely random, independent from any parent.
     */
 
+
     for (i = 1; i <= 128; i=i*2) { // remix error fix #1 -- 64 instead of 128
-      if (moreRand & i != 0) {
+
+      if (rand & i != 0) {
         moreRandGeneArray[index] = uint8(_mumDna % 100);
       }
       else {
@@ -597,6 +610,12 @@ contract myKittiesContract is Ownable {
       if(i != 128){index = index-1;} // remix fix #2
 
     }
+
+      //select one of the pairs
+      uint8 newPairIndex = rand % 7; // index
+      //extra random treatment
+      moreRandGeneArray[newPairIndex] = rand % 99;
+
 
     // convert dna pairs into one string of numbers
     for (i = 0; i < 8; i++) {
