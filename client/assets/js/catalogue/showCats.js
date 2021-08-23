@@ -157,7 +157,7 @@ async function catOffer(id) {
 
 function renderCat(dna, id) {
 
-  headColor(dna.headcolor, id)
+  headColor(dna.heaColor, id)
   mouthAndBelly(dna.mouthColor, id)
   eyeColor(dna.eyesColor, id)
   earsAndPaw(dna.earsColor, id)
@@ -172,10 +172,9 @@ function renderCat(dna, id) {
 
 function catDna(dnaStr) {
 
-
   var dna = {
       //Colors
-      "headcolor": dnaStr.substring(0, 2),
+      "headColor": dnaStr.substring(0, 2),
       "mouthColor": dnaStr.substring(2, 4),
       "eyesColor": dnaStr.substring(4, 6),
       "earsColor": dnaStr.substring(6, 8),
@@ -184,7 +183,7 @@ function catDna(dnaStr) {
       "decorationPattern": dnaStr.substring(9, 10),
       "decorationMidcolor": dnaStr.substring(10, 12),
       "decorationSidescolor": dnaStr.substring(12, 14),
-      "animation": dnaStr.substring(14, 15),
+      "animation": dnaStr.substring(14, 15), 
       "lastNum": dnaStr.substring(15, 16)
   }
 
@@ -211,55 +210,57 @@ function catBox(id) {
 //Simple body of a cat
 function catBody(id) {
 
-  var single = `<div class="robot__ear">
-                      <div id="leftEar`+ id + `" class="robot__ear--left">
-                          <div class="cat__ear--left-inside"></div>
-                      </div>
-                      <div id="rightEar`+ id + `" class="robot__ear--right">
-                          <div class="robot__ear--right-inside"></div>
-                      </div>
-                  </div>
+  var single = `
+            <div class="robot__ear">
+            <div id="leftEar`+ id + `" class="robot__ear--left">
+                <div class="robot__ear--left-inside"></div>
+            </div>
+            <div id="rightEar`+ id + `" class="robot__ear--right">
+                <div class="robot__ear--right-inside"></div>
+            </div>
+          </div>
 
-                  <div id="head`+ id + `" class="robot__head">
-                      <div id="midDot`+ id + `" class="robot__head-dots">
-                          <div id="leftDot`+ id + `" class="robot__head-dots_first"></div>
-                          <div id="rightDot`+ id + `" class="robot__head-dots_second"></div>
-                      </div>
-                      <div id="robotEye`+ id + `" class="robot__eye">
-                          <div class="robot__eye--left">
-                              <span class="pupil-left"></span>
-                          </div>
-                          <div class="robot__eye--right">
-                              <span class="pupil-right"></span>
-                          </div>
-                      </div>
-                      <div class="cat__nose"></div>
+          <div id="head`+ id + `" class="robot__head">
+            <div id="midDot`+ id + `" class="robot__head-dots">
+                <div id="leftDot`+ id + `" class="robot__head-dots_first"></div>
+                <div id="rightDot`+ id + `" class="robot__head-dots_second"></div>
+            </div>
+            <div id="robotEye`+ id + `" class="robot__eye">
+                <div class="robot__eye--left">
+                    <span class="pupil-left"></span>
+                </div>
+                <div class="robot__eye--right">
+                    <span class="pupil-right"></span>
+                </div>
+            </div>
+            <div class="cat__nose"></div>
 
-                      <div id="mouth-contour`+ id + `" class="cat__mouth-contour"></div>
-                      <div class="cat__mouth-left"></div>
-                      <div class="cat__mouth-right"></div>
+            <div id="mouth-contour`+ id + `" class="cat__mouth-contour"></div>
+            <div class="cat__mouth-left"></div>
+            <div class="cat__mouth-right"></div>
 
-                      <div class="cat__whiskers-left"></div>
-                      <div class="cat__whiskers-right"></div>
-                  </div>
+            <div class="cat__whiskers-left"></div>
+            <div class="cat__whiskers-right"></div>
+          </div>
 
-                  <div class="cat__body">
+          <div class="cat__body">
 
-                      <div id="chest`+ id + `" class="cat__chest"></div>
+            <div id="chest`+ id + `" class="cat__chest"></div>
 
-                      <div id="chest_inner`+ id + `" class="cat__chest_inner"></div>
-
-
-                      <div id="pawLeft`+ id + `" class="cat__paw-left"></div>
-                      <div id="pawLeftInner`+ id + `" class="cat__paw-left_inner"></div>
+            <div  id="chest_inner`+ id + `" class="cat__chest_inner"></div>
 
 
-                      <div id="pawRight`+ id + `" class="cat__paw-right"></div>
-                      <div id="pawRightInner`+ id + `" class="cat__paw-right_inner"></div>
+            <div id="pawLeft`+ id + `" class="cat__paw-left"></div>
+            <div id="pawLeftInner`+ id +`" class="cat__paw-left_inner"></div>
 
 
-                      <div id="tail`+ id + `" class="cat__tail"></div>
-                  </div>`
+            <div id=pawRight`+ id + `" class="cat__paw-right"></div>
+            <div id="pawRightInner `+ id + `" class="cat__paw-right_inner"></div>
+
+
+            <div id="tail`+ id + `" class="cat__tail"></div>
+          </div>
+  `
   return single
 }
 
@@ -268,7 +269,7 @@ function cattributes(id) {
   var Cattributes = `<ul class="ml-5 cattributes">
                           <li><span id="eyeName`+ id + `"></span> eyes</li>
                           <li><span id="decorationName`+ id + `"></span> decoration</li>
-                          <li><span id="animationName`+ id + `"></span></li>
+                          <li><span id="animationName`+ id + `"></span> animation </li>
                       </ul>`
   return Cattributes
 

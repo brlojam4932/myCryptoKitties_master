@@ -50,6 +50,7 @@ contract myKittiesContract is Ownable {
   // this cat will just take up space, cannot be transacted in any way
   // prevents buyKitty function require statement resulting to an empty array; being true
   constructor() {
+    // We are creating the first kitty at index 0
     _createKitty(0, 0, 0, uint256(0), address(0));
     // (mumId, dadId, gen, genes, owner)
   }
@@ -443,13 +444,15 @@ contract myKittiesContract is Ownable {
   }
   */
 
+/*
+function before more randomness is added
   function _mixDna(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
     uint256[8] memory geneArray;
     uint8 random = uint8( block.timestamp % 255 ); // 0-255 max random numbers | binary between 00000000-11111111 (example rand num: 11001011)
     uint256 i = 1;
     uint256 index = 7;
 
-    /* bitwise operator
+    bitwise operator
       ==============================
       00000001 = 1     ==> 1 bit
       00000010 = 2     ==> 1 bit
@@ -501,7 +504,7 @@ contract myKittiesContract is Ownable {
       
       DNA from both parents: geneArray [11, 22, 30, 44, 50 60 77 (80)] //we remove the last pair by deviding by 100; the function below will perform this operation
   
-      */
+    
 
     for ( i = 1; i <= 128; i=i*2) { 
       if(random & i !=0) {
@@ -527,10 +530,6 @@ contract myKittiesContract is Ownable {
       if (i != 128) {index = index -1;}  
 
     }
-
-     // Add a random parameter in a random place 
-      uint8 newGeneIndex = random % 7;
-      geneArray[newGeneIndex] = random % 99;
 
       
     // Combined DNA from both parents as one string of numbers
@@ -562,6 +561,7 @@ contract myKittiesContract is Ownable {
     }
     return newGene; // 1223344556677898
   }
+  */
 
   function _mixDnaMoreRand(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
     uint256[8] memory moreRandGeneArray;

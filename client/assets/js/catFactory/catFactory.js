@@ -144,7 +144,7 @@ function decorationVariation(num) {
 
 //6 Animations 
 function animationVariation(num) {
-    var specialnum = Math.floor(Math.random() * 10) 
+    //var specialnum = Math.floor(Math.random() * 10) 
     $('#dnadanimation').html(num)
 
     switch (num) {
@@ -285,13 +285,21 @@ function decorationType7() {
 }
 
 /** Animations **/
-
+/*
 async function resetAnimation() {
     document.getElementById("head").classList.remove("movingHead")
     document.getElementById("leftEar").classList.remove("movingEarsLeft", "moving-Single-EarLeft", "attentionLeft")
     document.getElementById("rightEar").classList.remove("movingEarsRight", "moving-Single-EarRight", "attentionRight")
     document.getElementById("tail").classList.remove("movingTail")
 
+}
+*/
+
+function resetAnimation() {
+    $("#head").removeClass("movingHead")
+    $("#lefEar").removeClass("movingEarsLeft", "moving-Single-EarLeft", "attentionLeft")
+    $("#rightEar").removeClass("movingEarsRight", "moving-Single-EarRight", "attentionRight")
+    $("#tail").removeClass("movingTail")
 }
 
 function movingHead() {

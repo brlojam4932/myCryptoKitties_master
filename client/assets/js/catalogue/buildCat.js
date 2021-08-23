@@ -5,7 +5,6 @@
 var colors = Object.values(allColors())
 
 function headColor(code, id) {
-
     var color = colors[code]
     $('#head' + id + ', #chest' + id).css('background', '#' + color)
 }
@@ -52,37 +51,37 @@ function eyeVariation(num, id) {
         case "2":
             normalEyes(id)
             $('#eyeName' + id).html('Chill')
-            return eyesType1(id)
+            eyesType1(id)
             break
         case "3":
             normalEyes(id)
             $('#eyeName' + id).html('Cute')
-            return eyesType2(id)
+            eyesType2(id)
             break
         case "4":
             normalEyes(id)
             $('#eyeName' + id).html('Watching')
-            return eyesType3(id)
+            eyesType3(id)
             break
         case "5":
             normalEyes(id)
             $('#eyeName' + id).html('Night')
-            return eyesType4(id)
+            eyesType4(id)
             break
         case "6":
             normalEyes(id)
             $('#eyeName' + id).html('Wonder down')
-            return eyesType5(id)
+            eyesType5(id)
             break
         case "7":
             normalEyes(id)
             $('#eyeName' + id).html('Wonder up')
-            return eyesType6(id)
+            eyesType6(id)
             break
         case "8":
             normalEyes(id)
             $('#eyeName' + id).html('Circle')
-            return eyesType7(id)
+            eyesType7(id)
             break
     }
 }
@@ -261,13 +260,21 @@ function decorationType7(id) {
 }
 
 /** Animations **/
-
-async function resetAnimation(id) {
+/*
+function resetAnimation(id) {
     document.getElementById("head" + id).classList.remove("movingHead")
     document.getElementById("leftEar" + id).classList.remove("movingEarsLeft", "moving-Single-EarLeft", "attentionLeft")
     document.getElementById("rightEar" + id).classList.remove("movingEarsRight", "moving-Single-EarRight", "attentionRight")
     document.getElementById("tail" + id).classList.remove("movingTail")
 
+}
+*/
+
+function resetAnimation(id) {
+    $("#head" + id).removeClass("movingHead")
+    $("#lefEar" + id).removeClass("movingEarsLeft", "moving-Single-EarLeft", "attentionLeft")
+    $("#rightEar" + id).removeClass("movingEarsRight", "moving-Single-EarRight", "attentionRight")
+    $("#tail" + id).removeClass("movingTail")
 }
 
 function movingHead(id) {    
@@ -277,7 +284,7 @@ function movingHead(id) {
 }
 
 function movingTail(id) {    
-    $('#tail' + id).addClass('movingTail')
+    $("#tail" + id).addClass('movingTail')
 
 }
 
