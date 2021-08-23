@@ -29,7 +29,7 @@ function menu(){
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="myCats.html"><b>My kitties</b></a>
+                        <a class="nav-link" href="myCatsPractice.html"><b>My kitties</b></a>
                     </li>
 
                     

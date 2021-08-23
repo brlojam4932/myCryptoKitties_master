@@ -157,7 +157,7 @@ async function catOffer(id) {
 
 function renderCat(dna, id) {
 
-  headColor(dna.heaColor, id)
+  headColor(dna.headColor, id)
   mouthAndBelly(dna.mouthColor, id)
   eyeColor(dna.eyesColor, id)
   earsAndPaw(dna.earsColor, id)
@@ -171,7 +171,7 @@ function renderCat(dna, id) {
 //Splitting the cat DNA to use it in render
 
 function catDna(dnaStr) {
-
+  //var dnaStr = String(Math.floor(Math.random()*1E16))
   var dna = {
       //Colors
       "headColor": dnaStr.substring(0, 2),
@@ -189,6 +189,7 @@ function catDna(dnaStr) {
 
   return dna
 }
+
 
 //Cat HTML Div for catalogue
 function catBox(id) {
