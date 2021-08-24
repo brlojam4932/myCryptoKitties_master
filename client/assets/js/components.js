@@ -24,6 +24,11 @@ function menu(){
                     <li class="nav-item">
                         <a class="nav-link" href="index.html"><b>Home</b></a>
                     </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="marketPlace.html"><b>Market Place</b></a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="catalogue.html"><b>Catalogue</b></a>
                     </li>
@@ -40,6 +45,7 @@ function menu(){
                     <li class="nav-item">
                         <button class="btn red-btn ml-4">Start</button>
                     </li>
+
 
                 </ul>
 
