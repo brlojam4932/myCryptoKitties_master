@@ -1,3 +1,4 @@
+
 // File for fetching all the cats from smart contrat 
 // into the catalogue
 
@@ -32,10 +33,9 @@ function breedAppend(dna, id, gen, gender) {
   $('#catview' + id).attr('onclick', 'selectBreed("' + dna + '","' + id + '","' + gen + '","' + gender + '")')
 }
 
-//----------
 function selectBreed(dna, id, gen, gender) {
 
-  var KittyDna = catDna(dna) 
+  var KittyDna = catDna(dna)
   //2 build the singleCat into HTML
   var body = catBody(gender)
   var Cattributes = cattributes(gender)
@@ -53,7 +53,6 @@ function selectBreed(dna, id, gen, gender) {
   $('#catSelection').modal('hide')
   removeSelection(id, gender)
   readyToBredd()
-
 }
 
 function readyToBredd() {
@@ -62,15 +61,14 @@ function readyToBredd() {
   var dadId = $('#SireId').val()
 
   if (!empty(mumId) && !empty(dadId)) {
-    $('#breed').css('filter', 'none')
+      $('#breed').css('filter', 'none')
       $('#breed').prop('disabled', false)
       $('#breed').attr('onclick', 'breed("' + dadId + '","' + mumId + '")')
       return true
   }
-  $("#breed").prop('disabled', true)
+  $('#breed').prop('disabled', true)
   $('#breed').css('filter', ' grayscale()')
   return false
-
 }
 
 //If user select a selected cat from any gender, its remove it from the selection box
@@ -105,26 +103,23 @@ function removeSelection(id, gender) {
   }
 }
 
-
-
 async function singleCat(dna, id, gen) {
 
   var KittyDna = catDna(dna)
   //2 build the singleCat into HTML
   var body = catBody(id)
   var Cattributes = cattributes(id)
-  $("#cattributes").html(Cattributes)
-  $("#singleCat").html(body)
+  $('#cattributes').html(Cattributes)
+  $('#singleCat').html(body)
   //3 Render the cats CSS style depending on DNA string
   renderCat(KittyDna, id)
-  $("#catDNA").html(`
+  $('#catDNA').html(`
   <span class="badge badge-light"><h4 class="tsp-2 m-0"><b>GEN:</b>`+ gen + `</h4></span>
   <br>
   <span class="badge badge-light"><h4 class="tsp-2 m-0"><b>DNA:</b>`+ dna + `</h4></span>`)
-
+  
   await catOffer(id)
 }
-
 
 // Checks the Kitty on market situation
 async function catOffer(id) {
@@ -133,33 +128,32 @@ async function catOffer(id) {
   var offer = await checkOffer(id)
   var seller = offer.seller.toLocaleLowerCase()
   if (offer.onsale == true && seller != user) {
-    $("#buyBox").removeClass("hidden")
-    $("#priceBtn").html('<b>' + offer.price + ' ETH</b>')
-    $("#buyBtn").attr('onclick', 'buyKitten(' + id + ',"' + offer.price + '")')
+      $('#buyBox').removeClass('hidden')
+      $('#priceBtn').html('<b>' + offer.price + ' ETH</b>')
+      $('#buyBtn').attr('onclick', 'buyKitten(' + id + ',"' + offer.price + '")')
   }
-
+  
   var ownership = await catOwnership(id)
   //If user owns the cat
-  if (ownership == true) {
-    //If is not on sale
-    if (offer.onsale == false) {
-      $("#sellBox").removeClass("hidden")
-      $("#sellBox").attr("onclick", 'sellCat(' + id + ')')
-    } else {
-      $("#sellBox").removeClass("hidden")
-      $("#cancelBox").removeClass('hidden')
-      $("#sellBtn").attr('onclick', 'deleteOffer(' + id + ')')
-      $("#sellBtn").addClass("btn-success")
-      $("#sellBtn").html('<b>For sale at:</b>')
-      $("#catPrice").val(offer.price)
-      $("#catPrice").prop("readonly", true)
-    }
-    
+  if (ownership == true) {        
+      //If is not on sale
+      if (offer.onsale == false) {
+          $('#sellBox').removeClass('hidden')
+          $('#sellBtn').attr('onclick', 'sellCat(' + id + ')')
+      } else {
+          $('#sellBox').removeClass('hidden')
+          $('#cancelBox').removeClass('hidden')
+          $('#cancelBtn').attr('onclick', 'deleteOffer(' + id + ')')
+          $('#sellBtn').addClass('btn-success')
+          $('#sellBtn').html('<b>For sale at:</b>')
+          $('#catPrice').val(offer.price)
+          $('#catPrice').prop('readonly', true)
+      }
   }
-
 }
 
-//Apply cat CSS Styles from buildCat.ja
+
+//Apply cat CSS Styles from buidCat.js
 
 function renderCat(dna, id) {
 
@@ -177,21 +171,20 @@ function renderCat(dna, id) {
 //Splitting the cat DNA to use it in render
 
 function catDna(dnaStr) {
-  //var dnaStr = String(Math.floor(Math.random()*1E16)) 
+  //var dnaStr = String(Math.floor(Math.random()*1E16))
   var dna = {
-    
-    //Colors
-    "headColor": dnaStr.substring(0, 2),
-    "mouthColor": dnaStr.substring(2, 4),
-    "eyesColor": dnaStr.substring(4, 6),
-    "earsColor": dnaStr.substring(6, 8),
-    //Cattributes
-    "eyesShape": dnaStr.substring(8, 9),
-    "decorationPattern": dnaStr.substring(9, 10),
-    "decorationMidcolor": dnaStr.substring(10, 12),
-    "decorationSidecolor": dnaStr.substring(12, 14),
-    "animation": dnaStr.substring(14, 15),
-    "lastNum": dnaStr.substring(15, 16),
+      //Colors
+      "headColor": dnaStr.substring(0, 2),
+      "mouthColor": dnaStr.substring(2, 4),
+      "eyesColor": dnaStr.substring(4, 6),
+      "earsColor": dnaStr.substring(6, 8),
+      //Cattributes
+      "eyesShape": dnaStr.substring(8, 9),
+      "decorationPattern": dnaStr.substring(9, 10),
+      "decorationMidcolor": dnaStr.substring(10, 12),
+      "decorationSidescolor": dnaStr.substring(12, 14),
+      "animation": dnaStr.substring(14, 15), 
+      "lastNum": dnaStr.substring(15, 16)
   }
 
   return dna
@@ -214,69 +207,70 @@ function catBox(id) {
   }
 }
 
+
 //Simple body of a cat
 function catBody(id) {
-  var single = `<div class="robot__ear">
-                <div id="leftEar`+ id + `" class="robot__ear--left">
-                    <div class="robot__ear--left-inside"></div>
+
+  var single = `
+            <div class="robot__ear">
+            <div id="leftEar`+ id + `" class="robot__ear--left">
+                <div class="robot__ear--left-inside"></div>
+            </div>
+            <div id="rightEar`+ id + `" class="robot__ear--right">
+                <div class="robot__ear--right-inside"></div>
+            </div>
+          </div>
+
+          <div id="head`+ id + `" class="robot__head">
+            <div id="midDot`+ id + `" class="robot__head-dots">
+                <div id="leftDot`+ id + `" class="robot__head-dots_first"></div>
+                <div id="rightDot`+ id + `" class="robot__head-dots_second"></div>
+            </div>
+            <div id="robotEye`+ id + `" class="robot__eye">
+                <div class="robot__eye--left">
+                    <span class="pupil-left"></span>
                 </div>
-                <div id="rightEar`+ id + `" class="robot__ear--right">
-                    <div class="robot__ear--right-inside"></div>
+                <div class="robot__eye--right">
+                    <span class="pupil-right"></span>
                 </div>
-              </div>
+            </div>
+            <div class="cat__nose"></div>
 
-              <div id="head`+ id + `" class="robot__head">
-                <div id="midDot`+ id + `" class="robot__head-dots">
-                    <div id="leftDot`+ id + `" class="robot__head-dots_first"></div>
-                    <div id="rightDot`+ id + `" class="robot__head-dots_second"></div>
-                </div>
-                <div id="robotEye`+ id + `" class="robot__eye">
-                    <div class="robot__eye--left">
-                        <span class="pupil-left"></span>
-                    </div>
-                    <div class="robot__eye--right">
-                        <span class="pupil-right"></span>
-                    </div>
-                </div>
-                <div class="cat__nose"></div>
+            <div id="mouth-contour`+ id + `" class="cat__mouth-contour"></div>
+            <div class="cat__mouth-left"></div>
+            <div class="cat__mouth-right"></div>
 
-                <div id="mouth-contour`+ id + `" class="cat__mouth-contour"></div>
-                <div class="cat__mouth-left"></div>
-                <div class="cat__mouth-right"></div>
+            <div class="cat__whiskers-left"></div>
+            <div class="cat__whiskers-right"></div>
+          </div>
 
-                <div class="cat__whiskers-left"></div>
-                <div class="cat__whiskers-right"></div>
-              </div>
+          <div class="cat__body">
 
-              <div class="cat__body">
+            <div id="chest`+ id + `" class="cat__chest"></div>
 
-                <div id="chest`+ id + `" class="cat__chest"></div>
-
-                <div  id="chest_inner`+ id + `" class="cat__chest_inner"></div>
+            <div  id="chest_inner`+ id + `" class="cat__chest_inner"></div>
 
 
-                <div id="pawLeft`+ id + `" class="cat__paw-left"></div>
-                <div id="pawLeftInner`+ id +`" class="cat__paw-left_inner"></div>
+            <div id="pawLeft`+ id + `" class="cat__paw-left"></div>
+            <div id="pawLeftInner`+ id +`" class="cat__paw-left_inner"></div>
 
 
-                <div id=pawRight`+ id + `" class="cat__paw-right"></div>
-                <div id="pawRightInner `+ id + `" class="cat__paw-right_inner"></div>
+            <div id=pawRight`+ id + `" class="cat__paw-right"></div>
+            <div id="pawRightInner `+ id + `" class="cat__paw-right_inner"></div>
 
 
-                <div id="tail`+ id + `" class="cat__tail"></div>
-              </div>
+            <div id="tail`+ id + `" class="cat__tail"></div>
+          </div>
   `
   return single
-
 }
-
 
 function cattributes(id) {
 
   var Cattributes = `<ul class="ml-5 cattributes">
                           <li><span id="eyeName`+ id + `"></span> eyes</li>
                           <li><span id="decorationName`+ id + `"></span> decoration</li>
-                          <li><span id="animationName`+ id + `"></span> animation</li>
+                          <li><span id="animationName`+ id + `"></span> animation </li>
                       </ul>`
   return Cattributes
 

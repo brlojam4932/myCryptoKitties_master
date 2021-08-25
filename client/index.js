@@ -3,7 +3,7 @@ var instance;
 var user;
 //var dnaStr = "457896541299";
 
-var contract = "0xee7A6e0AA1d77A4661b8100d3cAefD73Be788077";
+var contract = "0xaEf943e29cc6B6841885F028e45FCA7C292cF4F0";
 var contractOwner;
 
 $(document).ready(function () {
@@ -21,25 +21,22 @@ $(document).ready(function () {
     *   when the _createKitty internal method is called
     */
 
-   
     instance.events.Birth()
       .on('data', (event) => {
         console.log(event);
         let owner = event.returnValues.owner;
-        let kittenId = event.returnValues.newKittenId;
+        let kittyId = event.returnValues.kittyId;
         let mumId = event.returnValues.mumId;
         let dadId = event.returnValues.dadId;
         let genes = event.returnValues.genes        
         alert_msg("owner:" + owner
-          + " kittyId:" + kittenId
+          + " kittyId:" + kittyId
           + " mumId:" + mumId
           + " dadId:" + dadId
           + " genes:" + genes,'success')
       })
       .on('error', console.error);
 
-  
-/*
     instance.events.MarketTransaction()
       .on('data', (event) => {
         console.log(event);
@@ -73,13 +70,10 @@ $(document).ready(function () {
           $('#sellBtn').attr('onclick', 'sellCat(' + tokenId + ')')          
         }
       })
-      .on('error', console.error); // function ends here
-    */
+      .on('error', console.error);
   });
-  
 
 });
-
 
 function createKitty() {
   var dnaStr = getDna();
@@ -119,6 +113,7 @@ async function checkOffer(id) {
 
 // Get all the kitties from address
 async function kittyByOwner(address) {
+
   let res;
   try {
     res = await instance.methods.tokensOfOwner(address).call();

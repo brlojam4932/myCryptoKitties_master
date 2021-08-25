@@ -17,12 +17,24 @@ var defaultDNA = {
 
 // when page load
 $( document ).ready(function() {
+    $('#dnabody').html(defaultDNA.headColor);
+    $('#dnamouth').html(defaultDNA.mouthColor);
+    $('#dnaeyes').html(defaultDNA.eyesColor);
+    $('#dnaears').html(defaultDNA.earsColor);
+      
+     $('#dnashape').html(defaultDNA.eyesShape)
+     $('#dnadecoration').html(defaultDNA.decorationPattern)
+     $('#dnadecorationMid').html(defaultDNA.decorationMidcolor)
+     $('#dnadecorationSides').html(defaultDNA.decorationSidescolor)
+     $('#dnaanimation').html(defaultDNA.animation)
+     $('#dnaspecial').html(defaultDNA.lastNum)
     renderCat(defaultDNA)
 });
 
 function defaultCat(){
     renderCat(defaultDNA)
 }
+
 
 function randomDNA(){
     var dnaStr = String(Math.floor(Math.random()*1E16))
@@ -33,7 +45,7 @@ function randomDNA(){
     "eyesColor" : dnaStr.substring(4, 6),
     "earsColor" : dnaStr.substring(6, 8),
     //Cattributes
-    "eyesShape" : dnaStr.substring(8,9) % 8 + 1    ,
+    "eyesShape" : dnaStr.substring(8,9) % 8 + 1,
     "decorationPattern" : dnaStr.substring(9, 10)  % 8 + 1,
     "decorationMidcolor" : dnaStr.substring(10, 12),
     "decorationSidescolor" : dnaStr.substring(12, 14),
@@ -42,6 +54,7 @@ function randomDNA(){
     }
     return dna
 }
+
 
 //Random cat DNA
 function randomCat(){
@@ -63,7 +76,7 @@ function getDna(){
     dna += $('#dnadanimation').html()
     dna += $('#dnaspecial').html()
 
-    return dna
+    return parseInt(dna)
 }
 
 function renderCat(dna){
@@ -94,6 +107,7 @@ function renderCat(dna){
 $('#bodycolor').change(()=>{
     var colorVal = $('#bodycolor').val()
     headColor(colors[colorVal],colorVal)    
+    console.log('bodyColor value ' + colorVal )
 })
 
 $('#mouthcolor').change(()=>{
@@ -149,8 +163,45 @@ $('#decorationsides').change(()=>{
 
 $('#animation').change(()=>{
     var animation = parseInt($('#animation').val())    
-    animationVariation(animation)    
+    animationVariation(animation)  
+    console.log("animation value " + animation)  
 })
+
+// rand colors
+/*
+$("#button2").on("click", async function(){
+  
+    var colorVal = Math.floor(Math.random() * 89) + 10;
+    headColor(colors[colorVal],colorVal);
+  
+    var colorVal = Math.floor(Math.random() * 89) + 10;
+    mouthColor(colors[colorVal],colorVal)
+  
+    var colorVal = Math.floor(Math.random() * 89) + 10;
+    eyesColor(colors[colorVal],colorVal)
+  
+    var colorVal = Math.floor(Math.random() * 89) + 10;
+    earsColor(colors[colorVal],colorVal)
+  
+    var colorVal = Math.floor(Math.random() * 89) + 10;
+    decorationMidColor(colors[colorVal],colorVal)
+  
+    var colorVal = Math.floor(Math.random() * 89) + 10;
+    decorationSidesColor(colors[colorVal],colorVal)
+  
+    // rand shapes
+  
+    var shape = Math.floor(Math.random() * 8) + 1;
+    eyeVariation(shape)
+  
+    var shape = Math.floor(Math.random() * 8) + 1;
+    decorationVariation(shape)
+  
+    var animationVal = Math.floor(Math.random() * 7) + 1;
+    animationVariation(animationVal)
+  
+  })
+  */
 
 //Showing Colors and Cattribute Boxes
 
