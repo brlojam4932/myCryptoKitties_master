@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
 
-contract myKittiesContract is Ownable {
+contract myKittiesContract is Ownable  {
 
   // Mapping from token ID to owner address
   mapping(uint256 => address) public kittyIndexToOwner; //owners Of TokenId
@@ -41,46 +41,78 @@ contract myKittiesContract is Ownable {
   string constant _symbol = "MCRC";
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
-  uint256 newGene; // prev: newDna
-  uint256 newRandGene;
+  //uint256 newGene; // prev: newDna
+  //uint256 newRandGene;
   uint256 nextId = 0;
 
   // 11 22 33 44 | 44 33 22 1 1
 
   // this cat will just take up space, cannot be transacted in any way
   // prevents buyKitty function require statement resulting to an empty array; being true
-  constructor() {
+  //constructor() {
     // We are creating the first kitty at index 0
-    _createKitty(0, 0, 0, uint256(0), address(0));
+   // _createKitty(0, 0, 0, uint256(0), address(0));
     // (mumId, dadId, gen, genes, owner)
-  }
+ // }
 
-  function breed(uint256 _dadId, uint256 _mumId) public returns (uint256) {
+  function Breeding(uint256 _dadId, uint256 _mumId) public returns (uint256) {
     //Check ownership
     //Use new DNA
     //Figure out the Generation
     //Create new cat with new properties, give it to msg.sender
     require(_owns(msg.sender, _dadId) && _owns(msg.sender, _mumId), "You must be the owner of both of your cats");
+    require(_mumId != _dadId, "The cat can't reproduce himself");
 
-    (uint256 dadDna,,,,uint256 DadGeneration) = myGetKitty(_dadId);
-    (uint256 mumDna,,,,uint256 MumGeneration) = myGetKitty(_mumId);
+    (uint256 Dadgenes,,,,uint256 DadGeneration) = getKitty(_dadId);
+    (uint256 Mumgenes,,,,uint256 MumGeneration) = getKitty(_mumId);
 
-    newGene = _mixDnaMoreRand(dadDna, mumDna);
+    //newGene = _mixDnaMoreRand(Dadgenes, Mumgenes);
+      uint256 geneKid;
+      uint256 [8] memory geneArray;
+      uint256 index = 7;
+      uint8 random = uint8(block.timestamp % 255);
+      uint256 i = 0;
+      
+      for(i = 1; i <= 128; i=i*2){
 
-    uint256 kittenGen = 0;
+          /* We are */
+          if(random & i != 0){
+              geneArray[index] = uint8(Mumgenes % 100);
+          } else {
+              geneArray[index] = uint8(Dadgenes % 100);
+          }
+          Mumgenes /= 100;
+          Dadgenes /= 100;
+        index -= 1;
+      }
+
+      /* Add a random parameter in a random place */
+      uint8 newGeneIndex =  random % 7;
+      geneArray[newGeneIndex] = random % 99;
+
+      /* We reverse the DNa in the right order */
+      for (i = 0 ; i < 8; i++ ){
+        geneKid += geneArray[i];
+        if(i != 7){
+            geneKid *= 100;
+        }
+      }
+
+
+    uint256 kidGen = 0;
     if (DadGeneration < MumGeneration) {
-      kittenGen = MumGeneration + 1;
-      kittenGen /= 2;
+      kidGen = MumGeneration + 1;
+      kidGen /= 2;
     } else if (DadGeneration > MumGeneration) {
-      kittenGen = DadGeneration + 1;
-      kittenGen /= 2;
+      kidGen = DadGeneration + 1;
+      kidGen /= 2;
     } else {
-      kittenGen = DadGeneration + 1;
+      kidGen = DadGeneration + 1;
     }
 
-    _createKitty(_mumId, _dadId, kittenGen, newGene, msg.sender);
+    _createKitty(_mumId, _dadId, kidGen, geneKid, msg.sender);
 
-    return newGene;
+    return kidGen;
    
   }
 
@@ -92,19 +124,20 @@ contract myKittiesContract is Ownable {
 
   bytes4 internal constant MAGIC_ERC721_RECEIVED = bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
 
-  struct Kitty{
-    uint64 birthTime;
-    uint32 mumId;
-    uint32 dadId;
-    uint16 generation;
-    uint256 genes;
+  struct Kitty {
+
+      uint256 genes;
+      uint64 birthTime;
+      uint32 mumId;
+      uint32 dadId;
+      uint16 generation;
   }
 
 
   Kitty[] kitties;
 
 
-  function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256){
+  function createKittyGen0(uint256 _genes) public onlyOwner returns(uint256) {
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
     
     gen0Counter ++;
@@ -113,6 +146,10 @@ contract myKittiesContract is Ownable {
     // Gen0 have no owners; they are owned by the contract
     
     return _createKitty(0,0,0, _genes, msg.sender); // msg.sender could also be -- address(this) - we are giving cats to owner
+
+    // Gen0 have no owners they are own by the contract
+    //uint256 tokenId = _createKitty(0, 0, 0, _genes, msg.sender);
+    //setOffer(0.2 ether, tokenId);
   }
 
 
@@ -124,8 +161,8 @@ contract myKittiesContract is Ownable {
     uint256 _generation, //1,2,3..etc
     uint256 _genes, // recipient
     address owner
-  ) public returns(uint256) {
-    Kitty memory newKitties = Kitty ({
+  ) internal returns(uint256) {
+    Kitty memory _kitty = Kitty ({
       genes: _genes,
       birthTime: uint64(block.timestamp),
       mumId: uint32(_mumId),
@@ -133,12 +170,20 @@ contract myKittiesContract is Ownable {
       generation: uint16(_generation)
     });
 
-    kitties.push(newKitties); // returns the size of array - 1 for the first cat
+    kitties.push(_kitty); // returns the size of array - 1 for the first cat (old)
 
     uint256 newKittenId = kitties.length -1; // 0-1
 
-    emit Birth(owner, newKittenId, _mumId, _dadId, _genes);
 
+    // It's probably never going to happen, 4 billion cats is A LOT, but
+    // let's just be 100% sure we never let this happen.
+    require(newKittenId == uint256(uint32(newKittenId)), "4 Billion cats max");
+
+    emit Birth(owner, newKittenId, uint256(_kitty.mumId), uint256(_kitty.dadId), _kitty.genes);
+
+
+    // This will assign ownership, and also emit the Transfer event as
+    // per ERC721 draft
     _transfer(address(0), owner, newKittenId);
 
     return newKittenId; //returns 256 bit integer
@@ -159,23 +204,27 @@ contract myKittiesContract is Ownable {
   }
 
 
-  function getKittyFilip(uint256 _id) public view returns (
+  function getKitty(uint256 _id)
+    public
+    view
+    returns (
+    uint256 genes,
     uint256 birthTime,
     uint256 mumId,
     uint256 dadId,
-    uint256 generation,
-    uint256 genes
+    uint256 generation
   ) {
-
     Kitty storage kitty = kitties[_id];
+
+    require(kitty.birthTime > 0, "the kitty doesn't exist");
+
     birthTime = uint256(kitty.birthTime);
     mumId = uint256(kitty.mumId);
     dadId = uint256(kitty.dadId);
     generation = uint256(kitty.generation);
-    genes = uint256(kitty.genes);
+    genes = kitty.genes;
   }
 
-  //-------------------------------
 
   function getAllCatsFor(address owner) public view returns (uint[] memory) {
     return ownerToCats[owner];
@@ -422,212 +471,6 @@ contract myKittiesContract is Ownable {
     }
     return size > 0;
   }
-
-/*
-  function _mixDnaPrev(uint256 _dadDna, uint256 _mumDna) private returns (uint256) {
-    //dadDna: 11 22 33 44 55 66 77 88 (in remix: remove spances => 1122334455667788)
-    //mumDna: 88 77 66 55 44 33 22 11 (8877665544332211)
-    uint256 firstHalf =  _dadDna / 100000000; // 11 22 33 44 (8 zeroes as there are 16 DNA intergers total)
-    uint256 secondHalf =  _mumDna % 100000000; // 44 33 22 11 (the remaining 8 zeros')
-    //uint256 newDna = firstHalf * 100000000;
-    //newDna = newDna + secondHalf;
-    // 10 and 20 concat
-    // 10 x 100 = 1000
-    // 1000 + 20 = 1020
-    
-    // my verion
-    newDna = ((firstHalf * 100000000) + secondHalf);
-  
-    return newDna;
-    // 11 22 33 44 | 44 33 22 1 1
-
-  }
-  */
-
-/*
-function before more randomness is added
-  function _mixDna(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
-    uint256[8] memory geneArray;
-    uint8 random = uint8( block.timestamp % 255 ); // 0-255 max random numbers | binary between 00000000-11111111 (example rand num: 11001011)
-    uint256 i = 1;
-    uint256 index = 7;
-
-    bitwise operator
-      ==============================
-      00000001 = 1     ==> 1 bit
-      00000010 = 2     ==> 1 bit
-      00000100 = 4     ==> 1 bit
-      00001000 = 8     ==> 1 bit
-      00010000 = 16    ==> 1 bit
-      00100000 = 32    ==> 1 bit
-      01000000 = 64    ==> 1 bit
-      10000000 = 128   ==> 1 bit
-      -----------------------------
-      8 bits
-      -----------------------------
-      =============================
-
-      We use the && and || or operators to compare the 8 bit random number we got from the timestamp % 255, to the 8 bits of integers which range from 1-128
-
-      if (true && false) = false (1, 0) = 0
-      if we compare something to both true and false, is false because it cannot be both true and false
-      if (true || false) = true -- we compare something to true or false, is true; it could be either true or false (1, 0) = 1
-      if ( true && true) = true (1, 1) = 1
-      if ( false || false) = false (0, 0) = 0 .... one needs to be true
-      if ( false && false) = false (0, 0) = 0 .... one needs to be true
-      if ( true XOR true) = false) exactly only one can be true "Exlusive OR"
-
-
-      BIT WISE AND OPERATOR & AND COMPARE
-      11001011 (random number from block.timestamp is compared to the loop of integers 1 < 128 => [1,2,4,8,16,32,64,128])     
-      &&&&&&&&        | resulted number | assignment - after comparison, number sequnce is assigned either mumId or dadId
-      00000001        1 true              = mum
-      00000010        1 true              = mum
-      00000100        0 false             = dad
-      00001000        1 true              = mum
-      00010010        0 false             = dad
-      00100010        0 false             = dad
-      01000010        1 true              = mum
-      10000010        1 true              = mum  reminder compare 1 && 0 is false: a true and a false cannot be both true, thus is false
-
-      integers < 128 is the 8 bit operator
-      if(1) use mum gene
-      if(0) use dad gene
-
-      from the resulted sequnce 11010010; 1's were assigned to mumId and 0's to dadId
-      mumDNA
-      11 22 33 44 55 66 77 88
-      dadDNA
-      10 20 30 40 50 60 70 80 
-      result DNA
-      mum mum dad mum dad dad mum dad
-      
-      DNA from both parents: geneArray [11, 22, 30, 44, 50 60 77 (80)] //we remove the last pair by deviding by 100; the function below will perform this operation
-  
-    
-
-    for ( i = 1; i <= 128; i=i*2) { 
-      if(random & i !=0) {
-        geneArray[index] =  uint8( _mumDna % 100); // we set the index pos in array at #7; then / by 100 and move the index back by 1 to get rid of the last two digits
-      }
-      else {
-        geneArray[index] =  uint8( _dadDna % 100);
-      }
-
-      // divide by 100 to loop backwards in the array and choose mum or dad gene
-      //11 22 33 44 55 66 77
-      //11 22 33 44 55 66
-      //11 22 33 44 55
-      //11 22 33 44
-      //11 22 33
-      //11 22
-      //11 
-
-      _mumDna = _mumDna / 100;
-      _mumDna = _mumDna / 100;
-
-      //index = index - 1; // from the 7th pos, we move back in pos of the array[,,,,<==] 
-      if (i != 128) {index = index -1;}  
-
-    }
-
-      
-    // Combined DNA from both parents as one string of numbers
-    // uint256 newGene variable; (already declared at start of contract)
-
-    // imaginary string from both parents geneArray - just an example => will be merged into one string of numbers
-
-    //[12, 23, 34, 45, 56, 67, 78, 98]
-
-    // we take our first pos and add (+) our new gene
-    // [12]
-    // we then take our new gene and mult by (100)
-    // [1200]
-    // we then add from our geneArray[i] then next index num
-    // [1223]
-    // we then mult by 100 again since it is not index 7 yet
-    // [122300]
-    // add again from our geneArray[i] the next index
-    // [122324]
-    // mult again
-    // [12233400]... and so on unit it reaches index 7
-    
-    for(i = 0; i < 8; i++) {
-      newGene = newGene + geneArray[i]; // we need to stop before the last index [1,2,3,4,5,6,7, stop]
-      if(i != 7) { // if i is not index 7, mult; otherwise stop and return new gene
-         newGene = newGene * 100;
-      } 
-  
-    }
-    return newGene; // 1223344556677898
-  }
-  */
-
-  function _mixDnaMoreRand(uint256 _dadDna, uint256 _mumDna) private returns(uint256) {
-    uint256[8] memory moreRandGeneArray;
-    uint8 rand = uint8(block.timestamp % 255);
-    uint256 i = 1;
-    uint256 index = 7;
-
-    /*
-    8 bit wise AND operator (&) and XOR
-      00000001 = 1     ==> 1 bit
-      00000010 = 2     ==> 1 bit
-      00000100 = 4     ==> 1 bit
-      00001000 = 8     ==> 1 bit
-      00010000 = 16    ==> 1 bit
-      00100000 = 32    ==> 1 bit
-      01000000 = 64    ==> 1 bit
-      10000000 = 128   ==> 1 bit
-      &
-      11001011 8 bit fictional random number from timestamp modulo 255
-      ================================================================
-      11001011 result from AND & operator
-
-      if random & != 0: pick mumId = > do more random here - how about compare with XOR operator
-      else
-      pick dadId
-
-      00110100 result from XOR ^
-
-      Take the random number we calculated in the previous video, and use it to select one of the pairs that will get an extra randomness treatment. Then generate a new, 2 digit, random number and set it as that pair. That DNA pair will now be completely random, independent from any parent.
-    */
-
-
-    for (i = 1; i <= 128; i=i*2) { // remix error fix #1 -- 64 instead of 128
-
-      if (rand & i != 0) {
-        moreRandGeneArray[index] = uint8(_mumDna % 100);
-      }
-      else {
-         moreRandGeneArray[index] = uint8(_dadDna % 100);
-      }
-
-      _mumDna = _mumDna / 100;
-      _dadDna = _dadDna / 100;
-
-      //index = index -1;
-      if(i != 128){index = index-1;} // remix fix #2
-
-    }
-
-      //select one of the pairs
-      uint8 newPairIndex = rand % 7; // index
-      //extra random treatment
-      moreRandGeneArray[newPairIndex] = rand % 99;
-
-
-    // convert dna pairs into one string of numbers
-    for (i = 0; i < 8; i++) {
-      newRandGene = newRandGene + moreRandGeneArray[i];
-
-      if (i != 7 ) {
-        newRandGene = newRandGene * 100;
-      }
-
-    }
-    return newRandGene;
-  }
-
-
 }
+
+

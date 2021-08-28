@@ -52,10 +52,10 @@ function selectBreed(dna, id, gen, gender) {
   <span class="badge badge-light"><h4 class="tsp-2 m-0"><b>DNA:</b>`+ dna + `</h4></span>`)
   $('#catSelection').modal('hide')
   removeSelection(id, gender)
-  readyToBredd()
+  readyToBreed()
 }
 
-function readyToBredd() {
+function readyToBreed() {
 
   var mumId = $('#DameId').val()
   var dadId = $('#SireId').val()

@@ -31,7 +31,7 @@ contract KittyMarketPlace is myKittiesContract {
   }
 
   constructor(address _kittyContractAddress) {
-        setKittyContract(_kittyContractAddress) ;
+        setKittyContract(_kittyContractAddress);
     }
   
 

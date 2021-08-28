@@ -52,11 +52,11 @@ function selectBreed(dna, id, gen, gender) {
   <span class="badge badge-light"><h4 class="tsp-2 m-0"><b>DNA:</b>`+ dna + `</h4></span>`)
   $('#catSelection').modal('hide')
   removeSelection(id, gender)
-  readyToBredd()
+  readyToBreed()
 
 }
 
-function readyToBredd() {
+function readyToBreed() {
 
   var mumId = $('#DameId').val()
   var dadId = $('#SireId').val()
@@ -131,7 +131,7 @@ async function catOffer(id) {
 
   //Checking if this cat is for Sale
   var offer = await checkOffer(id)
-  var seller = offer.seller.toLocaleLowerCase()
+  var seller = offer.seller.toLocaleLowerCase() 
   if (offer.onsale == true && seller != user) {
     $("#buyBox").removeClass("hidden")
     $("#priceBtn").html('<b>' + offer.price + ' ETH</b>')

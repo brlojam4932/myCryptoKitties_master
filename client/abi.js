@@ -167,6 +167,30 @@ const abi = [
     "type": "event"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_dadId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_mumId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Breeding",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "CREATION_LIMIT_GEN0",
     "outputs": [
@@ -179,45 +203,6 @@ const abi = [
     "stateMutability": "view",
     "type": "function",
     "constant": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_mumId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_dadId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_generation",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_genes",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      }
-    ],
-    "name": "_createKitty",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "inputs": [
@@ -256,30 +241,6 @@ const abi = [
     "stateMutability": "view",
     "type": "function",
     "constant": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_dadId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_mumId",
-        "type": "uint256"
-      }
-    ],
-    "name": "breed",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "inputs": [
@@ -382,8 +343,13 @@ const abi = [
         "type": "uint256"
       }
     ],
-    "name": "getKittyFilip",
+    "name": "getKitty",
     "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "genes",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "birthTime",
@@ -402,11 +368,6 @@ const abi = [
       {
         "internalType": "uint256",
         "name": "generation",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "genes",
         "type": "uint256"
       }
     ],
