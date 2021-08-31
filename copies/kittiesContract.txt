@@ -137,7 +137,7 @@ contract myKittiesContract is Ownable  {
   Kitty[] kitties;
 
 
-  function createKittyGen0(uint256 _genes) external virtual onlyOwner returns(uint256) {
+  function createKittyGen0(uint256 _genes) public onlyOwner returns(uint256) {
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
     
     gen0Counter ++;
