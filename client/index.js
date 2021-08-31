@@ -3,7 +3,7 @@ var instance;
 var user;
 //var dnaStr = "457896541299";
 
-var contract = "0xc8d100FbA4eE5cE79BcA50a6dd5735666b971191";
+var contract = "0x32350Db990F46B8CdD7F2404A6b0357bd9EEcbd0";
 var contractOwner;
 
 $(document).ready(function () {
@@ -25,7 +25,7 @@ $(document).ready(function () {
       .on('data', (event) => {
         console.log(event);
         let owner = event.returnValues.owner;
-        let kittyId = event.returnValues.kittyId;
+        let kittyId = event.returnValues.newKittenId;
         let mumId = event.returnValues.mumId;
         let dadId = event.returnValues.dadId;
         let genes = event.returnValues.genes        

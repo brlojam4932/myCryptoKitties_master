@@ -55,7 +55,7 @@ contract myKittiesContract is Ownable  {
     // (mumId, dadId, gen, genes, owner)
  // }
 
-  function Breeding(uint256 _dadId, uint256 _mumId) public returns (uint256) {
+  function Breeding(uint256 _dadId, uint256 _mumId) public {
     //Check ownership
     //Use new DNA
     //Figure out the Generation
@@ -66,7 +66,7 @@ contract myKittiesContract is Ownable  {
     (uint256 Dadgenes,,,,uint256 DadGeneration) = getKitty(_dadId);
     (uint256 Mumgenes,,,,uint256 MumGeneration) = getKitty(_mumId);
 
-    //newGene = _mixDnaMoreRand(Dadgenes, Mumgenes);
+    //newGene = _mixDnaMoreRand(Dadgenes, Mumgenes - old);
       uint256 geneKid;
       uint256 [8] memory geneArray;
       uint256 index = 7;
@@ -107,12 +107,12 @@ contract myKittiesContract is Ownable  {
       kidGen = DadGeneration + 1;
       kidGen /= 2;
     } else {
-      kidGen = DadGeneration + 1;
+      kidGen = MumGeneration + 1;
     }
 
     _createKitty(_mumId, _dadId, kidGen, geneKid, msg.sender);
 
-    return kidGen;
+    //return kidGen;
    
   }
 
