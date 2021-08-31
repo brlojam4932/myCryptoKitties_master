@@ -55,7 +55,7 @@ contract myKittiesContract is Ownable  {
     // (mumId, dadId, gen, genes, owner)
  // }
 
-  function Breeding(uint256 _dadId, uint256 _mumId) public {
+  function Breeding(uint256 _dadId, uint256 _mumId) public returns (uint256) {
     //Check ownership
     //Use new DNA
     //Figure out the Generation
@@ -112,7 +112,7 @@ contract myKittiesContract is Ownable  {
 
     _createKitty(_mumId, _dadId, kidGen, geneKid, msg.sender);
 
-    //return kidGen;
+    return kidGen;
    
   }
 
