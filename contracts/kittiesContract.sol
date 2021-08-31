@@ -473,4 +473,3 @@ contract myKittiesContract is Ownable  {
   }
 }
 
-
