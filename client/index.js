@@ -220,4 +220,5 @@ async function buyKitten(id, price) {
 
 async function totalCats() {
   var cats = await instance.methods.totalSupply().call();
+  //console.log(`Total Supply: ${cats}`);
 }
