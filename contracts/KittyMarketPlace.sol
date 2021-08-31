@@ -84,10 +84,13 @@ contract KittyMarketPlace is myKittiesContract {
     *   We are checking if the user is owning the kitty inside the approve function
     */
     
-    function createKittyGen0(uint256 _genes) public override onlyOwner returns(uint256) {
-      uint256 tokenId = _createKitty(0, 0, 0, _genes, msg.sender);
-      setOffer(0.2 ether, tokenId);
+    /*
+    function createKittyGen0(uint256 _genes) public override onlyOwner returns(uint256 kitty) {
+      kitty = _createKitty(0, 0, 0, _genes, msg.sender);
+      //uint256 tokenId = kitty;
+      //setOffer(0.2 ether, tokenId);
     }
+    */
 
    function setOffer(uint256 _price, uint256 _tokenId) public {
      require(_price > 0.009 ether, "Cat price should be greater than 0.01" );

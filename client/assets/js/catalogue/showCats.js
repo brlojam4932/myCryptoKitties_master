@@ -259,8 +259,8 @@ function catBody(id) {
                 <div id="pawLeftInner`+ id +`" class="cat__paw-left_inner"></div>
 
 
-                <div id=pawRight`+ id + `" class="cat__paw-right"></div>
-                <div id="pawRightInner `+ id + `" class="cat__paw-right_inner"></div>
+                <div id="pawRight`+ id + `" class="cat__paw-right"></div>
+                <div id="pawRightInner`+ id + `" class="cat__paw-right_inner"></div>
 
 
                 <div id="tail`+ id + `" class="cat__tail"></div>
