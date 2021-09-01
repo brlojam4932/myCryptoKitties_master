@@ -90,8 +90,6 @@ contract myKittiesContract is Ownable  {
    
   }
 
-  
-
 
   function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
     return(_interfaceId == _INTERFACE_TO_ERC721 || _interfaceId == _INTERFACE_TO_ERC165);
@@ -450,7 +448,7 @@ contract myKittiesContract is Ownable  {
   }
 
 
-  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal returns (uint256) {
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal pure returns (uint256) {
     // dadDna: 11 22 33 44 55 66 77 88
     // mumDna: 88 77 66 55 44 33 22 11
 

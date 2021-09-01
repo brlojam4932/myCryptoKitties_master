@@ -441,46 +441,6 @@ const abi = [
     "constant": true
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "myGetKitty",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "birthTime",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "mumId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "dadId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "generation",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "genes",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
     "inputs": [],
     "name": "name",
     "outputs": [
