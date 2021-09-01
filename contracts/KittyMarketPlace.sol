@@ -178,3 +178,30 @@ contract KittyMarketPlace is myKittiesContract {
     }
 
 }
+
+// MarketPlace Front End
+// add tab: Market Place - display only cats which are currently for sale
+// Create a place, window, to create offers - maybe a box, sell kitty, how much
+
+// Approval
+// Check if users have given operator approval to the market place contract
+// If not, ask user to do that - maybe open a Meta Mask window
+// one could use individual approvals per token, alternatively
+
+// Code
+// Two seperate contract instances
+// One instance for Kitty contract
+// One instance for Market Place contract
+// We will need two abis', two contract addresses...with Web3
+
+// Conclucion
+// Interface to Buy and Sell the cats
+// Use contract
+// Seller needs to give marke place contract operator approval before creating an offer
+
+
+
+
+
+
+

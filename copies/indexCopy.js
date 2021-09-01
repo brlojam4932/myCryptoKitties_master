@@ -3,7 +3,7 @@ var instance;
 var user;
 //var dnaStr = "457896541299";
 
-var contract = "0xaEf943e29cc6B6841885F028e45FCA7C292cF4F0";
+var contract = "0x72Bec98bA57De57eAB8838364C5baB90Aceb054D";
 var contractOwner;
 
 $(document).ready(function () {
@@ -25,7 +25,7 @@ $(document).ready(function () {
       .on('data', (event) => {
         console.log(event);
         let owner = event.returnValues.owner;
-        let kittyId = event.returnValues.kittyId;
+        let kittyId = event.returnValues.newKittenId;
         let mumId = event.returnValues.mumId;
         let dadId = event.returnValues.dadId;
         let genes = event.returnValues.genes        
@@ -140,7 +140,7 @@ async function myKitties() {
   }
 }
 
-//Get kittues for breeding that are not selected
+//Get kitties for breeding that are not selected
 async function breedKitties(gender) {
   var arrayId = await instance.methods.tokensOfOwner(user).call();
   for (i = 0; i < arrayId.length; i++) {
@@ -162,17 +162,16 @@ async function catOwnership(id) {
 }
 
 
-
 //Appending cats to breed selection
 async function appendBreed(id, gender) {
-  var kitty = await instance.methods.getKittyFilip(id).call()
+  var kitty = await instance.methods.getKitty(id).call()
   breedAppend(kitty[0], id, kitty['generation'], gender)
 }
 
 //Appending cats to breed selection
 async function breed(dadId, mumId) {
   try {
-    await instance.methods.breed(dadId, mumId).send()
+    await instance.methods.Breeding(dadId, mumId).send()
   } catch (err) {
     log(err)
   }
@@ -180,14 +179,14 @@ async function breed(dadId, mumId) {
 
 //Appending cats for catalog
 async function appendKitty(id) {
-  var kitty = await instance.methods.getKittyFilip(id).call()
+  var kitty = await instance.methods.getKitty(id).call()
   appendCat(kitty[0], id, kitty['generation'])
 }
 
 
 async function singleKitty() {
   var id = get_variables().catId
-  var kitty = await instance.methods.getKittyFilip(id).call()
+  var kitty = await instance.methods.getKitty(id).call()
   singleCat(kitty[0], id, kitty['generation'])
 }
 
@@ -221,4 +220,5 @@ async function buyKitten(id, price) {
 
 async function totalCats() {
   var cats = await instance.methods.totalSupply().call();
+  //console.log(`Total Supply: ${cats}`);
 }
