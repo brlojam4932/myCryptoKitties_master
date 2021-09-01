@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 import "./kittiesContract.sol";
 
+// Filip has 'is Ownable' instead and Ownable probably inherits myKittiesContract
+
 contract KittyMarketPlace is myKittiesContract {
 
   myKittiesContract private _kittyContract;
@@ -46,7 +48,7 @@ contract KittyMarketPlace is myKittiesContract {
      uint256 totalOffers = offers.length;
 
      if (totalOffers == 0) {
-       return new uint256[](0);
+       return new uint256[](0); // empty array takes a space in the array such as [0]
      } 
      else {
        uint256[] memory resultOfToken = new uint256[](totalOffers);
@@ -80,7 +82,7 @@ contract KittyMarketPlace is myKittiesContract {
     
    /*
     *   We give the contract the ability to transfer kitties
-    *   As the kitties will be in the market place we need to be able to transfert them
+    *   As the kitties will be in the market place we need to be able to transfer them
     *   We are checking if the user is owning the kitty inside the approve function
     */
     
@@ -122,7 +124,7 @@ contract KittyMarketPlace is myKittiesContract {
    }
 
 
-   function removeOffer(uint256 _tokenId) external {
+   function removeOffer(uint256 _tokenId) public {
      require(_owns(msg.sender, _tokenId), "User does not own this token");
 
      Offer memory offer = tokenIdToOffer[_tokenId];
@@ -168,6 +170,7 @@ contract KittyMarketPlace is myKittiesContract {
       //* TMP REMOVE THIS*/
       //_approve(_tokenId, msg.sender); 
 
+      // transfer owndership of the kitty
       _kittyContract.transferFrom(offer.seller, msg.sender, _tokenId); // we send tokens to buyer: (seller, buyer, token)
 
       offer.seller.transfer(msg.value);

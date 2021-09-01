@@ -48,8 +48,8 @@ contract myKittiesContract is Ownable  {
   // this cat will just take up space, cannot be transacted in any way
   // prevents buyKitty function require statement resulting to an empty array; being true
   //constructor() {
-    // We are creating the first kitty at index 0
-   // _createKitty(0, 0, 0, uint256(0), address(0));
+    // We are creating the first kitty at index 0 since an empty array, does take up space such as integer[0]
+   // _createKitty(0, 0, 0, uint256(0), address(0)); // Filip uint256(-1) but it fails
     // (mumId, dadId, gen, genes, owner)
  // }
 
