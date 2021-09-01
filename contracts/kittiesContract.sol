@@ -41,8 +41,6 @@ contract myKittiesContract is Ownable  {
   string constant _symbol = "MCRC";
   uint256 public constant CREATION_LIMIT_GEN0 = 10;
   uint256 public gen0Counter;
-  //uint256 newGene; // prev: newDna
-  //uint256 newRandGene;
   uint256 nextId = 0;
 
   // 11 22 33 44 | 44 33 22 1 1
@@ -63,58 +61,36 @@ contract myKittiesContract is Ownable  {
     require(_owns(msg.sender, _dadId) && _owns(msg.sender, _mumId), "You must be the owner of both of your cats");
     require(_mumId != _dadId, "The cat can't reproduce himself");
 
-    (uint256 Dadgenes,,,,uint256 DadGeneration) = getKitty(_dadId);
-    (uint256 Mumgenes,,,,uint256 MumGeneration) = getKitty(_mumId);
+    // reduce memory so use commas
+    // getKitty = genes, birthTime, mumId, dadId, generation
+    ( uint256 dadDna, , , ,uint256 DadGeneration ) = getKitty(_dadId);
 
-    //newGene = _mixDnaMoreRand(Dadgenes, Mumgenes - old);
-      uint256 geneKid;
-      uint256 [8] memory geneArray;
-      uint256 index = 7;
-      uint8 random = uint8(block.timestamp % 255);
-      uint256 i = 0;
-      
-      for(i = 1; i <= 128; i=i*2){
+    ( uint256 mumDna, , , ,uint256 MumGeneration ) = getKitty(_mumId);
 
-          /* We are */
-          if(random & i != 0){
-              geneArray[index] = uint8(Mumgenes % 100);
-          } else {
-              geneArray[index] = uint8(Dadgenes % 100);
-          }
-          Mumgenes /= 100;
-          Dadgenes /= 100;
-        index -= 1;
-      }
+    uint256 newDna = _mixDna(dadDna, mumDna);
 
-      /* Add a random parameter in a random place */
-      uint8 newGeneIndex =  random % 7;
-      geneArray[newGeneIndex] = random % 99;
+    uint kidGen = 0;
 
-      /* We reverse the DNa in the right order */
-      for (i = 0 ; i < 8; i++ ){
-        geneKid += geneArray[i];
-        if(i != 7){
-            geneKid *= 100;
-        }
-      }
-
-
-    uint256 kidGen = 0;
-    if (DadGeneration < MumGeneration) {
-      kidGen = MumGeneration + 1;
-      kidGen /= 2;
-    } else if (DadGeneration > MumGeneration) {
-      kidGen = DadGeneration + 1;
-      kidGen /= 2;
-    } else {
-      kidGen = MumGeneration + 1;
+    if (DadGeneration < MumGeneration ) {
+        kidGen = MumGeneration + 1;
+        kidGen /= 2;
     }
+    else if (DadGeneration > MumGeneration ) {
+        kidGen = DadGeneration + 1;
+        kidGen /= 2;
+    } else { // if both generations are the same, we add plus one
+      kidGen = MumGeneration + 1;
 
-    _createKitty(_mumId, _dadId, kidGen, geneKid, msg.sender);
+    }
+  
+    _createKitty(_mumId, _dadId, kidGen, newDna, msg.sender);
 
     return kidGen;
+ 
    
   }
+
+  
 
 
   function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
@@ -191,8 +167,9 @@ contract myKittiesContract is Ownable  {
   }
 
 
+/*
   function myGetKitty(uint256 tokenId) public view returns (
-    uint256 birthTime,
+    uint256 birthTime, // re-order like Filips if I want to use it
     uint256 mumId,
     uint256 dadId,
     uint256 generation,
@@ -202,7 +179,7 @@ contract myKittiesContract is Ownable  {
     Kitty storage returnKitty = kitties[tokenId];
     return (uint256(returnKitty.birthTime), uint256(returnKitty.mumId), uint256(returnKitty.dadId), uint256(returnKitty.generation), uint256(returnKitty.genes));
   }
-
+*/
 
   function getKitty(uint256 _id)
     public
@@ -471,5 +448,24 @@ contract myKittiesContract is Ownable  {
     }
     return size > 0;
   }
+
+
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal returns (uint256) {
+    // dadDna: 11 22 33 44 55 66 77 88
+    // mumDna: 88 77 66 55 44 33 22 11
+
+    //10 * 100 = 1000
+    //10 + 20 = 1020
+
+    uint256 DadGenes = _dadDna / 100000000; // 11 22 33 44
+    uint256 MumGenes = _mumDna % 100000000; // 44 33 22 11 
+    // 11 22 33 44 x 100000000 + 44 33 22 11 = 11 22 33 44 44 33 22 11
+
+    uint256 newDna = ((DadGenes * 100000000) + MumGenes);
+    return newDna;
+    
+  }
+
+  
 }
 
