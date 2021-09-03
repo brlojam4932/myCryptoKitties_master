@@ -43,7 +43,7 @@ contract KittyMarketPlace is myKittiesContract {
      
    }
 
-   function getAllTokenOnSale() external view returns(uint256[] memory listOfOffers) {
+   function getAllTokenOnSale() public view returns(uint256[] memory listOfOffers) {
      // this array lets us loop through the array and find all of the tokens so we can then display them all on a web page
      uint256 totalOffers = offers.length;
 

@@ -1,19 +1,23 @@
 var web3 = new Web3(Web3.givenProvider);
 var instance;
+var marketPlaceInstance;
 var user;
 //var dnaStr = "457896541299";
 
-var contract = "0x72Bec98bA57De57eAB8838364C5baB90Aceb054D";
+var contractAddress = "0x677975ea13D1e4048499b13F2ddD3650541767C0";
+var marketPlaceAddress = '0x54b4C3A14D5d6fC859b70b51f0f6De419C4a6513';
 var contractOwner;
 
 $(document).ready(function () {
   window.ethereum.enable().then(function (accounts) {
-    instance = new web3.eth.Contract(abi, contract, { from: accounts[0] });
+    instance = new web3.eth.Contract(abi.myKittyContract, contractAddress, { from: accounts[0] });
+    marketPlaceInstance = new web3.eth.Contract(abi.KittyMarketPlace, marketPlaceAddress, {from: accounts[0]});
     instance.methods.owner().call().then(test => {
       contractOwner = test;
     });
     user = accounts[0];
     console.log(instance);
+    console.log(marketPlaceInstance);
     /*     
     EVENTS
     *   Listen for the `Birth` event, and update the UI
@@ -37,7 +41,7 @@ $(document).ready(function () {
       })
       .on('error', console.error);
 
-    instance.events.MarketTransaction()
+      marketPlaceInstance.events.MarketTransaction()
       .on('data', (event) => {
         console.log(event);
         var eventType = event.returnValues["TxType"].toString()
@@ -74,6 +78,38 @@ $(document).ready(function () {
   });
 
 });
+
+async function initMarketPlace() {
+  var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress);
+
+  if (isMarketPlaceOperator) {
+    getInventory();
+  }
+  else {
+    await instance.methods.setApprovalForAll(marketPlaceAddress, true).send().on('receipt', function(receipt){
+      // tx done
+      console.log("tx done");
+      getInventory();
+
+    })
+    
+  }
+
+}
+
+
+//Get kitties for breeding that are not selected
+async function getInventory() {
+  var arrayId = await marketPlaceInstance.methods.getAllTokenOnSale().call();
+  console.log(arrayId);
+  for (i = 0; i < arrayId.length; i++) {
+    if(arrayId[i] != 0) { // the zero cat pos is ignored here; not for sale
+      appendKitty(arrayId[i]);
+    }
+    
+  }
+}
+
 
 function createKitty() {
   var dnaStr = getDna();
