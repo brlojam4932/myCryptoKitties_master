@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-//import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./kittiesContract.sol";
 
 // Filip has 'is Ownable' instead and Ownable probably inherits myKittiesContract
 
-contract KittyMarketPlace is myKittiesContract {
+contract KittyMarketPlace is Ownable {
 
   myKittiesContract private _kittyContract;
 
@@ -34,7 +34,8 @@ contract KittyMarketPlace is myKittiesContract {
 
   constructor(address _kittyContractAddress) {
         setKittyContract(_kittyContractAddress);
-    }
+  }
+
   
 
    function getOffer(uint256 _tokenId) external view returns (address seller, uint256 price, uint256 index, uint256 tokenId, bool active) {
@@ -42,6 +43,16 @@ contract KittyMarketPlace is myKittiesContract {
      return (returnOffers.seller, returnOffers.price, returnOffers.index, returnOffers.tokenId, returnOffers.active);
      
    }
+
+/*
+   function createCat() public override {
+     createKittyGen0();
+      //Gen0 have no owners they are own by the contract
+      uint256 tokenId = _createKitty(0, 0, 0, _genes, msg.sender);
+      setOffer(0.2 ether, tokenId);
+   }
+   */
+
 
    function getAllTokenOnSale() public view returns(uint256[] memory listOfOffers) {
      // this array lets us loop through the array and find all of the tokens so we can then display them all on a web page
@@ -125,7 +136,7 @@ contract KittyMarketPlace is myKittiesContract {
 
 
    function removeOffer(uint256 _tokenId) public {
-     require(_owns(msg.sender, _tokenId), "User does not own this token");
+     require(_kittyContract._owns(msg.sender, _tokenId), "User does not own this token");
 
      Offer memory offer = tokenIdToOffer[_tokenId];
 

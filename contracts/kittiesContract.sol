@@ -4,9 +4,10 @@ pragma solidity ^0.8.0;
 //import "./IERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+//import "./KittyMarketPlace.sol";
 
 
-contract myKittiesContract is Ownable  {
+contract myKittiesContract is Ownable {
 
   // Mapping from token ID to owner address
   mapping(uint256 => address) public kittyIndexToOwner; //owners Of TokenId
@@ -111,7 +112,7 @@ contract myKittiesContract is Ownable  {
   Kitty[] kitties;
 
 
-  function createKittyGen0(uint256 _genes) external virtual onlyOwner returns(uint256) {
+  function createKittyGen0(uint256 _genes) public onlyOwner returns(uint256) {
     require(gen0Counter <= CREATION_LIMIT_GEN0, "Gen 0 should be less than creation limit gen 0");
     
     gen0Counter ++;
@@ -135,7 +136,7 @@ contract myKittiesContract is Ownable  {
     uint256 _generation, //1,2,3..etc
     uint256 _genes, // recipient
     address owner
-  ) internal returns(uint256) {
+  ) public returns(uint256) {
     Kitty memory _kitty = Kitty ({
       genes: _genes,
       birthTime: uint64(block.timestamp),
@@ -403,7 +404,7 @@ contract myKittiesContract is Ownable  {
   }
 
 
-  function _owns(address _claimant, uint256 tokenId ) internal view returns(bool) {
+  function _owns(address _claimant, uint256 tokenId ) public view returns(bool) {
     return kittyIndexToOwner[tokenId] == _claimant;
   }
 

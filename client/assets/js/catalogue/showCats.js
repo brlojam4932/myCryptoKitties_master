@@ -132,7 +132,7 @@ async function catOffer(id) {
   //Checking if this cat is for Sale
   //offer.seller.transfer(msg.value);
   var offer = await checkOffer(id)
-  var seller = offer.seller.toLowerCase() 
+  var seller = offer.seller.toLocaleLowerCase() 
   if (offer.onsale == true && seller != user) {
     $("#buyBox").removeClass("hidden")
     $("#priceBtn").html('<b>' + offer.price + ' ETH</b>')

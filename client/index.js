@@ -4,17 +4,17 @@ var marketPlaceInstance;
 var user;
 //var dnaStr = "457896541299";
 
-var contractAddress = "0x677975ea13D1e4048499b13F2ddD3650541767C0";
-var marketPlaceAddress = '0x54b4C3A14D5d6fC859b70b51f0f6De419C4a6513';
-var contractOwner;
+var contractAddress = "0x35B55837228bb9c39B48329D613bdE905F3E8816";
+var marketPlaceAddress = '0x814334e9D7D4A78fF363c27B66B1c6bcbfce300b';
+//var contractOwner;
 
 $(document).ready(function () {
   window.ethereum.enable().then(function (accounts) {
     instance = new web3.eth.Contract(abi.myKittyContract, contractAddress, { from: accounts[0] });
-    marketPlaceInstance = new web3.eth.Contract(abi.KittyMarketPlace, marketPlaceAddress, {from: accounts[0]});
-    instance.methods.owner().call().then(test => {
-      contractOwner = test;
-    });
+    marketPlaceInstance = new web3.eth.Contract(abi.KittyMarketPlace, marketPlaceAddress, { from: accounts[0] });
+    //instance.methods.owner().call().then(test => {
+    //  contractOwner = test;
+    //});
     user = accounts[0];
     console.log(instance);
     console.log(marketPlaceInstance);
@@ -127,7 +127,7 @@ async function checkOffer(id) {
   let res;
   try {
 
-    res = await instance.methods.getOffer(id).call();
+    res = await marketPlaceInstance.methods.getOffer(id).call();
     var price = res['price'];
     var seller = res['seller'];
     var onsale = false
@@ -160,7 +160,7 @@ async function kittyByOwner(address) {
 
 //Gen 0 cats for sale
 async function contractCatalog() {
-  var arrayId = await instance.methods.getAllTokenOnSale().call();
+  var arrayId = await marketPlaceInstance.methods.getAllTokenOnSale().call();
   for (i = 0; i < arrayId.length; i++) {
     if(arrayId[i] != "0"){
       appendKitty(arrayId[i])
@@ -228,7 +228,7 @@ async function singleKitty() {
 
 async function deleteOffer(id) {
   try {
-    await instance.methods.removeOffer(id).send();    
+    await marketPlaceInstance.methods.removeOffer(id).send();    
   } catch (err) {
     console.log(err);
   }
@@ -239,7 +239,7 @@ async function sellCat(id) {
   var price = $('#catPrice').val()
   var amount = web3.utils.toWei(price, "ether")
   try {
-    await instance.methods.setOffer(amount,id).send();
+    await marketPlaceInstance.methods.setOffer(amount,id).send();
   } catch (err) {
     console.log(err);
   }
@@ -248,7 +248,7 @@ async function sellCat(id) {
 async function buyKitten(id, price) {
   var amount = web3.utils.toWei(price, "ether")
   try {
-    await instance.methods.buyKitty(id).send({ value: amount });
+    await marketPlaceInstance.methods.buyKitty(id).send({ value: amount });
   } catch (err) {
     console.log(err);
   }
