@@ -1,12 +1,12 @@
 var web3 = new Web3(Web3.givenProvider);
 var instance;
 var marketPlaceInstance;
-var user;
+var user = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
 //var dnaStr = "457896541299";
 
 var contractAddress = "0x35B55837228bb9c39B48329D613bdE905F3E8816";
 var marketPlaceAddress = '0x814334e9D7D4A78fF363c27B66B1c6bcbfce300b';
-//var contractOwner;
+
 
 $(document).ready(function () {
   window.ethereum.enable().then(function (accounts) {
@@ -79,14 +79,17 @@ $(document).ready(function () {
 
 });
 
+
 async function initMarketPlace() {
-  var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress);
+  //let owner = web3.currentProvider.selectedAddress;
+  var isMarketPlaceOperator = await instance.methods.setApprovalForAll(marketPlaceAddress, true);
+  
 
   if (isMarketPlaceOperator) {
     getInventory();
   }
   else {
-    await instance.methods.setApprovalForAll(marketPlaceAddress, true).send().on('receipt', function(receipt){
+    await instance.methods.isApprovedForAll(user, marketPlaceAddress).send().on('receipt', function(receipt){
       // tx done
       console.log("tx done");
       getInventory();
@@ -94,6 +97,7 @@ async function initMarketPlace() {
     })
     
   }
+  console.log(isMarketPlaceOperator);
 
 }
 
@@ -148,11 +152,11 @@ async function checkOffer(id) {
 }
 
 // Get all the kitties from address
-async function kittyByOwner(address) {
+async function kittyByOwner(contractAddress) {
 
   let res;
   try {
-    res = await instance.methods.tokensOfOwner(address).call();
+    res = await instance.methods.tokensOfOwner(contractAddress).call();
   } catch (err) {
     console.log(err);
   }
@@ -245,6 +249,27 @@ async function sellCat(id) {
   }
 }
 
+/*
+async function approve() {
+  let user = web3.currentProvider.selectedAddress;
+  let isApproved = await instance.methods
+    .isApprovedForAll(user, marketPlaceAddress)
+    .call();
+
+    if (isApproved == true) {
+      alert("Contract not approved");
+    } else {
+      await token.methods.setApprovalForAll(marketPlaceAddress, true).send();
+      alert("Approval Set!");
+      isApproved = await instance.methods.isApprovedForAll(user, marketPlaceAddress)
+      .call();
+      console.log("is now approved:" + isApproved);
+    }
+   
+} 
+*/
+
+
 async function buyKitten(id, price) {
   var amount = web3.utils.toWei(price, "ether")
   try {
@@ -258,3 +283,6 @@ async function totalCats() {
   var cats = await instance.methods.totalSupply().call();
   //console.log(`Total Supply: ${cats}`);
 }
+
+
+

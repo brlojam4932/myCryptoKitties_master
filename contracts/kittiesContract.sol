@@ -273,7 +273,7 @@ contract myKittiesContract is Ownable {
     return kittyIndexToApproved[_tokenId];
   }
 
-
+  // owner / marketplace
   function isApprovedForAll(address _owner, address _operator) public view returns (bool) {
     return _operatorApprovals[_owner][_operator];
   }

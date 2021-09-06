@@ -1,6 +1,15 @@
 // File for fetching all the cats from smart contrat 
 // into the catalogue
 
+// approve
+$(document).ready(() => {
+  $("#approveBtn").click(() => {
+    initMarketPlace()
+    console.log("approve test")
+  })
+
+});
+
 //Append each Cat card as a catalog
 function appendCat(dna, id, gen) {
   //1 return DNA cat into readable string 
