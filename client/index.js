@@ -1,11 +1,11 @@
 var web3 = new Web3(Web3.givenProvider);
 var instance;
 var marketPlaceInstance;
-var user = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
+var owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
 //var dnaStr = "457896541299";
 
-var contractAddress = "0x35B55837228bb9c39B48329D613bdE905F3E8816";
-var marketPlaceAddress = '0x814334e9D7D4A78fF363c27B66B1c6bcbfce300b';
+var contractAddress = "0x472c3EfB6505538c92EF61fa669d3C65471AF650";
+var marketPlaceAddress = '0x84c181B85564C62Db46aC3753D53B62E87258b6d';
 
 
 $(document).ready(function () {
@@ -18,6 +18,7 @@ $(document).ready(function () {
     user = accounts[0];
     console.log(instance);
     console.log(marketPlaceInstance);
+
     /*     
     EVENTS
     *   Listen for the `Birth` event, and update the UI
@@ -82,19 +83,25 @@ $(document).ready(function () {
 
 async function initMarketPlace() {
   //let owner = web3.currentProvider.selectedAddress;
-  var isMarketPlaceOperator = await instance.methods.setApprovalForAll(marketPlaceAddress, true);
+  // owner, operator
+  var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
   
-
   if (isMarketPlaceOperator) {
     getInventory();
   }
   else {
-    await instance.methods.isApprovedForAll(user, marketPlaceAddress).send().on('receipt', function(receipt){
+    // operator, approved
+    //await instance.methods.setApprovalForAll(marketPlaceAddress, true).on('receipt', function(receipt){
       // tx done
-      console.log("tx done");
-      getInventory();
-
-    })
+      //console.log("tx done");
+      //getInventory();
+      await instance.methods.setApprovalForAll(marketPlaceAddress, true).send({}, (err, txHash) => {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log(txHash)
+        }
+      });
     
   }
   console.log(isMarketPlaceOperator);
@@ -115,7 +122,7 @@ async function getInventory() {
 }
 
 
-function createKitty() {
+async function createKitty() {
   var dnaStr = getDna();
   let res;
   try {
@@ -174,7 +181,7 @@ async function contractCatalog() {
 
 //Get kittues of a current address
 async function myKitties() {
-  var arrayId = await instance.methods.tokensOfOwner(user).call();
+  var arrayId = await instance.methods.tokensOfOwner(owner).call();
   for (i = 0; i < arrayId.length; i++) {
     appendKitty(arrayId[i])
   }
@@ -182,7 +189,7 @@ async function myKitties() {
 
 //Get kitties for breeding that are not selected
 async function breedKitties(gender) {
-  var arrayId = await instance.methods.tokensOfOwner(user).call();
+  var arrayId = await instance.methods.tokensOfOwner(owner).call();
   for (i = 0; i < arrayId.length; i++) {
     appendBreed(arrayId[i], gender)
   }
@@ -194,7 +201,7 @@ async function catOwnership(id) {
 
   var address = await instance.methods.ownerOf(id).call()
 
-  if (address.toLowerCase() == user.toLowerCase()) {      
+  if (address.toLowerCase() == owner.toLowerCase()) {      
     return true
   }  
   return false

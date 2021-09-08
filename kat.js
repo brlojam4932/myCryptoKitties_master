@@ -842,16 +842,25 @@ const abi = {
   
 } 
 
-//var dnaStr = '3149322162172043'
+// returns more objects with functions
+//contract.methods
+// we get back functions
+//contract.methods.name()
+// returns functions
+
+//To send ether to a contract
+//instance.send(web3.utils.toWei(1, "ether")).then(function(result) {
+//});
 
 
-const contractAddress = '0x35B55837228bb9c39B48329D613bdE905F3E8816';
-const marketPlaceContractAddress = '0x814334e9D7D4A78fF363c27B66B1c6bcbfce300b';
+const contractAddress = "0xb72ee1c6004eb8fbF6880406489C476d615810c9";
+const marketPlaceContractAddress = '0xbd63D0061b1762D7687E64Ee10DD7c77Ae8Cd3b0';
 // contract address
 
 const owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account [0] from ganache is "minter"
 
 const account1 = '0x53b55f11648F4a5eF0ebe32fdA145a44852d80b7'; // this is recipient, account[1]
+const account2 = '0xb25C33330ceD7A03915f781C1F9b1C2954EA8aFD';
 
 // initialize contract
 const contractKitty = new web3.eth.Contract(abi.myKittyContract, contractAddress);
@@ -870,7 +879,7 @@ web3.eth.getBlock("latest", (err, result) => {
 async function getName() {
   let result, amount;
 
-  result = await contractMarketPlace.methods.name().call();
+  result = await contractKitty.methods.name().call();
   console.log(`Name: @${result}`);
 }
 //getName();
@@ -878,7 +887,7 @@ async function getName() {
 
 async function totalCats() {
   var cats = await contractKitty.methods.totalSupply().call();
-  //console.log(`Total Supply: ${cats}`);
+  console.log(`Total Supply: ${cats}`);
 }
 //totalCats();
 
@@ -887,7 +896,7 @@ async function tokensOnSale() {
   res = await contractMarketPlace.methods.getAllTokenOnSale().call();
   console.log(`Tokens on Sale: ${res}`);
 }
-tokensOnSale();
+//tokensOnSale();
 
 
 async function kittyByOwner() {
@@ -906,20 +915,129 @@ async function ownerOf() {
 //ownerOf();
 
 
-
-async function breed() {
-  let kitty = await contractKitty.methods.Breeding(1, 2).send({from: owner});
-  console.log(`Breed Cats: ${kitty}`);
+async function totalkids() {
+  let totalKittens = await contractKitty.methods.getAllCatsFor(owner).call();
+  console.log(totalKittens);
 }
-//breed();
+//totalkids()
 
 async function singleKitty() {
   
-  let kitty = await contractKitty.methods.getKitty(1).call();
-  //console.log( kitty);
+  let kitty = await contractKitty.methods.getKitty(2).call();
+  console.log( kitty);
 }
-
 //singleKitty();
+
+//web3.eth.getAccounts(console.log)
+//console.log(contractKitty)
+//console.log(contractMarketPlace);
+
+
+//---------SENDING---------------
+// accounts come unlocked in Ganache - We must sign them when we send them
+
+//web3.eth.getBalance(account2, (err, result) => {console.log(result)})
+
+//web3.eth.sendTransaction({from: account1, to: account2, value: web3.utils.toWei("1", 'ether')})
+
+// UNLOCK YOUR ACCOUNT IN GEF
+//web3.eth.personal.unlockAccount
+
+  // using the promise - not generating cat
+  /*
+  let result = await contractKitty.methods.createKittyGen0(dnaStr).send().estimateGas({from: owner})
+  .then(function(gasAmount){
+      console.log(gasAmount);
+  })
+  .catch(function(error){
+      console.log(error);
+  });
+  console.log(result);
+  */
+
+// myContract.methods.myMethod([param1[, param2[, ...]]]).estimateGas(options[, callback])
+/*
+async function createKitty() {
+  var dnaStr = '3244440427877748';
+  //const amountOfGas = await contractKitty.methods.estimateGas(4)
+  let result = await contractKitty.methods.createKittyGen0(dnaStr).send({from: owner, gasPrice: '20000000000'}) //'20000000000'
+  .catch(function(error) {
+    console.log(error);
+  });
+  console.log(result);
+  
+}
+createKitty();
+*/
+
+async function createdKitty() {
+  var dnaStr = '3244440427877748';
+  //const amountOfGas = await contractKitty.methods.estimateGas(4)
+  let result = await contractKitty.methods.createKittyGen0(dnaStr).send({from: owner, gasPrice: '20000000000' }).on("receipt", function(receipt) {
+    console.log("tx done");
+  })
+  console.log(result);
+  
+}
+//createKitty();
+
+
+//setApprovalForAll(address _operator, bool _approved) 
+async function initMarketPlace() {
+  //let owner = web3.currentProvider.selectedAddress;
+    var isMarketPlaceOperator = await contractKitty.methods.setApprovalForAll(marketPlaceContractAddress, true);
+    console.log("Approval Set!" + isMarketPlaceOperator);
+    
+
+ 
+    var isApproved = await contractKitty.methods.isApprovedForAll(owner, marketPlaceContractAddress).send({from: owner}).on('receipt', function(receipt){
+      // tx done
+      console.log("Is Approved, tx done");
+      })
+      console.log(isApproved);
+
+}
+//initMarketPlace();
+
+
+async function createdKitty() {
+  var dnaStr = '3244440427877748';
+  let res;
+  try {
+    res = contractKitty.methods.createKittyGen0(dnaStr).send({from: owner, gasPrice: '20000000000'}).catch(function(error) {
+      console.log(error);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+  console.log(res);
+}
+//createdKitty();
+
+async function createKitty(dnaStr) {
+  var dnaStr = '3244440427877748';
+  let kitty = await contractKitty.createKittyGen0(dnaStr).send({from: owner});
+  console.log(`Created Cat: ${kitty}`);
+}
+//createKitty();
+
+async function breed() {
+  let res;
+  try {
+    res = await contractKitty.methods.Breeding(1, 2).send({from: owner})
+  } catch (err) {
+    console.log(err);
+  }
+  console.log(res);
+}
+breed();
+
+
+
+
+
+
+
 
 
 
