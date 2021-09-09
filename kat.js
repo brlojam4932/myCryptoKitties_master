@@ -853,8 +853,8 @@ const abi = {
 //});
 
 
-const contractAddress = "0xb72ee1c6004eb8fbF6880406489C476d615810c9";
-const marketPlaceContractAddress = '0xbd63D0061b1762D7687E64Ee10DD7c77Ae8Cd3b0';
+const contractAddress = "0x472c3EfB6505538c92EF61fa669d3C65471AF650";
+const marketPlaceContractAddress = '0x84c181B85564C62Db46aC3753D53B62E87258b6d';
 // contract address
 
 const owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account [0] from ganache is "minter"
@@ -1021,6 +1021,21 @@ async function createKitty(dnaStr) {
 }
 //createKitty();
 
+//not working either
+async function createKitty() {
+  var dnaStr = '3244440427877748';
+  let kitty = await contractKitty.methods.createKittyGen0(dnaStr).send({from: owner}, function (err, txHash) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(txHash);
+    }
+    console.log(`Created Cat: ${kitty}`);
+  });
+
+}
+createKitty()
+
 async function breed() {
   let res;
   try {
@@ -1030,7 +1045,7 @@ async function breed() {
   }
   console.log(res);
 }
-breed();
+//breed();
 
 
 

@@ -2,12 +2,16 @@ var web3 = new Web3(Web3.givenProvider);
 var instance;
 var marketPlaceInstance;
 var owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
-//var dnaStr = "457896541299";
 
 var contractAddress = "0x472c3EfB6505538c92EF61fa669d3C65471AF650";
 var marketPlaceAddress = '0x84c181B85564C62Db46aC3753D53B62E87258b6d';
 
+var buyer = '0x53b55f11648F4a5eF0ebe32fdA145a44852d80b7';
 
+//// Reformat Code: Alt Shift F
+
+// Web3.js is similar to truffle
+// abi - Application Binary Interface
 $(document).ready(function () {
   window.ethereum.enable().then(function (accounts) {
     instance = new web3.eth.Contract(abi.myKittyContract, contractAddress, { from: accounts[0] });
@@ -19,12 +23,29 @@ $(document).ready(function () {
     console.log(instance);
     console.log(marketPlaceInstance);
 
+    // from Web3 Start Coding lesson | send({}) is options object
+    /*
+    function createdKitty() {
+      var dnaStr = getDna();
+      instance.methods.createKittyGen0(dnaStr).send({}, function (error, txHash) {
+        if (err)
+          console.log(err);
+        else
+          console.log(txHash);
+      });
+    }
+    */
+
+    //Read about Event listeners in Web3.js: https://web3js.readthedocs.io/en/v1.2.9/web3-eth-contract.html#contract-events
+
+
     /*     
     EVENTS
     *   Listen for the `Birth` event, and update the UI
     *   This event is generate in the KittyBase contract
     *   when the _createKitty internal method is called
     */
+
 
     instance.events.Birth()
       .on('data', (event) => {
@@ -33,16 +54,16 @@ $(document).ready(function () {
         let kittyId = event.returnValues.newKittenId;
         let mumId = event.returnValues.mumId;
         let dadId = event.returnValues.dadId;
-        let genes = event.returnValues.genes        
+        let genes = event.returnValues.genes
         alert_msg("owner:" + owner
           + " kittyId:" + kittyId
           + " mumId:" + mumId
           + " dadId:" + dadId
-          + " genes:" + genes,'success')
+          + " genes:" + genes, 'success')
       })
       .on('error', console.error);
 
-      marketPlaceInstance.events.MarketTransaction()
+    marketPlaceInstance.events.MarketTransaction()
       .on('data', (event) => {
         console.log(event);
         var eventType = event.returnValues["TxType"].toString()
@@ -61,18 +82,18 @@ $(document).ready(function () {
           $('#catPrice').val(price)
           $('#catPrice').prop('readonly', true)
 
-          
+
         }
         if (eventType == "Remove offer") {
           alert_msg('Successfully Offer remove for Kitty id: ' + tokenId, 'success')
           $('#cancelBox').addClass('hidden')
-          $('#cancelBtn').attr('onclick', '')          
+          $('#cancelBtn').attr('onclick', '')
           $('#catPrice').val('')
           $('#catPrice').prop('readonly', false)
           $('#sellBtn').removeClass('btn-warning')
           $('#sellBtn').addClass('btn-success')
           $('#sellBtn').html('<b>Sell me</b>')
-          $('#sellBtn').attr('onclick', 'sellCat(' + tokenId + ')')          
+          $('#sellBtn').attr('onclick', 'sellCat(' + tokenId + ')')
         }
       })
       .on('error', console.error);
@@ -85,24 +106,24 @@ async function initMarketPlace() {
   //let owner = web3.currentProvider.selectedAddress;
   // owner, operator
   var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
-  
+
   if (isMarketPlaceOperator) {
     getInventory();
   }
   else {
     // operator, approved
     //await instance.methods.setApprovalForAll(marketPlaceAddress, true).on('receipt', function(receipt){
-      // tx done
-      //console.log("tx done");
-      //getInventory();
-      await instance.methods.setApprovalForAll(marketPlaceAddress, true).send({}, (err, txHash) => {
-        if(err) {
-          console.log(err);
-        } else {
-          console.log(txHash)
-        }
-      });
-    
+    // tx done
+    //console.log("tx done");
+    //getInventory();
+    await instance.methods.setApprovalForAll(marketPlaceAddress, true).send({}, (err, txHash) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(txHash)
+      }
+    });
+
   }
   console.log(isMarketPlaceOperator);
 
@@ -114,14 +135,29 @@ async function getInventory() {
   var arrayId = await marketPlaceInstance.methods.getAllTokenOnSale().call();
   console.log(arrayId);
   for (i = 0; i < arrayId.length; i++) {
-    if(arrayId[i] != 0) { // the zero cat pos is ignored here; not for sale
+    if (arrayId[i] != 0) { // the zero cat pos is ignored here; not for sale
       appendKitty(arrayId[i]);
     }
-    
+
   }
 }
 
+// code from lesson with txHash
+function createKitty() {
+  var dnaStr = getDna();
+  instance.methods.createKittyGen0(dnaStr).send({}, function (err, txHash) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(txHash);
+    }
 
+  });
+
+}
+
+/*
+//function from final code; which is different than the one above, from lesson.
 async function createKitty() {
   var dnaStr = getDna();
   let res;
@@ -131,6 +167,7 @@ async function createKitty() {
     console.log(err);
   }
 }
+*/
 
 
 async function checkOffer(id) {
@@ -173,9 +210,9 @@ async function kittyByOwner(contractAddress) {
 async function contractCatalog() {
   var arrayId = await marketPlaceInstance.methods.getAllTokenOnSale().call();
   for (i = 0; i < arrayId.length; i++) {
-    if(arrayId[i] != "0"){
+    if (arrayId[i] != "0") {
       appendKitty(arrayId[i])
-    }    
+    }
   }
 }
 
@@ -201,9 +238,9 @@ async function catOwnership(id) {
 
   var address = await instance.methods.ownerOf(id).call()
 
-  if (address.toLowerCase() == owner.toLowerCase()) {      
+  if (address.toLowerCase() == owner.toLowerCase()) {
     return true
-  }  
+  }
   return false
 
 }
@@ -239,18 +276,18 @@ async function singleKitty() {
 
 async function deleteOffer(id) {
   try {
-    await marketPlaceInstance.methods.removeOffer(id).send();    
+    await marketPlaceInstance.methods.removeOffer(id).send();
   } catch (err) {
     console.log(err);
   }
 
 }
 
-async function sellCat(id) {  
+async function sellCat(id) {
   var price = $('#catPrice').val()
   var amount = web3.utils.toWei(price, "ether")
   try {
-    await marketPlaceInstance.methods.setOffer(amount,id).send();
+    await marketPlaceInstance.methods.setOffer(amount, id).send();
   } catch (err) {
     console.log(err);
   }

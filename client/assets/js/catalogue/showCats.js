@@ -3,12 +3,28 @@
 
 // approve
 $(document).ready(() => {
+
+  $("#open").click(function() {
+    $(".model-container").css('transform', 'scale(1)');
+    console.log('clicked Open');
+  });
+
+  $("#close").click(function() {
+    $(".model-container").css('transform', 'scale(0)');
+    console.log('clicked Close');
+  });
+
   $("#approveBtn").click(() => {
-    initMarketPlace()
+    initMarketPlace();
     console.log("approve test")
+    alert_msg("Approval for All has been successfull");
   })
 
+ 
+
 });
+
+
 
 //Append each Cat card as a catalog
 function appendCat(dna, id, gen) {

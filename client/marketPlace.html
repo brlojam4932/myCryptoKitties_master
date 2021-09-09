@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,13 +22,14 @@
   <!-- Cats -->
   <link rel="stylesheet" href="assets/css/animations.css">
   <link rel="stylesheet" href="assets/css/cats.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body cz-shortcut-listen="true">
 
-  <!--start menu -->
+<body cz-shortcut-listen="true">
+  
   <div id="menu"></div>
-  <!-- end menu -->  
+  
 
   <div class="header" align="center">
     <div class="container">
@@ -35,14 +37,35 @@
     </div>
   </div>
 
-  <div class="container middleBox" >
+  <div class="containerOpen">
+    <button id="open">Approve Me</button>
+  </div>
+
+
+  <div class="model-container">
+    <div class="model">
+      <p>Please Approve Marketplace</p>
+      <button id="approveBtn">Approve</button>
+      <button id="close">Close</button>
+    </div>
+  </div>
+
+  <div class="container middleBox">
+
+    <div id="singleCat">
+    </div>
+
+
     <div class="row" id="catsDiv">
 
     </div>
 
+
     <div class="row" id="ownersCatDiv hidden">
 
     </div>
+
+    <div id="message" align="center"></div>
 
   </div>
 
@@ -57,7 +80,6 @@
   $(document).ready(() => {
     setTimeout(() => {
       contractCatalog()
-      //initMarketPlace()
     }, 1000)
   });
 

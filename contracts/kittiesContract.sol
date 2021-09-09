@@ -257,7 +257,7 @@ contract myKittiesContract is Ownable {
 
   }
 
-
+  //owner / true
   function setApprovalForAll(address _operator, bool _approved) public {
     require(_operator != msg.sender, "ERC721: approve to caller, you are not the owner");
 
