@@ -3,8 +3,8 @@ var instance;
 var marketPlaceInstance;
 var owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
 
-var contractAddress = '0x2Cbf89d933b33ABEc2f86505A6c3A4c1D9862375';
-var marketPlaceAddress = '0x55f151820153152aC2b1F041Cf4D8d63Fbf6bD07';
+var contractAddress = '0xb41d05dE582fc1a087Fd42e997f77AeD8D6EF964';
+var marketPlaceAddress = '0x092803bEA7Dab55D0E2AEF4FE7701e768d627876';
 
 
 //// Reformat Code: Alt Shift F
@@ -114,20 +114,39 @@ $(document).ready(() => {
   });
 
 
-
   $("#approveBtn").click(() => {
     initMarketPlace();
-  })
+  });
 
 });
 
+async function initMarketPlace() {
+  // function isApprovedForAll(address _owner, address _operator)
+  var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
 
+  if(isMarketPlaceOperator) {
+    getInventory();
+    alert_msg("Approval for All is NOW: " + isMarketPlaceOperator);
+  } else {
+    //function setApprovalForAll(address _operator, bool _approved) 
+    await instance.methods.setApprovalForAll(marketPlaceAddress, true).send({}, (err, txHash) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(txHash);
+        alert_msg("Approval for All is NOW: " + isMarketPlaceOperator);
+      }
+    });
+  }
+}
+
+/*
 async function initMarketPlace() {
   //let owner = web3.currentProvider.selectedAddress;
   // owner, operator
   var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
 
-  if (!isMarketPlaceOperator) {
+  if (isMarketPlaceOperator) {
     getInventory();
     alert_msg("Approval for All is NOT been successfull");
 
@@ -152,6 +171,7 @@ async function initMarketPlace() {
   console.log(isMarketPlaceOperator);
 
 }
+*/
 
 
 //Displays kittens

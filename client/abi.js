@@ -723,7 +723,7 @@ const abi = {
     }
   ],
 
-  KittyMarketPlace:  [
+  KittyMarketPlace: [
     {
       "inputs": [
         {
