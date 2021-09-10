@@ -250,7 +250,7 @@ contract myKittiesContract is Ownable {
   function approve(address _approved, uint256 _tokenId) public {
     ///  Throws unless `msg.sender` is the current NFT owner, or an authorized
     ///  operator of the current owner.
-    require(_owns(msg.sender, _tokenId));
+    require(_owns(msg.sender, _tokenId), "Not current NFT ownder");
 
     _approve(_tokenId, _approved);
     emit Approval(msg.sender, _approved, _tokenId);
@@ -290,7 +290,7 @@ contract myKittiesContract is Ownable {
     require(_owns(_from, _tokenId), "Not a valid NFT, not the owner of NFT");
 
      //spender is _from (DEX) or spender is approved for tokenId or spender is operator for _from
-    require(msg.sender == _from || isApprovedForAll(_from, _to) || _approvedFor(msg.sender, _tokenId));
+    require(msg.sender == _from || isApprovedForAll(_from, _to) || _approvedFor(msg.sender, _tokenId), "Spender is not from DEX or spender is not approved or tokenId or spender is not the operator for _from");
 
     _safeTransfer(_from, _to, _tokenId, data);
 
@@ -389,7 +389,7 @@ contract myKittiesContract is Ownable {
 
   function _safeTransfer(address _from, address _to, uint256 _tokenId, bytes calldata _data) internal {
     _transfer(_from, _to, _tokenId);
-    require(_checkERC721Support(_from, _to, _tokenId, _data));
+    require(_checkERC721Support(_from, _to, _tokenId, _data), "_safeTransfer check support error");
   }
 
 
@@ -410,7 +410,7 @@ contract myKittiesContract is Ownable {
 
 
   function _deleteApproval(uint256 _tokenId) internal {
-      require(_owns(msg.sender, _tokenId));
+      require(_owns(msg.sender, _tokenId), "_deleteApproval error");
       delete kittyIndexToApproved[_tokenId];
   }
 

@@ -1,28 +1,7 @@
 // File for fetching all the cats from smart contrat 
 // into the catalogue
 
-// approve
-$(document).ready(() => {
 
-  $("#open").click(function() {
-    $(".model-container").css('transform', 'scale(1)');
-    console.log('clicked Open');
-  });
-
-  $("#close").click(function() {
-    $(".model-container").css('transform', 'scale(0)');
-    console.log('clicked Close');
-  });
-
-  $("#approveBtn").click(() => {
-    initMarketPlace();
-    console.log("approve test")
-    alert_msg("Approval for All has been successfull");
-  })
-
- 
-
-});
 
 
 
@@ -157,6 +136,7 @@ async function catOffer(id) {
   //Checking if this cat is for Sale
   //offer.seller.transfer(msg.value);
   var offer = await checkOffer(id)
+  // seller address becomes all lowercase here
   var seller = offer.seller.toLocaleLowerCase() 
   if (offer.onsale == true && seller != user) {
     $("#buyBox").removeClass("hidden")

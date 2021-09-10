@@ -99,6 +99,25 @@ const abi = {
         {
           "indexed": true,
           "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
           "name": "from",
           "type": "address"
         },
@@ -187,6 +206,40 @@ const abi = {
       "constant": true
     },
     {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "uint256",
@@ -239,6 +292,45 @@ const abi = {
         }
       ],
       "name": "createKittyGen0",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_mumId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_dadId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_generation",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_genes",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "_createKitty",
       "outputs": [
         {
           "internalType": "uint256",
@@ -631,7 +723,7 @@ const abi = {
     }
   ],
 
-  KittyMarketPlace: [
+  KittyMarketPlace:  [
     {
       "inputs": [
         {

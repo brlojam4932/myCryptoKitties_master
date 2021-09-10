@@ -112,7 +112,7 @@ contract KittyMarketPlace is Ownable {
      // kitty contract needs to be approved for all
      require(_kittyContract.isApprovedForAll(msg.sender, address(this)), "Contract needs approval for future transfers"); // Market Place needs to be approved as the operator
 
-     //approve(address(this), _tokenId); // from gitHub contract
+     //_kittyContract.approve(address(this), _tokenId); // from gitHub contract
 
      Offer memory _offer = Offer({
        seller: (payable(msg.sender)),
@@ -123,8 +123,8 @@ contract KittyMarketPlace is Ownable {
      });
 
     // we add new offer, this specific tokenId, to tokenIdToOffer mapping and it's pushed into the offer's array
-     tokenIdToOffer[_tokenId] = _offer;
      offers.push(_offer);
+     tokenIdToOffer[_tokenId] = _offer;
 
      // here, Filip created offers.length with the object's index parameter so we don't neet this function any more
      //uint256 index = offers.length -1; 
@@ -169,19 +169,17 @@ contract KittyMarketPlace is Ownable {
       delete tokenIdToOffer[_tokenId]; // we can delete from mapping but not from the array since it will alter the index positions
 
       /* we set mapping to false */
-      offers[offer.index].active = false;
+      //offers[offer.index].active = false;
 
       // This was in the video but not in final gitHub contract
       // transfer funds to seller
       // TO DO: make this pull logic instead of push
+
       if(offer.price > 0) { // we send the funds to seller
         offer.seller.transfer(offer.price);
       }
-      
-      //* TMP REMOVE THIS*/
-      //_approve(_tokenId, msg.sender); 
 
-      // transfer owndership of the kitty
+      // transfer ownership of the kitty
       _kittyContract.transferFrom(offer.seller, msg.sender, _tokenId); // we send tokens to buyer: (seller, buyer, token)
 
       offer.seller.transfer(msg.value);
@@ -208,7 +206,7 @@ contract KittyMarketPlace is Ownable {
 // Conclucion
 // Interface to Buy and Sell the cats
 // Use contract
-// Seller needs to give marke place contract operator approval before creating an offer
+// Seller needs to give market place contract operator approval before creating an offer
 
 
 

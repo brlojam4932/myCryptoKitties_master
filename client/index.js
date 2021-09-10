@@ -3,10 +3,9 @@ var instance;
 var marketPlaceInstance;
 var owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
 
-var contractAddress = "0x472c3EfB6505538c92EF61fa669d3C65471AF650";
-var marketPlaceAddress = '0x84c181B85564C62Db46aC3753D53B62E87258b6d';
+var contractAddress = '0x2Cbf89d933b33ABEc2f86505A6c3A4c1D9862375';
+var marketPlaceAddress = '0x55f151820153152aC2b1F041Cf4D8d63Fbf6bD07';
 
-var buyer = '0x53b55f11648F4a5eF0ebe32fdA145a44852d80b7';
 
 //// Reformat Code: Alt Shift F
 
@@ -101,14 +100,37 @@ $(document).ready(function () {
 
 });
 
+// approve
+$(document).ready(() => {
+
+  $("#open").click(function () {
+    $(".model-container").css('transform', 'scale(1)');
+    console.log('clicked Open');
+  });
+
+  $("#close").click(function () {
+    $(".model-container").css('transform', 'scale(0)');
+    console.log('clicked Close');
+  });
+
+
+
+  $("#approveBtn").click(() => {
+    initMarketPlace();
+  })
+
+});
+
 
 async function initMarketPlace() {
   //let owner = web3.currentProvider.selectedAddress;
   // owner, operator
   var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
 
-  if (isMarketPlaceOperator) {
+  if (!isMarketPlaceOperator) {
     getInventory();
+    alert_msg("Approval for All is NOT been successfull");
+
   }
   else {
     // operator, approved
@@ -121,6 +143,8 @@ async function initMarketPlace() {
         console.log(err);
       } else {
         console.log(txHash)
+        console.log("approve test")
+        alert_msg("Approval for All is NOW successfull: " + isMarketPlaceOperator);
       }
     });
 
@@ -130,7 +154,7 @@ async function initMarketPlace() {
 }
 
 
-//Get kitties for breeding that are not selected
+//Displays kittens
 async function getInventory() {
   var arrayId = await marketPlaceInstance.methods.getAllTokenOnSale().call();
   console.log(arrayId);
@@ -184,7 +208,7 @@ async function checkOffer(id) {
       onsale = true
     }
     //Also might check that belong to someone
-    price = Web3.utils.fromWei(price, 'ether');
+    price = web3.utils.fromWei(price, 'ether');
     var offer = { seller: seller, price: price, onsale: onsale }
     return offer
 
@@ -313,6 +337,33 @@ async function approve() {
 } 
 */
 
+//const obj = {name: "John", age: 30, city: "New York"};
+//const myJSON = JSON.stringify(obj);
+/*
+async function buyKitten(id){
+  let offer = await marketPlaceInstance.methods.getOffer(id).call();
+  marketPlaceInstance.methods.buyKitty(id).send({value: offer.price}, (err) => {
+    if(err){
+      console.log(err);
+    }else{
+      marketPlaceInstance.once("MarketTransaction", (err, event) => {
+        if(err){
+          console.log(err);
+        }else{
+          console.log(JSON.stringify(event, null, "    "));
+          alert(`
+            Successfully purchased Doraemon\n
+            owner: ${event.returnValues.owner} \n
+            ID: ${event.returnValues.tokenId} 
+          `);
+          location.reload();
+        }
+      });
+    }
+  });
+}
+*/
+
 
 async function buyKitten(id, price) {
   var amount = web3.utils.toWei(price, "ether")
@@ -322,6 +373,7 @@ async function buyKitten(id, price) {
     console.log(err);
   }
 }
+
 
 async function totalCats() {
   var cats = await instance.methods.totalSupply().call();
