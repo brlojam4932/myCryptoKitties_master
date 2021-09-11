@@ -3,8 +3,8 @@ var instance;
 var marketPlaceInstance;
 var owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
 
-var contractAddress = '0xb41d05dE582fc1a087Fd42e997f77AeD8D6EF964';
-var marketPlaceAddress = '0x092803bEA7Dab55D0E2AEF4FE7701e768d627876';
+var contractAddress = '0x31fe102863bC9F6d400779Cd097471952E09E843';
+var marketPlaceAddress = '0x41c6B2B1dE0411400a6dB5Ac20ef476fe8bf8fF9';
 
 
 //// Reformat Code: Alt Shift F
@@ -62,6 +62,20 @@ $(document).ready(function () {
       })
       .on('error', console.error);
 
+
+    instance.events.ApprovalForAll()
+      .on('data', (event) => {  
+        console.log(event);
+        let owner = event.returnValues.owner;
+        let operator = event.returnValues.operator;
+        let approved = event.returnValues.approved;
+        alert_msg("owner:" + owner
+          + " operator " + operator
+          + " approved" + approved, 'success');
+      })
+      .on('error', console.error);
+     
+
     marketPlaceInstance.events.MarketTransaction()
       .on('data', (event) => {
         console.log(event);
@@ -102,76 +116,46 @@ $(document).ready(function () {
 
 // approve
 $(document).ready(() => {
+  /*
 
   $("#open").click(function () {
     $(".model-container").css('transform', 'scale(1)');
     console.log('clicked Open');
   });
+  */
 
+  
   $("#close").click(function () {
     $(".model-container").css('transform', 'scale(0)');
     console.log('clicked Close');
   });
 
-
   $("#approveBtn").click(() => {
     initMarketPlace();
+  
   });
 
 });
 
 async function initMarketPlace() {
-  // function isApprovedForAll(address _owner, address _operator)
+  // owner / operator
   var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
 
   if(isMarketPlaceOperator) {
     getInventory();
-    alert_msg("Approval for All is NOW: " + isMarketPlaceOperator);
+    $(".model-container").css('transform', 'scale(0)');
+    
   } else {
-    //function setApprovalForAll(address _operator, bool _approved) 
+    // operator / approved 
     await instance.methods.setApprovalForAll(marketPlaceAddress, true).send({}, (err, txHash) => {
       if (err) {
         console.log(err);
       } else {
         console.log(txHash);
-        alert_msg("Approval for All is NOW: " + isMarketPlaceOperator);
       }
     });
   }
 }
-
-/*
-async function initMarketPlace() {
-  //let owner = web3.currentProvider.selectedAddress;
-  // owner, operator
-  var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
-
-  if (isMarketPlaceOperator) {
-    getInventory();
-    alert_msg("Approval for All is NOT been successfull");
-
-  }
-  else {
-    // operator, approved
-    //await instance.methods.setApprovalForAll(marketPlaceAddress, true).on('receipt', function(receipt){
-    // tx done
-    //console.log("tx done");
-    //getInventory();
-    await instance.methods.setApprovalForAll(marketPlaceAddress, true).send({}, (err, txHash) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(txHash)
-        console.log("approve test")
-        alert_msg("Approval for All is NOW successfull: " + isMarketPlaceOperator);
-      }
-    });
-
-  }
-  console.log(isMarketPlaceOperator);
-
-}
-*/
 
 
 //Displays kittens
@@ -359,31 +343,6 @@ async function approve() {
 
 //const obj = {name: "John", age: 30, city: "New York"};
 //const myJSON = JSON.stringify(obj);
-/*
-async function buyKitten(id){
-  let offer = await marketPlaceInstance.methods.getOffer(id).call();
-  marketPlaceInstance.methods.buyKitty(id).send({value: offer.price}, (err) => {
-    if(err){
-      console.log(err);
-    }else{
-      marketPlaceInstance.once("MarketTransaction", (err, event) => {
-        if(err){
-          console.log(err);
-        }else{
-          console.log(JSON.stringify(event, null, "    "));
-          alert(`
-            Successfully purchased Doraemon\n
-            owner: ${event.returnValues.owner} \n
-            ID: ${event.returnValues.tokenId} 
-          `);
-          location.reload();
-        }
-      });
-    }
-  });
-}
-*/
-
 
 async function buyKitten(id, price) {
   var amount = web3.utils.toWei(price, "ether")

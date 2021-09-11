@@ -1049,6 +1049,8 @@ async function breed() {
 
 // using toWei
 //await catInstance.setOffer({value: web3.utils.toWei("1", "ether")}, 1)
+// to value
+//("Bob", 50, 190, {value: 1000})
 
 
 

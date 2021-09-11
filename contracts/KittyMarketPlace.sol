@@ -205,7 +205,7 @@ contract KittyMarketPlace is Ownable {
         //here we set the index in the array to false since we cannot or should not delete it, for it will shift the indexes and cause problems.
         offers[offer.index].active = false;
 
-        // This was in the video but not in final gitHub contract
+        // This was in the video but not in final gitHub contract and it makes the contract fail as there is another script below to send value.
         // transfer funds to seller
         // TO DO: make this pull logic instead of push
 
