@@ -306,45 +306,6 @@ const abi = {
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "_mumId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_dadId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_generation",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_genes",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        }
-      ],
-      "name": "_createKitty",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
           "name": "_id",
           "type": "uint256"
         }

@@ -136,7 +136,7 @@ contract myKittiesContract is Ownable {
     uint256 _generation, //1,2,3..etc
     uint256 _genes, // recipient
     address owner
-  ) public returns(uint256) {
+  ) private returns(uint256) {
     Kitty memory _kitty = Kitty ({
       genes: _genes,
       birthTime: uint64(block.timestamp),
@@ -382,7 +382,7 @@ contract myKittiesContract is Ownable {
        delete kittyIndexToOwner[tokenId];
      }
 
-     emit Transfer(msg.sender, to, tokenId);
+     emit Transfer(from, to, tokenId);
 
   }
 
@@ -394,11 +394,23 @@ contract myKittiesContract is Ownable {
 
 
   function  _removeTokenIdFromOwner(address owner, uint256 tokenId) internal {
-    uint256 lastId = ownerToCats[owner][ownerToCats[owner].length -1];
-    for (uint256 i = 0; i < ownerToCats[owner].length -1; i++) {
-      if (ownerToCats[owner][i] == tokenId) {
-        ownerToCats[owner][i] = lastId;
-        ownerToCats[owner].pop();
+    uint256 lastId = ownerToCats[owner][ownerToCats[owner].length -1]; 
+    // lastId = ownerToCats's owner address, ownerToCat's owner address' length - 1
+    // example:
+    // tokenId is 3, lets say...
+    // [1, 2, 3, 4...] length = 3 - 1; is 2 
+    // which is index pos [0, 1, 2] = tokenId 3
+
+    for (uint256 i = 0; i < ownerToCats[owner].length; i++) { 
+      // i = 0; ownerToCat's ownder address' length of array; i = i + 1
+
+      if (ownerToCats[owner][i] == tokenId) { //if ownerToCat's owner address index is comparable to tokenId (lastId 3 == tokenId 3)
+        ownerToCats[owner][i] = lastId; // ownerToCats owner address' index = lastId (3)
+        ownerToCats[owner].pop(); 
+        // [1, 2, (3), 4...] 
+        // [1, 2, pop, 4...] 
+        // [1, 2, delete, 4...] 
+        // [1, 2, 4...] 
       }
     }
   }

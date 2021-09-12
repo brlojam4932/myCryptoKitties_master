@@ -154,12 +154,13 @@ contract KittyMarketPlace is Ownable {
         tokenIdToOffer[_tokenId] = _offer;
         offers.push(_offer);
 
-        // here, Filip created offers.length with the object's index parameter so we don't neet this function any more
+        // here, Filip created offers.length with the object's index parameter so we don't need this function any more
         //uint256 index = offers.length -1;
         //tokenIdToOfferId[_tokenId] = index;
 
         emit MarketTransaction("Create offer", msg.sender, _tokenId);
     }
+
 
     function removeOffer(uint256 _tokenId) public {
         require(
@@ -188,10 +189,11 @@ contract KittyMarketPlace is Ownable {
         emit MarketTransaction("Remove offer", msg.sender, _tokenId);
     }
 
+
     function buyKitty(uint256 _tokenId) public payable {
         // we input the offer, we get back the offer
         Offer memory offer = tokenIdToOffer[_tokenId];
-        require(msg.value == offer.price, "The price is correct");
+        require(msg.value == offer.price, "The price is not correct");
         require(
             tokenIdToOffer[_tokenId].active == true,
             "No active order present"
@@ -205,10 +207,10 @@ contract KittyMarketPlace is Ownable {
         //here we set the index in the array to false since we cannot or should not delete it, for it will shift the indexes and cause problems.
         offers[offer.index].active = false;
 
-        // This was in the video but not in final gitHub contract and it makes the contract fail as there is another script below to send value.
+
+        // This conditional functin below was in the video but not in final gitHub contract and it makes the contract fail as there is another script below to send value.
         // transfer funds to seller
         // TO DO: make this pull logic instead of push
-
         /*
         if (offer.price > 0) {
             // we send the funds to seller

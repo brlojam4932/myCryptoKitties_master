@@ -1053,6 +1053,10 @@ async function breed() {
 //("Bob", 50, 190, {value: 1000})
 
 
+// from the Cecil, Carlos
+// await catInstance.setOffer(web3.utils.toWei("2", "ether"), 1)
+
+
 
 
 

@@ -1,10 +1,10 @@
 var web3 = new Web3(Web3.givenProvider);
 var instance;
 var marketPlaceInstance;
-var owner = '0x01f53c07C4C32F6C2f16AAEbC52563882eEAB034'; // account #1
+var user;
 
-var contractAddress = '0x31fe102863bC9F6d400779Cd097471952E09E843';
-var marketPlaceAddress = '0x41c6B2B1dE0411400a6dB5Ac20ef476fe8bf8fF9';
+var contractAddress = '0xF2c137cF903B03C642c8456C83D49F46194da739';
+var marketPlaceAddress = '0x8138aeDb2f185c6f895aB9B54A20E28Ccc501DEC';
 
 
 //// Reformat Code: Alt Shift F
@@ -71,7 +71,7 @@ $(document).ready(function () {
         let approved = event.returnValues.approved;
         alert_msg("owner:" + owner
           + " operator " + operator
-          + " approved" + approved, 'success');
+          + " approved: " + approved, 'success');
       })
       .on('error', console.error);
      
@@ -79,10 +79,11 @@ $(document).ready(function () {
     marketPlaceInstance.events.MarketTransaction()
       .on('data', (event) => {
         console.log(event);
-        var eventType = event.returnValues["TxType"].toString()
-        var tokenId = event.returnValues["tokenId"]
+        let eventType = event.returnValues["TxType"].toString()
+        let owner = event.returnValues["owner"]
+        let tokenId = event.returnValues["tokenId"]
         if (eventType == "Buy") {
-          alert_msg('Succesfully Kitty purchase! Now you own this Kitty with TokenId: ' + tokenId, 'success')
+          alert_msg('Purchased by: ' + 'owner: ' + owner + " " + 'TokenId: ' + tokenId, 'success')
         }
         if (eventType == "Create offer") {
           alert_msg('Successfully Offer set for Kitty id: ' + tokenId, 'success')
@@ -139,7 +140,7 @@ $(document).ready(() => {
 
 async function initMarketPlace() {
   // owner / operator
-  var isMarketPlaceOperator = await instance.methods.isApprovedForAll(owner, marketPlaceAddress).call();
+  var isMarketPlaceOperator = await instance.methods.isApprovedForAll(user, marketPlaceAddress).call();
 
   if(isMarketPlaceOperator) {
     getInventory();
@@ -225,7 +226,6 @@ async function checkOffer(id) {
 
 // Get all the kitties from address
 async function kittyByOwner(contractAddress) {
-
   let res;
   try {
     res = await instance.methods.tokensOfOwner(contractAddress).call();
@@ -246,15 +246,16 @@ async function contractCatalog() {
 
 //Get kittues of a current address
 async function myKitties() {
-  var arrayId = await instance.methods.tokensOfOwner(owner).call();
+  var arrayId = await instance.methods.tokensOfOwner(user).call();
   for (i = 0; i < arrayId.length; i++) {
     appendKitty(arrayId[i])
   }
 }
 
+
 //Get kitties for breeding that are not selected
 async function breedKitties(gender) {
-  var arrayId = await instance.methods.tokensOfOwner(owner).call();
+  var arrayId = await instance.methods.tokensOfOwner(user).call();
   for (i = 0; i < arrayId.length; i++) {
     appendBreed(arrayId[i], gender)
   }
@@ -266,7 +267,7 @@ async function catOwnership(id) {
 
   var address = await instance.methods.ownerOf(id).call()
 
-  if (address.toLowerCase() == owner.toLowerCase()) {
+  if (address.toLowerCase() == user.toLowerCase()) {
     return true
   }
   return false
@@ -322,6 +323,7 @@ async function sellCat(id) {
 }
 
 /*
+// alt function for approving operator
 async function approve() {
   let user = web3.currentProvider.selectedAddress;
   let isApproved = await instance.methods
