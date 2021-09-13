@@ -50,8 +50,11 @@ contract myKittiesContract is Ownable {
   // prevents buyKitty function require statement resulting to an empty array; being true
   constructor() {
     // We are creating the first kitty at index 0 since an empty array, does take up space such as integer[0]
-    _createKitty(0, 0, 0, uint256(0), address(0)); // Filip uint256(-1) but it fails
-    // mumId is 0, dadId is 0, generation is 0, genes should be -1 but it errored, address 0 is owner but it's burned
+    //In VSC says the following:
+    
+    //️Use “type(uint256).max” instead of “uint256(-1)”
+    _createKitty(0, 0, 0, 1122334455667788, msg.sender); // Filip uint256(-1) but it fails
+    // mumId is 0, dadId is 0, generation is now 12345..., genes should be -1 but it errored, address 0 is owner but it's burned
   }
 
   function Breeding(uint256 _dadId, uint256 _mumId) public returns (uint256) {
@@ -297,28 +300,6 @@ contract myKittiesContract is Ownable {
   }
 
 
-  function getAllTokensForUser(address user) public view returns(uint256[] memory) {
-    uint256 tokenCount = balanceOf(user);
-    if(tokenCount == 0) {
-      return new uint256[](0);
-    } else {
-      //how many tokens in total?
-      uint256[] memory result = new uint256[](tokenCount);
-      uint256 totalCats = nextId;
-      uint256 resultIndex;
-      uint256 i;
-      for(i = 0; i < totalCats; i++) {
-        //check
-        if(ownerOf(i) == user) {
-          result[resultIndex] = i;
-          resultIndex++;
-        }
-      }
-      return result;
-    }  
-  }
-  
-
   function tokensOfOwner(address _owner) public view returns(uint256[] memory ownerTokens) {
     uint256 tokenCount = balanceOf(_owner);
 
@@ -398,15 +379,16 @@ contract myKittiesContract is Ownable {
     // lastId = ownerToCats's owner address, ownerToCat's owner address' length - 1
     // example:
     // tokenId is 3, lets say...
-    // [1, 2, 3, 4...] length = 3 - 1; is 2 
+    // [1, 2, 3] length = 3 - 1; is 2 
     // which is index pos [0, 1, 2] = tokenId 3
 
-    for (uint256 i = 0; i < ownerToCats[owner].length; i++) { 
-      // i = 0; ownerToCat's ownder address' length of array; i = i + 1
+    for (uint256 i = 0; i < ownerToCats[owner].length -1; i++) { 
+      //counter i = 0; ownerToCat's owner address' counter count < length of array(3 - 1 = 2); increment count by 1;  i = i + 1
 
       if (ownerToCats[owner][i] == tokenId) { //if ownerToCat's owner address index is comparable to tokenId (lastId 3 == tokenId 3)
-        ownerToCats[owner][i] = lastId; // ownerToCats owner address' index = lastId (3)
-        ownerToCats[owner].pop(); 
+        ownerToCats[owner][i] = lastId; // then ownerToCats owner address' index = lastId (3)
+        ownerToCats[owner].pop(); // now delete it
+        // 0, 1 , 2 // index pos
         // [1, 2, (3), 4...] 
         // [1, 2, pop, 4...] 
         // [1, 2, delete, 4...] 

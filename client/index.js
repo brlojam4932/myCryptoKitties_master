@@ -3,8 +3,8 @@ var instance;
 var marketPlaceInstance;
 var user;
 
-var contractAddress = '0xF2c137cF903B03C642c8456C83D49F46194da739';
-var marketPlaceAddress = '0x8138aeDb2f185c6f895aB9B54A20E28Ccc501DEC';
+var contractAddress = '0x88F8D8AEE1A89004EB97Ffd3859271e95EE700E5';
+var marketPlaceAddress = '0x975B2C42B36e8b397A198f6c2b6C3b5e7Ca6b907';
 
 
 //// Reformat Code: Alt Shift F
@@ -116,27 +116,7 @@ $(document).ready(function () {
 });
 
 // approve
-$(document).ready(() => {
-  /*
 
-  $("#open").click(function () {
-    $(".model-container").css('transform', 'scale(1)');
-    console.log('clicked Open');
-  });
-  */
-
-  
-  $("#close").click(function () {
-    $(".model-container").css('transform', 'scale(0)');
-    console.log('clicked Close');
-  });
-
-  $("#approveBtn").click(() => {
-    initMarketPlace();
-  
-  });
-
-});
 
 async function initMarketPlace() {
   // owner / operator
@@ -238,7 +218,7 @@ async function kittyByOwner(contractAddress) {
 async function contractCatalog() {
   var arrayId = await marketPlaceInstance.methods.getAllTokenOnSale().call();
   for (i = 0; i < arrayId.length; i++) {
-    if (arrayId[i] != "0") {
+    if (arrayId[i] != 0) {
       appendKitty(arrayId[i])
     }
   }
@@ -248,7 +228,10 @@ async function contractCatalog() {
 async function myKitties() {
   var arrayId = await instance.methods.tokensOfOwner(user).call();
   for (i = 0; i < arrayId.length; i++) {
-    appendKitty(arrayId[i])
+    if (arrayId[i] != 0) { // if arrayId index Not the default cat, append kitty array
+      appendKitty(arrayId[i]);
+    }
+    
   }
 }
 
@@ -301,6 +284,8 @@ async function singleKitty() {
   var id = get_variables().catId
   var kitty = await instance.methods.getKitty(id).call()
   singleCat(kitty[0], id, kitty['generation'])
+  console.log('This is your Robo Cat Id: ' + id)
+  //$("#roboCatId").html(id);
 }
 
 async function deleteOffer(id) {

@@ -627,5 +627,14 @@ h4 {
 
 }
 
+.roboIdContainer {
+  height: 100px;
+  width: 200px;
+  background: #004085;
+  color: #fff;
+  border-radius: 30px;
+  font-size: 17px;
+}
+
 
 

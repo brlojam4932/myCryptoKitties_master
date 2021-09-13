@@ -2,7 +2,27 @@
 // into the catalogue
 
 
+  $(document).ready(() => {
+    /*
 
+    $("#open").click(function () {
+      $(".model-container").css('transform', 'scale(1)');
+      console.log('clicked Open');
+    });
+    */
+
+    
+    $("#close").click(function () {
+      $(".model-container").css('transform', 'scale(0)');
+      console.log('clicked Close');
+    });
+
+    $("#approveBtn").click(() => {
+      initMarketPlace();
+    });
+
+
+  });
 
 
 //Append each Cat card as a catalog
@@ -285,6 +305,8 @@ function cattributes(id) {
                           <li><span id="animationName`+ id + `"></span> animation</li>
                       </ul>`
   return Cattributes
+
+  
 
 
 }
