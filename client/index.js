@@ -3,8 +3,8 @@ var instance;
 var marketPlaceInstance;
 var user;
 
-var contractAddress = '0x88F8D8AEE1A89004EB97Ffd3859271e95EE700E5';
-var marketPlaceAddress = '0x975B2C42B36e8b397A198f6c2b6C3b5e7Ca6b907';
+var contractAddress = '0x4b92fD7dE5D2e489bb76b547C5006e19efAbA5D3';
+var marketPlaceAddress = '0x9e91aDd4187fa71cf2b3E87eECb94edA2fE7619A';
 
 
 //// Reformat Code: Alt Shift F
@@ -215,7 +215,7 @@ async function kittyByOwner(contractAddress) {
 }
 
 //Gen 0 cats for sale
-async function contractCatalog() {
+async function contractMarketPlace() {
   var arrayId = await marketPlaceInstance.methods.getAllTokenOnSale().call();
   for (i = 0; i < arrayId.length; i++) {
     if (arrayId[i] != 0) {
@@ -228,9 +228,23 @@ async function contractCatalog() {
 async function myKitties() {
   var arrayId = await instance.methods.tokensOfOwner(user).call();
   for (i = 0; i < arrayId.length; i++) {
-    if (arrayId[i] != 0) { // if arrayId index Not the default cat, append kitty array
+    if (arrayId[i] != 0) { // if arrayId index Not the default cat, append kitties
       appendKitty(arrayId[i]);
     }
+    
+  }
+}
+
+//Get kittues of a current address test
+async function myKittiesTest() {
+  //let user = web3.currentProvider.selectedAddress;
+  var arrayId = await instance.methods.getAllCatsFor(user).call();
+  for (i = 0; i < arrayId.length; i++) {
+    if (arrayId[i] != 0) { // if arrayId index Not the default cat, append kitties
+      appendKitty(arrayId[i]);
+    }
+    console.log(user);
+    console.log(arrayId);
     
   }
 }

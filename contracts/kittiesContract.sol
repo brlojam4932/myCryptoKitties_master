@@ -360,7 +360,8 @@ contract myKittiesContract is Ownable {
      if (from != address(0)) { // if from is not address(0), is okay to remove token
        ownershipTokenCount[from] -= 1;
        _removeTokenIdFromOwner(from, tokenId);
-       delete kittyIndexToOwner[tokenId];
+      delete kittyIndexToOwner[tokenId];
+
      }
 
      emit Transfer(from, to, tokenId);
