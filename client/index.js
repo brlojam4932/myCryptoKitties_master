@@ -3,8 +3,8 @@ var instance;
 var marketPlaceInstance;
 var user;
 
-var contractAddress = '0x4b92fD7dE5D2e489bb76b547C5006e19efAbA5D3';
-var marketPlaceAddress = '0x9e91aDd4187fa71cf2b3E87eECb94edA2fE7619A';
+var contractAddress = '0xae2dAeeeF3fFe7Fe491B00804676b697736E6547';
+var marketPlaceAddress = '0x306A6944190B56002630A20157010dD32E41dE4D';
 
 
 //// Reformat Code: Alt Shift F

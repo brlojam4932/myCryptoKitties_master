@@ -30,7 +30,7 @@ function menu(){
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="catalogue.html"><b>Catalogue</b></a>
+                        <a class="nav-link" href="catalogue.html"><b>Blank</b></a>
                     </li>
 
                     <li class="nav-item">

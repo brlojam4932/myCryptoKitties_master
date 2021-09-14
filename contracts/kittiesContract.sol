@@ -312,7 +312,7 @@ contract myKittiesContract is Ownable {
 
       uint256 catId;
 
-      for (catId = 1; catId <= totalCats; catId++) {
+      for (catId = 0; catId <= totalCats; catId++) { // catId = 1 was 0 before
         if (kittyIndexToOwner[catId] == _owner) {
           result[resultIndex] = catId;
           resultIndex++;
@@ -349,18 +349,20 @@ contract myKittiesContract is Ownable {
   function _transfer(address from, address to, uint256 tokenId) internal {
     //_approve(address(0), tokenId);
 
-    ownershipTokenCount[to] += 1; // increase count of recipient
+    ownershipTokenCount[to] ++; // increase count of recipient
 
     kittyIndexToOwner[tokenId] = to;
 
      // SEMD tokenId # => an address to a number of cats in an array
-     ownerToCats[to].push(tokenId);
+     //ownerToCats[to].push(tokenId);
 
      // decrease token count from person A to person B
      if (from != address(0)) { // if from is not address(0), is okay to remove token
-       ownershipTokenCount[from] -= 1;
-       _removeTokenIdFromOwner(from, tokenId);
-      delete kittyIndexToOwner[tokenId];
+       ownershipTokenCount[from] --;
+
+       //_removeTokenIdFromOwner(from, tokenId);
+      //delete kittyIndexToOwner[tokenId];
+      delete kittyIndexToApproved[tokenId];
 
      }
 
