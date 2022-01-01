@@ -841,6 +841,7 @@ const abi = {
   ]
   
 } 
+// INTERACTING JUST WITH JSON
 
 // returns more objects with functions
 //contract.methods
