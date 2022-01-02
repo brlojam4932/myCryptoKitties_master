@@ -2,11 +2,14 @@
   "dependencies": {
     "@metamask/onboarding": "^1.0.1",
     "@openzeppelin/contracts": ">=4.3.2",
+    "@truffle/hdwallet-provider": "^2.0.0",
     "abi-decoder": "^2.4.0",
     "ethers": "^5.4.1",
     "ethjs": "^0.4.0",
+    "fs-extra": "^10.0.0",
+    "json-schema": ">=0.4.0",
     "npm": "^7.21.1",
-    "web3": "^1.5.2",
-    "json-schema": ">=0.4.0"
+    "truffle-hdwallet-provider": "^1.0.17",
+    "web3": "^1.5.2"
   }
 }
