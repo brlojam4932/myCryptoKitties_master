@@ -31,4 +31,4 @@ Enable truffle-config networks for ganache.
 
 To start local server: open a terminal window. Make sure to be in the client folder of your app and launch the local server using the following command: python3 -m http.server 8000. You can then access the app in your browser at: http://localhost:8000/.
 
-Link to where my Kitties project lives for now: https://ecstatic-blackwell-78c08a.netlify.app
+Link to live app: https://youthful-murdock-e07205.netlify.app
