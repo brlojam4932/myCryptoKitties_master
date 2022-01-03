@@ -10,6 +10,8 @@ Ganache
 Infura
 Web3.js and OpenZeppelin libraries
 
+Note: As I was learning, I commited my node_modules folder to Github. I am not sure what would happen if I uncommit them so they are there for now. I may do a fork in the future and try to not include them.
+
 Local Host Installation:
 
 Node.JS must be installed
