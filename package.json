@@ -12,6 +12,7 @@
     "truffle-hdwallet-provider": "^1.0.17",
     "web3": "^1.5.2",
     "underscore": ">=1.12.1",
-    "simple-get": ">=4.0.1"
+    "simple-get": ">=4.0.1",
+    "elliptic": ">=6.5.4"
   }
 }
