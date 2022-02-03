@@ -13,6 +13,7 @@
     "web3": "^1.5.2",
     "underscore": ">=1.12.1",
     "simple-get": ">=4.0.1",
-    "elliptic": ">=6.5.4"
+    "elliptic": ">=6.5.4",
+    "json-schema": ">=0.4.0"
   }
 }
